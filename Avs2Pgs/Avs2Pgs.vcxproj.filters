@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="avs2pgs.cpp" />
+    <ClCompile Include="ClaAdvisor.cpp" />
+    <ClCompile Include="getopt.c" />
+    <ClCompile Include="A2PStdLogger.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ClaAdvisor.h" />
+    <ClInclude Include="getopt.h" />
+    <ClInclude Include="res\resource.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="A2PStdLogger.h" />
+    <ClInclude Include="A2PClaSettings.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>{24ca857e-935b-47bb-ba98-22934181313c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\Avs2Pgs.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

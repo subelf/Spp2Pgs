@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <EditionMark>$(PlatformMark)$(ConfigMark)</EditionMark>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>obj\$(Configuration)\$(Platform)\</IntDir>
+    <LibraryPath>$(SolutionDir)bin\;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)$(EditionMark)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;LE_ARCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="EditionMark">
+      <Value>$(EditionMark)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
