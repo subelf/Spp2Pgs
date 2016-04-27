@@ -129,7 +129,7 @@
   </ImportGroup>
   
   <ImportGroup Label="ExtensionSettings">
-    <Import Project="..\misc\vsyasm.props" />
+    <Import Project="..\misc\vsyasm\vsyasm.props" />
   </ImportGroup>
   
   <ItemDefinitionGroup>
@@ -157,7 +157,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\misc\vsyasm.targets" />
+    <Import Project="..\misc\vsyasm\vsyasm.targets" />
   </ImportGroup>
   
 </Project>

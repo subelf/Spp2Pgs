@@ -3,6 +3,7 @@
   
   <PropertyGroup>
     <LibraryPath>$(SolutionDir)bin\;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)$(EditionMark)</TargetName>
   </PropertyGroup>
   
   <ItemDefinitionGroup>

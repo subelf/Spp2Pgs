@@ -12,7 +12,6 @@
   <PropertyGroup>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>obj\$(Configuration)\$(Platform)\</IntDir>
-    <TargetName>$(ProjectName)$(EditionMark)</TargetName>
   </PropertyGroup>
   <PropertyGroup>
     <PlatformToolset Condition="'$(VisualStudioVersion)'=='11.0'">v110_xp</PlatformToolset>
