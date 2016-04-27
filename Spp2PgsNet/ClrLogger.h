@@ -22,7 +22,6 @@
 
 #include "IS2PLogger.h"
 
-
 namespace spp2pgs
 {
 
@@ -38,7 +37,7 @@ namespace spp2pgs
 		void Vlog(int level, const TCHAR *fmt, va_list valist) const throw()
 		{
 			TCHAR buffer[MaxLineLen];
-			_vstprintf(buffer, fmt, valist);
+			_vstprintf_s(buffer, fmt, valist);
 			loggerNet->Vlog(level, gcnew String(buffer));
 		}
 

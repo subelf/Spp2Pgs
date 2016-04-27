@@ -20,6 +20,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Spp2PgsNet", "Spp2PgsNet\Sp
 		{821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E} = {821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xy-VSppf", "misc\xy-VSFilter\xy-VSppf\xy-VSppf.vcxproj", "{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -72,6 +74,18 @@ Global
 		{ED161A43-6432-4F8D-9D2B-C4AC8AA8CC49}.ReleaseClr|Win32.Build.0 = ReleaseClr|Win32
 		{ED161A43-6432-4F8D-9D2B-C4AC8AA8CC49}.ReleaseClr|x64.ActiveCfg = ReleaseClr|x64
 		{ED161A43-6432-4F8D-9D2B-C4AC8AA8CC49}.ReleaseClr|x64.Build.0 = ReleaseClr|x64
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.Debug|Win32.ActiveCfg = Debug|Win32
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.Debug|Win32.Build.0 = Debug|Win32
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.Debug|x64.ActiveCfg = Debug|x64
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.Debug|x64.Build.0 = Debug|x64
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.Release|Win32.ActiveCfg = Release|Win32
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.Release|Win32.Build.0 = Release|Win32
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.Release|x64.ActiveCfg = Release|x64
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.Release|x64.Build.0 = Release|x64
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.ReleaseClr|Win32.ActiveCfg = Release|Win32
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.ReleaseClr|Win32.Build.0 = Release|Win32
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.ReleaseClr|x64.ActiveCfg = Release|x64
+		{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}.ReleaseClr|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
