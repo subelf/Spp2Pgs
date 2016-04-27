@@ -7,10 +7,9 @@
 *.suo
 *.user
 *.vspx
+bin/
+obj/
+ipch/
 /.git-rewrite
-/bin
-/obj
-/*/obj
-/.Test
+/.Test/
 /packages/*/
-ipch
