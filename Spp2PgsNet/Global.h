@@ -1,8 +1,8 @@
 #pragma once
 
-#include <A2PExceptions.h>
+#include <S2PExceptions.h>
 
-namespace Avs2PgsNet 
+namespace Spp2PgsNet 
 {
 	using namespace System;
 
@@ -10,7 +10,7 @@ namespace Avs2PgsNet
 	{
 		if (argument == nullptr)
 		{
-			throw avs2pgs::A2PException(avs2pgs::A2PExceptionType::ArgumentNull, nullptr);
+			throw spp2pgs::S2PException(spp2pgs::S2PExceptionType::ArgumentNull, nullptr);
 		}
 
 		return argument;

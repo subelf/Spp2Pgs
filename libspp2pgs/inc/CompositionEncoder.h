@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -18,19 +18,19 @@
 
 #pragma once
 
-#include "A2PControllerBase.h"
+#include "S2PControllerBase.h"
 #include "DisplaySetThumb.h"
 #include "IndexedImage.h"
 #include "GxBufferManager.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 	class CompositionEncoder final
-		: public A2PControllerBase,
+		: public S2PControllerBase,
 		protected CompositionBuffer
 	{
 	public:
-		CompositionEncoder(A2PContext const *context, WindowsDescriptor const *windows, GxBufferManager *bufMgr);
+		CompositionEncoder(S2PContext const *context, WindowsDescriptor const *windows, GxBufferManager *bufMgr);
 		~CompositionEncoder() {};
 
 		CompositionBuffer const * Encode(DisplaySetThumb const * thumb, IndexedImage const * image);

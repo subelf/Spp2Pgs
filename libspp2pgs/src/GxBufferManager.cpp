@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 
 #include "GxBufferManager.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 	int CompositionBuffer::EstimateDecodeDuration(int initDuration) const
 	{
@@ -79,8 +79,8 @@ namespace avs2pgs
 	}
 
 
-	GxBufferManager::GxBufferManager(A2PContext const *context) :
-		A2PControllerBase(context), 
+	GxBufferManager::GxBufferManager(S2PContext const *context) :
+		S2PControllerBase(context), 
 		encodeBufferAllocPointer(0), maxDataSize(Size{MAXINT, MAXINT})
 	{
 		for (int i = 0; i < CompositionCountMax; ++i)

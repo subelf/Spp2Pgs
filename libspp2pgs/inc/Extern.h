@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -22,9 +22,9 @@ static int const Colors = 254;
 typedef void* quantizer_t;
 
 extern "C" quantizer_t * new_quantizer();
-extern "C" void insert_color(quantizer_t *q, avs2pgs::Pixel32 color);
-extern "C" int get_palette(quantizer_t *q, avs2pgs::Pixel32 pal[Colors + 1]);
-extern "C" int get_color_index(quantizer_t *q, avs2pgs::Pixel32 color);
+extern "C" void insert_color(quantizer_t *q, spp2pgs::Pixel32 color);
+extern "C" int get_palette(quantizer_t *q, spp2pgs::Pixel32 pal[Colors + 1]);
+extern "C" int get_color_index(quantizer_t *q, spp2pgs::Pixel32 color);
 extern "C" void destroy_quantizer(quantizer_t *q);
 
 extern "C" int asm_is_identical_sse2(int length, char *img, char *img_old);

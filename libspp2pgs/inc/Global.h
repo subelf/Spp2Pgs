@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -20,18 +20,18 @@
 
 #include <memory>
 
-#include "A2PExceptions.h"
+#include "S2PExceptions.h"
 #include "BlurayCommon.h"
 #include "GraphicalTypes.h"
 #include "StreamEx.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 	template<typename T> inline T* AssertArgumentNotNull(T* argument)
 	{
 		if (argument == nullptr)
 		{
-			throw A2PException(A2PExceptionType::ArgumentNull, nullptr);
+			throw S2PException(S2PExceptionType::ArgumentNull, nullptr);
 		}
 
 		return argument;
@@ -39,7 +39,7 @@ namespace avs2pgs
 
 	inline void MethodNotImplenmented()
 	{
-		throw A2PException(A2PExceptionType::NotImplenmented, nullptr);
+		throw S2PException(S2PExceptionType::NotImplenmented, nullptr);
 	}
 
 	inline __int64 GcdOf(__int64 a, __int64 b){

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -18,30 +18,30 @@
 
 #pragma once
 
-#include "A2PLogger.h"
-#include "A2PSettings.h"
+#include "S2PLogger.h"
+#include "S2PSettings.h"
 #include "Global.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
-	class A2PContext
+	class S2PContext
 	{
 	public:
-		A2PContext(A2PSettings const * settings, A2PLogger const * logger)
+		S2PContext(S2PSettings const * settings, S2PLogger const * logger)
 			:settings(AssertArgumentNotNull(settings)), logger(AssertArgumentNotNull(logger))
 		{
 		}
 
 	public:
-		~A2PContext() {};
+		~S2PContext() {};
 
-		A2PSettings const * Settings() const { return this->settings; }
-		A2PLogger const * Logger() const { return this->logger; }
+		S2PSettings const * Settings() const { return this->settings; }
+		S2PLogger const * Logger() const { return this->logger; }
 
 	private:
-		A2PSettings const * settings;
-		A2PLogger const * logger;
+		S2PSettings const * settings;
+		S2PLogger const * logger;
 	};
 
 }

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -20,21 +20,21 @@
 
 #include <vcclr.h>
 
-#include <A2PExceptions.h>
+#include <S2PExceptions.h>
 
 #include "Global.h"
 #include "StreamEx.h"
 
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
 	using namespace System;
 	using namespace System::IO;
-	using namespace Avs2PgsNet;
+	using namespace Spp2PgsNet;
 
 	class ClrStreamEx final
-		: public avs2pgs::StreamEx
+		: public spp2pgs::StreamEx
 	{
 	public:
 		ClrStreamEx(Stream ^ baseStream) : baseStream(AssertClrArgumentNotNull(baseStream)) {}
@@ -110,7 +110,7 @@ namespace avs2pgs
 
 		inline void Close() { this->baseStream->Close(); }
 
-		__int64 Seek(__int64 offset, avs2pgs::SeekOrigin origin) {
+		__int64 Seek(__int64 offset, spp2pgs::SeekOrigin origin) {
 			return this->baseStream->Seek(offset, static_cast<System::IO::SeekOrigin>(origin));
 		}
 		void Flush() { this->baseStream->Flush(); }

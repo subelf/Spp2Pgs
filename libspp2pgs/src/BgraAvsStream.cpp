@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,7 @@
 #include "pch.h"
 #include "BgraAvsStream.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
 	BgraAvsStream::BgraAvsStream(TCHAR* avspath, FrameStreamAdvisor const * advisor)
@@ -62,20 +62,20 @@ namespace avs2pgs
 
 		if (advisor != nullptr)
 		{
-			this->frameSize = avs2pgs::GetFrameSize(advisor->GetFrameFormat());
+			this->frameSize = spp2pgs::GetFrameSize(advisor->GetFrameFormat());
 			this->frameRate = advisor->GetFrameRate();
 			this->frameCount = advisor->GetLastPossibleImage();
 			this->index = advisor->GetFirstPossibleImage() - 1;
 		}
 		
 		this->frameSize = (this->frameSize.Area() == 0) ? Size{ info.rcFrame.right - info.rcFrame.left, info.rcFrame.bottom - info.rcFrame.top } : this->frameSize;
-		this->frameRate = (this->frameRate == BdViFrameRate::Unknown) ? avs2pgs::GuessBdFrameRateFrom(info.dwRate / (double)info.dwScale) : this->frameRate;
+		this->frameRate = (this->frameRate == BdViFrameRate::Unknown) ? spp2pgs::GuessBdFrameRateFrom(info.dwRate / (double)info.dwScale) : this->frameRate;
 		this->frameCount = (this->frameCount == -1) ? info.dwLength : this->frameCount;
 		this->index = (this->index < 0) ? -1 : this->index;
 
 		if (this->frameSize.Area() == 0 || this->frameRate == BdViFrameRate::Unknown)
 		{
-			throw A2PException(A2PExceptionType::Unknown, nullptr);
+			throw S2PException(S2PExceptionType::Unknown, nullptr);
 		}
 
 		return;

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 #include "pch.h"
 #include "BinaryBoard.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 	static bool IsCropBlank(BgraFrame *src, Rect crop)
 	{
@@ -359,7 +359,7 @@ namespace avs2pgs
 	{
 		if (src == nullptr)
 		{
-			throw A2PException(A2PExceptionType::ArgumentNull, nullptr);
+			throw S2PException(S2PExceptionType::ArgumentNull, nullptr);
 		}
 		
 		if (src->GetImageSize() != boardSize * blockSize)
@@ -372,7 +372,7 @@ namespace avs2pgs
 	{
 		if (board == nullptr)
 		{
-			throw A2PException(A2PExceptionType::NotImplenmented, nullptr);
+			throw S2PException(S2PExceptionType::NotImplenmented, nullptr);
 		}
 
 		if ((board->boardSize != boardSize))
@@ -385,7 +385,7 @@ namespace avs2pgs
 	{
 		if (rect == nullptr)
 		{
-			throw A2PException(A2PExceptionType::NotImplenmented, nullptr);
+			throw S2PException(S2PExceptionType::NotImplenmented, nullptr);
 		}
 
 		Rect canvasRect { 0, 0, boardSize * blockSize };

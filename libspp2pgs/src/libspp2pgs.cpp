@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -18,24 +18,24 @@
 
 #include "pch.h"
 
-#include "libavs2pgs.h"
-#include "A2PEncoder.h"
+#include "libspp2pgs.h"
+#include "S2PEncoder.h"
 #include "GraphicalTypes.h"
 #include "BlurayCommon.h"
 #include "FrameStreamAdvisor.h"
-#include "A2PExceptions.h"
+#include "S2PExceptions.h"
 #include "BgraFrame.h"
 #include "PgsEncoder.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
 	int Avs2Pgs(FrameStream *input, StreamEx *output, ProgressReporter *reporter)
 	{
-		A2PDefaultSettings tSettings{};
-		A2PNullLogger tLogger{};
+		S2PDefaultSettings tSettings{};
+		S2PNullLogger tLogger{};
 
-		A2PEncoder tEncoder{ &tSettings, &tLogger };
+		S2PEncoder tEncoder{ &tSettings, &tLogger };
 		return tEncoder.Encode(input, output, reporter);
 	}
 

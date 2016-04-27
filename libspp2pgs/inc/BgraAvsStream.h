@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -23,17 +23,17 @@
 #include <Vfw.h>
 
 #include "GraphicalTypes.h"
-#include "A2PExceptions.h"
+#include "S2PExceptions.h"
 #include "FrameStream.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
 	class BgraAvsStream :
 		public FrameStream
 	{
 	public:
-		BgraAvsStream(TCHAR* avspath, FrameStreamAdvisor const * advisor) throw(A2PException);
+		BgraAvsStream(TCHAR* avspath, FrameStreamAdvisor const * advisor) throw(S2PException);
 		~BgraAvsStream();
 
 		int GetNextFrame(StillImage *image);
@@ -53,7 +53,7 @@ namespace avs2pgs
 		PAVISTREAM stream;
 		FrameStreamAdvisor const * advisor;
 
-		void OpenAvsFile(TCHAR* avspath) throw(A2PException);
+		void OpenAvsFile(TCHAR* avspath) throw(S2PException);
 		void CloseAvsFile();
 	};
 

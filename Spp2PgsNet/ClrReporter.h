@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -24,12 +24,12 @@
 
 #include "IProgressReporter.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
-	using namespace Avs2PgsNet;
+	using namespace Spp2PgsNet;
 
 	class ClrReporter final
-		: public avs2pgs::ProgressReporter
+		: public spp2pgs::ProgressReporter
 	{
 	public:
 		ClrReporter(IProgressReporter ^reporter) : reporterNet(AssertClrArgumentNotNull(reporter)) {}

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -23,13 +23,13 @@
 #include <tchar.h>
 #include <Windows.h>
 
-#include "libavs2pgs.h"
+#include "libspp2pgs.h"
 
 #include <CfileStreamEx.h>
 #include <BgraAvsStream.h>
 #include <BgraFrame.h>
 
-using namespace avs2pgs;
+using namespace spp2pgs;
 
 int _tmain(int argc, _TCHAR* argv[])
 {

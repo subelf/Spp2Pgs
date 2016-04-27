@@ -22,7 +22,7 @@
     <ProjectGuid>{ED161A43-6432-4F8D-9D2B-C4AC8AA8CC49}</ProjectGuid>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
-    <RootNamespace>Avs2PgsNet</RootNamespace>
+    <RootNamespace>Spp2PgsNet</RootNamespace>
     <RestorePackages>true</RestorePackages>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>

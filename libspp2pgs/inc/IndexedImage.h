@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -18,12 +18,12 @@
 
 #pragma once
 
-#include "A2PExceptions.h"
+#include "S2PExceptions.h"
 #include "StillImage.h"
 #include "GraphicalTypes.h"
 #include "Extern.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
 	class IndexedImage : public StillImage

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -21,9 +21,9 @@
 #include <tchar.h>
 #include "ExceptionFormatters.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
-	enum struct A2PExceptionType
+	enum struct S2PExceptionType
 	{
 		Unknown,
 		Application,
@@ -38,15 +38,15 @@ namespace avs2pgs
 		GxBufferManagingFailed,
 	};
 	
-	class A2PException
+	class S2PException
 	{
 	public:
-		A2PException(A2PExceptionType type, const ExceptionFormatter * messageFormatter)
+		S2PException(S2PExceptionType type, const ExceptionFormatter * messageFormatter)
 			:type(type), messageFormatter(messageFormatter){}
 
-		virtual ~A2PException() {};
+		virtual ~S2PException() {};
 
-		inline A2PExceptionType GetType() const { return type; }
+		inline S2PExceptionType GetType() const { return type; }
 		inline int FormatMessage(TCHAR *buffer, int bufferSize)
 		{
 			if (messageFormatter) { return messageFormatter->Invoke(buffer, bufferSize); }
@@ -56,15 +56,15 @@ namespace avs2pgs
 		static int const MaxBufferSize = 4096;
 
 	private:
-		A2PExceptionType type;
+		S2PExceptionType type;
 		const ExceptionFormatter * const messageFormatter;
 	};
 
-	class EndUserException : public A2PException
+	class EndUserException : public S2PException
 	{
 	public:
 		EndUserException(const TCHAR * const message)
-			:formatter(message), A2PException(A2PExceptionType::Application, &formatter) {}
+			:formatter(message), S2PException(S2PExceptionType::Application, &formatter) {}
 
 		~EndUserException() {};
 
@@ -81,11 +81,11 @@ namespace avs2pgs
 		AvsFormatIncorrect,
 	};
 
-	class AvsInitException : public A2PException
+	class AvsInitException : public S2PException
 	{
 	public:
 		AvsInitException(AvsInitExceptionType type, HRESULT error)
-			:A2PException(A2PExceptionType::AvsInitFailed, nullptr), type(type), error(error) {}
+			:S2PException(S2PExceptionType::AvsInitFailed, nullptr), type(type), error(error) {}
 
 		~AvsInitException() {};
 
@@ -112,11 +112,11 @@ namespace avs2pgs
 	};
 
 
-	class TempOutputException : public A2PException
+	class TempOutputException : public S2PException
 	{
 	public:
 		TempOutputException(TempOutputExceptionType type, DWORD error)
-			:error(error), exFormatter(&(this->error)), A2PException(A2PExceptionType::TempOutputFailed, &(this->exFormatter)), type(type) {}
+			:error(error), exFormatter(&(this->error)), S2PException(S2PExceptionType::TempOutputFailed, &(this->exFormatter)), type(type) {}
 
 		~TempOutputException() {};
 
@@ -141,11 +141,11 @@ namespace avs2pgs
 	};
 
 
-	class ImageOperationException : public A2PException
+	class ImageOperationException : public S2PException
 	{
 	public:
 		ImageOperationException(ImageOperationExceptionType type)
-			:A2PException(A2PExceptionType::ImageOperationFailed, nullptr), type(type) {}
+			:S2PException(S2PExceptionType::ImageOperationFailed, nullptr), type(type) {}
 
 		~ImageOperationException() {};
 
@@ -163,11 +163,11 @@ namespace avs2pgs
 	};
 
 
-	class EpochManagingException : public A2PException
+	class EpochManagingException : public S2PException
 	{
 	public:
 		EpochManagingException(EpochManagingExceptionType type)
-			:A2PException(A2PExceptionType::EpochManagingFailed, nullptr), type(type) {}
+			:S2PException(S2PExceptionType::EpochManagingFailed, nullptr), type(type) {}
 
 		~EpochManagingException() {};
 
@@ -188,11 +188,11 @@ namespace avs2pgs
 	};
 
 
-	class StreamOperationException : public A2PException
+	class StreamOperationException : public S2PException
 	{
 	public:
 		StreamOperationException(StreamOperationExceptionType type)
-			:A2PException(A2PExceptionType::StreamOperationFailed, nullptr), type(type) {}
+			:S2PException(S2PExceptionType::StreamOperationFailed, nullptr), type(type) {}
 
 		~StreamOperationException() {};
 
@@ -214,11 +214,11 @@ namespace avs2pgs
 	};
 
 
-	class GxBufferException : public A2PException
+	class GxBufferException : public S2PException
 	{
 	public:
 		GxBufferException(GxBufferExceptionType type)
-			:A2PException(A2PExceptionType::GxBufferManagingFailed, nullptr), type(type) {}
+			:S2PException(S2PExceptionType::GxBufferManagingFailed, nullptr), type(type) {}
 
 		~GxBufferException() {};
 

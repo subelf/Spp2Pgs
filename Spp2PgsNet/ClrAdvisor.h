@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -24,12 +24,12 @@
 
 #include "IFrameStreamAdvisor.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
-	using namespace Avs2PgsNet;
+	using namespace Spp2PgsNet;
 
 	class ClrAdvisor final
-		: public avs2pgs::FrameStreamAdvisor
+		: public spp2pgs::FrameStreamAdvisor
 	{
 	public:
 		ClrAdvisor(IFrameStreamAdvisor ^advisor) : advisorNet(AssertClrArgumentNotNull(advisor)) {}
@@ -42,8 +42,8 @@ namespace avs2pgs
 		int GetFirstPossibleImage() const { return advisorNet->FirstPossibleImage; }
 		int GetLastPossibleImage() const { return advisorNet->LastPossibleImage; }
 
-		avs2pgs::BdViFormat GetFrameFormat() const { return static_cast<avs2pgs::BdViFormat>(advisorNet->FrameFormat); }
-		avs2pgs::BdViFrameRate GetFrameRate() const { return static_cast<avs2pgs::BdViFrameRate>(advisorNet->FrameRate); }
+		spp2pgs::BdViFormat GetFrameFormat() const { return static_cast<spp2pgs::BdViFormat>(advisorNet->FrameFormat); }
+		spp2pgs::BdViFrameRate GetFrameRate() const { return static_cast<spp2pgs::BdViFrameRate>(advisorNet->FrameRate); }
 
 	private:
 		gcroot<IFrameStreamAdvisor ^> advisorNet;

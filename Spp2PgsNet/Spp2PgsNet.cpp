@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -21,25 +21,25 @@
 #include <memory>
 #include <BgraRawStream.h>
 #include <BgraAvsStream.h>
-#include <libavs2pgs.h>
+#include <libspp2pgs.h>
 #include <vcclr.h>
 
 #include "ClrStreamEx.h"
 #include "ClrAdvisor.h"
 #include "ClrReporter.h"
-#include "Avs2PgsNet.h"
+#include "Spp2PgsNet.h"
 
-namespace Avs2PgsNet
+namespace Spp2PgsNet
 {
-	Avs2Pgs::Avs2Pgs(IA2PSettings ^ settings, IA2PLogger ^ logger)
+	Spp2Pgs::Spp2Pgs(IS2PSettings ^ settings, IS2PLogger ^ logger)
 		: settings(AssertClrArgumentNotNull(settings, "settings")), logger(AssertClrArgumentNotNull(logger, "logger"))
 	{
 		settingsNative = new ClrSettings{ settings };
 		loggerNative = new ClrLogger{ logger };
-		encoderNative = new avs2pgs::A2PEncoder{ settingsNative, loggerNative };
+		encoderNative = new spp2pgs::S2PEncoder{ settingsNative, loggerNative };
 	}
 
-	void Avs2Pgs::Encode(Stream ^rgbaStream, IFrameStreamAdvisor ^advisor, Stream ^output, IProgressReporter ^reporter)
+	void Spp2Pgs::Encode(Stream ^rgbaStream, IFrameStreamAdvisor ^advisor, Stream ^output, IProgressReporter ^reporter)
 	{
 		ClrStreamEx tInput{ AssertClrArgumentNotNull(rgbaStream, "rgbaStream") };
 		std::unique_ptr<FrameStreamAdvisor> tAdvisor{ (advisor == nullptr) ? nullptr : new ClrAdvisor(advisor) };
@@ -51,7 +51,7 @@ namespace Avs2PgsNet
 		encoderNative->Encode(&frameStream, &tOutput, tReporter.get());
 	}
 
-	void Avs2Pgs::Encode(FileInfo ^avsFile, IFrameStreamAdvisor ^advisor, Stream ^output, IProgressReporter ^reporter)
+	void Spp2Pgs::Encode(FileInfo ^avsFile, IFrameStreamAdvisor ^advisor, Stream ^output, IProgressReporter ^reporter)
 	{
 		pin_ptr<const TCHAR> tPinedFileName = PtrToStringChars(avsFile->FullName);
 		TCHAR* tInput = const_cast<TCHAR*>(tPinedFileName);
@@ -65,7 +65,7 @@ namespace Avs2PgsNet
 		encoderNative->Encode(&frameStream, &tOutput, tReporter.get());
 	}
 
-	Avs2Pgs::!Avs2Pgs()
+	Spp2Pgs::!Spp2Pgs()
 	{
 		if (encoderNative != nullptr)
 		{
@@ -84,9 +84,9 @@ namespace Avs2PgsNet
 		}
 	}
 
-	Avs2Pgs::~Avs2Pgs()
+	Spp2Pgs::~Spp2Pgs()
 	{
-		this->!Avs2Pgs();
+		this->!Spp2Pgs();
 		this->disposed = true;
 	}
 

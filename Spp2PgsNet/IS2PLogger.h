@@ -1,10 +1,10 @@
 #pragma once
 
-namespace Avs2PgsNet
+namespace Spp2PgsNet
 {
 	using namespace System;
 
-	public interface class IA2PLogger
+	public interface class IS2PLogger
 	{
 		void Vlog(int level, String^ msg);
 	};

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -20,12 +20,12 @@
 
 #include <memory>
 
-#include "A2PControllerBase.h"
+#include "S2PControllerBase.h"
 #include "IndexedImage.h"
 #include "StreamEx.h"
 
 
-namespace avs2pgs
+namespace spp2pgs
 {
 	class CacheReceipt final
 	{
@@ -39,10 +39,10 @@ namespace avs2pgs
 	};
 
 	class EpochCache final
-		:public A2PControllerBase
+		:public S2PControllerBase
 	{
 	public:
-		EpochCache(A2PContext const * context);
+		EpochCache(S2PContext const * context);
 		~EpochCache();
 
 		//Cache an indexed image into temparary file.

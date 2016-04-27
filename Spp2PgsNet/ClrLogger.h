@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -18,21 +18,21 @@
 
 #pragma once
 
-#include <A2PLogger.h>
+#include <S2PLogger.h>
 
-#include "IA2PLogger.h"
+#include "IS2PLogger.h"
 
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
-	using namespace Avs2PgsNet;
+	using namespace Spp2PgsNet;
 
 	class ClrLogger final :
-		public A2PLogger
+		public S2PLogger
 	{
 	public:
-		ClrLogger(IA2PLogger ^logger) : loggerNet(AssertClrArgumentNotNull(logger)) {}
+		ClrLogger(IS2PLogger ^logger) : loggerNet(AssertClrArgumentNotNull(logger)) {}
 		~ClrLogger() {}
 
 		void Vlog(int level, const TCHAR *fmt, va_list valist) const throw()
@@ -43,7 +43,7 @@ namespace avs2pgs
 		}
 
 	private:
-		gcroot<IA2PLogger ^> loggerNet;
+		gcroot<IS2PLogger ^> loggerNet;
 
 		static int const MaxLineLen = 1024;
 

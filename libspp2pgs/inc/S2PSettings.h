@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -19,16 +19,16 @@
 #pragma once
 
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
-	class A2PSettings
+	class S2PSettings
 	{
 	protected:
-		A2PSettings() {};
+		S2PSettings() {};
 
 	public:
-		virtual ~A2PSettings() {};
+		virtual ~S2PSettings() {};
 
 		virtual int MaxImageBlockSize() const throw() = 0;
 		virtual unsigned long long MaxCachingSize() const throw() = 0;
@@ -36,8 +36,8 @@ namespace avs2pgs
 		virtual bool IsForcingTmtCompat() const throw() = 0;
 	};
 
-	class A2PDefaultSettings
-		: public A2PSettings
+	class S2PDefaultSettings
+		: public S2PSettings
 	{
 	public:
 		unsigned long long MaxCachingSize() const

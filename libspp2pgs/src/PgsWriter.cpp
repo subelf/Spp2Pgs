@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -19,22 +19,22 @@
 #include "pch.h"
 #include "PgsWriter.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
 	int const PgsWriter::MinPtsIntervalTable[] = {
 		0, 3750, 3750, 3600, 3000, 3000, 1800, 1500, 1500
 	};
 
-	PgsWriter::PgsWriter(A2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output) :
-		A2PControllerBase(context), videoSize(videoSize), frameRate(frameRate), output(output), clockPerFrame(avs2pgs::ClockPerSecond / avs2pgs::GetFrameRate(frameRate)),
+	PgsWriter::PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output) :
+		S2PControllerBase(context), videoSize(videoSize), frameRate(frameRate), output(output), clockPerFrame(spp2pgs::ClockPerSecond / spp2pgs::GetFrameRate(frameRate)),
 		compositionCount(0), isEpochStart(true), minInterval(MinPtsIntervalTable[(int)frameRate]), lastDecEnd(MININT64),
 		lastCmpn({ MININT64, MININT64, nullptr, nullptr, 0, nullptr })
 	{
 		buffer[0] = 'P';
 		buffer[1] = 'G';
 
-		this->Log(A2PLogger::info + A2PLogger::normal, _T("PgsWriter Created.\n"));
+		this->Log(S2PLogger::info + S2PLogger::normal, _T("PgsWriter Created.\n"));
 	}
 
 
@@ -55,7 +55,7 @@ namespace avs2pgs
 	{
 		if (composition->windows != this->wndDesc)
 		{
-			this->Log(A2PLogger::warning + A2PLogger::high, _T("Encountered an invalid composition at PTS=%lld.\n"
+			this->Log(S2PLogger::warning + S2PLogger::high, _T("Encountered an invalid composition at PTS=%lld.\n"
 				"\tComposition is not using same window with current Epoch.\n"), composition->pts);
 			return;
 		}
@@ -91,7 +91,7 @@ namespace avs2pgs
 			}
 			if (!isEpochStart && (pts < lastCmpn.pts + minInt || dts < lastDecEnd))	//and decoding cannot start while last composition is not ended.
 			{
-				this->Log(A2PLogger::warning + A2PLogger::high, _T("Ignored a composition at PTS=%lld ~ ETS=%lld.\n"
+				this->Log(S2PLogger::warning + S2PLogger::high, _T("Ignored a composition at PTS=%lld ~ ETS=%lld.\n"
 					"\tNo enough time for decoding and draw this componsition.\n"), composition->pts, composition->ets);
 				return IgnoreComposition(composition->pts, composition->ets);
 			}
@@ -167,7 +167,7 @@ namespace avs2pgs
 	{
 		if (ets < lastCmpn.ets)
 		{
-			this->Log(A2PLogger::warning + A2PLogger::high, _T("Failed to erase at ETS=%lld.\n"
+			this->Log(S2PLogger::warning + S2PLogger::high, _T("Failed to erase at ETS=%lld.\n"
 				"\tValue is below ETS of previous composition.\n"), ets);
 			return;
 		}
@@ -180,7 +180,7 @@ namespace avs2pgs
 			double const & minIntervalFramed = ceil(eraseDuration / clockPerFrame) * clockPerFrame;
 			double const & lastPosibleEts = max(ets, lastCmpn.pts + minIntervalFramed);	//reserve time for erasing
 			int const &lastPosibleEtsFrame = (int)(round(lastPosibleEts / clockPerFrame));
-			pts = avs2pgs::GetFrameTimeStamp(lastPosibleEtsFrame, frameRate);	//update ets to a reasonable value
+			pts = spp2pgs::GetFrameTimeStamp(lastPosibleEtsFrame, frameRate);	//update ets to a reasonable value
 		}
 
 		__int64 dts = pts - eraseDuration - 1;

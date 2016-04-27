@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -18,18 +18,18 @@
 
 #include "pch.h"
 
-#include "A2PEncoder.h"
+#include "S2PEncoder.h"
 #include "GraphicalTypes.h"
 #include "BlurayCommon.h"
 #include "FrameStreamAdvisor.h"
-#include "A2PExceptions.h"
+#include "S2PExceptions.h"
 #include "BgraFrame.h"
 #include "PgsEncoder.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
-	int A2PEncoder::Encode(FrameStream * input, StreamEx * output, ProgressReporter * reporter)
+	int S2PEncoder::Encode(FrameStream * input, StreamEx * output, ProgressReporter * reporter)
 	{
 		const TCHAR * p_msg = nullptr;
 
@@ -37,7 +37,7 @@ namespace avs2pgs
 		{
 			int const& tAmount = input->GetFrameCount();
 
-			this->Logger()->Log(A2PLogger::info + A2PLogger::normal,
+			this->Logger()->Log(S2PLogger::info + S2PLogger::normal,
 				_T("Encoding starting, %d frames in total.\n"), tAmount);
 
 			if (reporter != nullptr && tAmount > 0)
@@ -72,7 +72,7 @@ namespace avs2pgs
 
 				if (!isBlank)
 				{
-					this->Logger()->Log(A2PLogger::info + A2PLogger::verbose,
+					this->Logger()->Log(S2PLogger::info + S2PLogger::verbose,
 						_T("Encountered a key frame at FrameId=%d\n"), output->GetFrameIndex());
 					encoder.RegistFrame(output, input->GetCurrentIndex() - output->GetFrameIndex());
 				}
@@ -91,7 +91,7 @@ namespace avs2pgs
 				reporter->ReportEnd();
 			}
 
-			this->Logger()->Log(A2PLogger::info + A2PLogger::normal, _T("Encoding successfully completed.\n"));
+			this->Logger()->Log(S2PLogger::info + S2PLogger::normal, _T("Encoding successfully completed.\n"));
 
 			return 0;
 		}
@@ -115,7 +115,7 @@ namespace avs2pgs
 		{
 			throw ex;
 		}
-		catch (A2PException)
+		catch (S2PException)
 		{
 			p_msg = _T("Unkown exception. Encoding failed.\n");
 		}

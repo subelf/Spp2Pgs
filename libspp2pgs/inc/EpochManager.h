@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -20,20 +20,20 @@
 
 #include <queue>
 
-#include "A2PControllerBase.h"
+#include "S2PControllerBase.h"
 #include "EpochCache.h"
 #include "DisplaySetThumb.h"
 #include "BlurayCommon.h"
 #include "IndexedImage.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
 	class EpochManager final
-		: public A2PControllerBase
+		: public S2PControllerBase
 	{
 	public:
-		EpochManager(A2PContext const * context, BdViFrameRate frameRate, Size frameSize) throw(TempOutputException);
+		EpochManager(S2PContext const * context, BdViFrameRate frameRate, Size frameSize) throw(TempOutputException);
 		~EpochManager() {};
 
 		bool IsNewEpochStart(DisplaySetThumb *thumb);

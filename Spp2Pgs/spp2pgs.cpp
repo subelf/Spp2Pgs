@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -23,18 +23,18 @@
 #include <tchar.h>
 #include <Windows.h>
 
-#include <A2PEncoder.h>
+#include <S2PEncoder.h>
 
 #include <CfileStreamEx.h>
 #include <BgraAvsStream.h>
 #include <BgraRawStream.h>
 
 #include "getopt.h"
-#include "A2PStdLogger.h"
-#include "A2PClaSettings.h"
+#include "S2PStdLogger.h"
+#include "S2PClaSettings.h"
 #include "ClaAdvisor.h"
 
-using namespace avs2pgs;
+using namespace spp2pgs;
 
 BdViFormat GetFormat(int optValue)
 {
@@ -102,9 +102,9 @@ BdViFrameRate GetRate(int optValue)
 	}
 }
 
-void print_usage(A2PLogger const *logger)
+void print_usage(S2PLogger const *logger)
 {
-	logger->Log(A2PLogger::error, _T(
+	logger->Log(S2PLogger::error, _T(
 		"AVS2PGS Convert a bgra avstream to bluray PG stream.\n\n"
 		"USAGE: Avs2Pgs -i \"input.avs\" -s 1080 -r 23 -n 18000 \"output.pgs\"\n"
 		"\t-i <filename>\n"
@@ -156,8 +156,8 @@ void print_usage(A2PLogger const *logger)
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	A2PStdLogger tLogger{ A2PLogger::info + A2PLogger::normal };
-	A2PClaSettings tSettings {};
+	S2PStdLogger tLogger{ S2PLogger::info + S2PLogger::normal };
+	S2PClaSettings tSettings {};
 
 	LPTSTR input = nullptr;
 	LPTSTR output = nullptr;
@@ -210,7 +210,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			tSettings.SetForcingTmtCompat(!tFlag);
 			break;
 		case 'v':
-			tValue = A2PLogger::all;
+			tValue = S2PLogger::all;
 			if (optarg != NULL)
 			{
 				tValue = _ttoi(optarg);
@@ -274,32 +274,32 @@ int _tmain(int argc, _TCHAR* argv[])
 			avstream.reset(new BgraAvsStream(input, &advisor));
 		}
 
-		A2PEncoder tA2P{ &tSettings , &tLogger };
-		tRet = tA2P.Encode(avstream.get(), &ostream, nullptr);
+		S2PEncoder tS2P{ &tSettings , &tLogger };
+		tRet = tS2P.Encode(avstream.get(), &ostream, nullptr);
 		
-		tLogger.Log(A2PLogger::info + A2PLogger::normal, _T("Done.\n"));
+		tLogger.Log(S2PLogger::info + S2PLogger::normal, _T("Done.\n"));
 
 		return tRet;
 	}
 	catch (EndUserException ex)
 	{
 		tRet = 2;
-		TCHAR buffer[A2PException::MaxBufferSize];
-		ex.FormatMessage(buffer, A2PException::MaxBufferSize);
-		tLogger.Log(A2PLogger::error, buffer);
+		TCHAR buffer[S2PException::MaxBufferSize];
+		ex.FormatMessage(buffer, S2PException::MaxBufferSize);
+		tLogger.Log(S2PLogger::error, buffer);
 	}
 	catch (AvsInitException)
 	{
 		tRet = 2;
-		tLogger.Log(A2PLogger::error, _T("Input AvStream file open failed.\n"));
+		tLogger.Log(S2PLogger::error, _T("Input AvStream file open failed.\n"));
 	}
 	catch (...)
 	{
 		tRet = 3;
-		tLogger.Log(A2PLogger::error, _T("Unknown exception."));
+		tLogger.Log(S2PLogger::error, _T("Unknown exception."));
 	}
 
-	tLogger.Log(A2PLogger::info + A2PLogger::normal, _T("\nConverting failed.\n"));
+	tLogger.Log(S2PLogger::info + S2PLogger::normal, _T("\nConverting failed.\n"));
 	return tRet;
 }
 

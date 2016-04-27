@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <A2PEncoder.h>
+#include <S2PEncoder.h>
 #include <FrameStream.h>
 
 #include "IFrameStreamAdvisor.h"
@@ -26,31 +26,31 @@
 #include "ClrSettings.h"
 #include "ClrLogger.h"
 
-namespace Avs2PgsNet
+namespace Spp2PgsNet
 {
-	using namespace avs2pgs;
+	using namespace spp2pgs;
 	using namespace System;
 	using namespace System::IO;
-	using namespace Avs2PgsNet;
+	using namespace Spp2PgsNet;
 
-	public ref class Avs2Pgs : public IDisposable
+	public ref class Spp2Pgs : public IDisposable
 	{
 	public:
-		Avs2Pgs(IA2PSettings ^settings, IA2PLogger ^logger);
+		Spp2Pgs(IS2PSettings ^settings, IS2PLogger ^logger);
 
 		void Encode(Stream ^rgbaStream, IFrameStreamAdvisor ^advisor, Stream ^output, IProgressReporter ^reporter);
 		void Encode(FileInfo ^avsFile, IFrameStreamAdvisor ^advisor, Stream ^output, IProgressReporter ^reporter);
 
-		!Avs2Pgs();
-		~Avs2Pgs();
+		!Spp2Pgs();
+		~Spp2Pgs();
 
 	private:
-		const IA2PSettings ^settings;
-		IA2PLogger ^logger;
+		const IS2PSettings ^settings;
+		IS2PLogger ^logger;
 
 		ClrLogger *loggerNative = nullptr;
 		ClrSettings *settingsNative = nullptr;
-		avs2pgs::A2PEncoder *encoderNative = nullptr;
+		spp2pgs::S2PEncoder *encoderNative = nullptr;
 
 		bool disposed = false;
 

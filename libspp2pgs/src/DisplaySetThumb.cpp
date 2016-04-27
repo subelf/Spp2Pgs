@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -20,12 +20,12 @@
 #include "DisplaySetThumb.h"
 #include "BgraFrame.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
 	DisplaySetThumb::DisplaySetThumb(BgraFrame *frameStart, int length, BdViFrameRate frameRate, int maxBlockSize)
-		:pts(avs2pgs::GetFrameTimeStamp(frameStart->GetFrameIndex(), frameRate)),
-		ets(avs2pgs::GetFrameTimeStamp(frameStart->GetFrameIndex() + length, frameRate)),
+		:pts(spp2pgs::GetFrameTimeStamp(frameStart->GetFrameIndex(), frameRate)),
+		ets(spp2pgs::GetFrameTimeStamp(frameStart->GetFrameIndex() + length, frameRate)),
 		binBoard(frameStart, maxBlockSize), dataCrop(binBoard.QuickCrop()),
 		cacheReceipt(-1)
 	{

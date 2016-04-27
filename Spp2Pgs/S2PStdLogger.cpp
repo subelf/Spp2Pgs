@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,11 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *----------------------------------------------------------------------------*/
 
-#include "A2PStdLogger.h"
+#include "S2PStdLogger.h"
 
 #include <tchar.h>
 
-void A2PStdLogger::Vlog(int level, const TCHAR * fmt, va_list valist) const throw()
+void S2PStdLogger::Vlog(int level, const TCHAR * fmt, va_list valist) const throw()
 {
 	if (level > this->logLevel)
 		return;

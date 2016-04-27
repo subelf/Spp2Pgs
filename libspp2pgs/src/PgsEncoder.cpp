@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -21,14 +21,14 @@
 #include "PgsEncoder.h"
 #include "EpochEncoder.h"
 
-namespace avs2pgs
+namespace spp2pgs
 {
-	PgsEncoder::PgsEncoder(A2PContext const *context, StreamEx *output, Size frameSize, BdViFrameRate frameRate) :
-		A2PControllerBase(context), frameRate(frameRate), frameSize(frameSize),
+	PgsEncoder::PgsEncoder(S2PContext const *context, StreamEx *output, Size frameSize, BdViFrameRate frameRate) :
+		S2PControllerBase(context), frameRate(frameRate), frameSize(frameSize),
 		output(new PgsWriter(context, frameSize, frameRate, output)), bufMgr(new GxBufferManager(context)),
 		epochManager(context, frameRate, frameSize), imageBuffer(frameSize)
 	{
-		this->Log(A2PLogger::info + A2PLogger::normal, _T("PgsEncoder Created.\n"));
+		this->Log(S2PLogger::info + S2PLogger::normal, _T("PgsEncoder Created.\n"));
 	}
 
 	PgsEncoder::~PgsEncoder()
@@ -44,11 +44,11 @@ namespace avs2pgs
 
 			if (epochManager.IsNewEpochStart(thumb))
 			{
-				this->Log(A2PLogger::info + A2PLogger::normal, _T("Epoch#%d started at FrameId=%d\n"
+				this->Log(S2PLogger::info + S2PLogger::normal, _T("Epoch#%d started at FrameId=%d\n"
 					"Start encoding the previous epoch, %d compositions in total...\n"), ++epochCount,
 					frame->GetFrameIndex(), epochManager.Length());
 				this->EncodeEpoch();
-				this->Log(A2PLogger::info + A2PLogger::normal, _T("Epoch#%d is successfully encoded.\n"), epochCount);
+				this->Log(S2PLogger::info + S2PLogger::normal, _T("Epoch#%d is successfully encoded.\n"), epochCount);
 			}
 			
 			imageBuffer.ImportFrom(frame, thumb->GetDataCrop());
@@ -83,24 +83,24 @@ namespace avs2pgs
 
 			try
 			{
-				this->Log(A2PLogger::info + A2PLogger::verbose, _T("Encoding composition at PTS=%lld\n"), thumb->GetPTS());
+				this->Log(S2PLogger::info + S2PLogger::verbose, _T("Encoding composition at PTS=%lld\n"), thumb->GetPTS());
 
 				auto cmpn = epochEnc.EncodeComposition(thumb, &imageBuffer);
 
-				this->Log(A2PLogger::info + A2PLogger::verbose, _T("Encoded a composition\n"
+				this->Log(S2PLogger::info + S2PLogger::verbose, _T("Encoded a composition\n"
 					"\tPTS=%12lld, PalRef=%d, ObjRef0=%2d, ObjRef1=%2d\n"),
 					thumb->GetPTS(), cmpn->paletteRef->GetId(),
 					cmpn->cmpnObjs[0].objectRef->GetId(), (cmpn->cmpnObjsCount == 2) ? cmpn->cmpnObjs[1].objectRef->GetId() : -1);
 
 				output->WriteComposition(cmpn);
-				this->Log(A2PLogger::info + A2PLogger::verbose, _T("\tThe Composition is written.\n"));
+				this->Log(S2PLogger::info + S2PLogger::verbose, _T("\tThe Composition is written.\n"));
 
 			}
 			catch (GxBufferException)
 			{
 				output->IgnoreComposition(thumb->GetPTS(), thumb->GetETS());
 
-				this->Log(A2PLogger::warning + A2PLogger::normal, _T("Ingnored a composition at PTS=%lld ~ ETS=%lld.\n"
+				this->Log(S2PLogger::warning + S2PLogger::normal, _T("Ingnored a composition at PTS=%lld ~ ETS=%lld.\n"
 					"\tAllocate buffer for composition failed.\n"), thumb->GetPTS(), thumb->GetETS());
 			}
 			catch (...)

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -18,21 +18,21 @@
 
 #pragma once
 
-#include <A2PSettings.h>
+#include <S2PSettings.h>
 
-#include "IA2PSettings.h"
+#include "IS2PSettings.h"
 
 
-namespace avs2pgs
+namespace spp2pgs
 {
 
-	using namespace Avs2PgsNet;
+	using namespace Spp2PgsNet;
 
 	class ClrSettings final :
-		public A2PSettings
+		public S2PSettings
 	{
 	public:
-		ClrSettings(IA2PSettings ^settings) : settingsNet(AssertClrArgumentNotNull(settings)) {}
+		ClrSettings(IS2PSettings ^settings) : settingsNet(AssertClrArgumentNotNull(settings)) {}
 		~ClrSettings() {}
 
 	public:
@@ -42,7 +42,7 @@ namespace avs2pgs
 		bool IsForcingTmtCompat() const throw() { return settingsNet->IsForcingTmtCompat; }
 
 	private:
-		gcroot<IA2PSettings ^> settingsNet;
+		gcroot<IS2PSettings ^> settingsNet;
 	};
 
 }

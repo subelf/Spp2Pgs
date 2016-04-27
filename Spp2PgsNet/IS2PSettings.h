@@ -1,10 +1,10 @@
 #pragma once
 
-namespace Avs2PgsNet
+namespace Spp2PgsNet
 {
 	using namespace System;
 
-	public interface class IA2PSettings
+	public interface class IS2PSettings
 	{
 		property UInt64 MaxCachingSize { UInt64 get(); };
 		property int MaxImageBlockSize { int get(); };

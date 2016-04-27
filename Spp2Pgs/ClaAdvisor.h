@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* avs2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@
 
 #include <FrameStreamAdvisor.h>
 
-using namespace avs2pgs;
+using namespace spp2pgs;
 
 class ClaAdvisor
 	: public FrameStreamAdvisor
