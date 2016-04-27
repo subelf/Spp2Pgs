@@ -19,23 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="A2PStdLogger.cpp" />
-    <ClCompile Include="avs2pgs.cpp" />
+    <ClCompile Include="S2PStdLogger.cpp" />
+    <ClCompile Include="Spp2pgs.cpp" />
     <ClCompile Include="ClaAdvisor.cpp" />
     <ClCompile Include="getopt.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="A2PClaSettings.h" />
-    <ClInclude Include="A2PStdLogger.h" />
+    <ClInclude Include="S2PClaSettings.h" />
+    <ClInclude Include="S2PStdLogger.h" />
     <ClInclude Include="ClaAdvisor.h" />
     <ClInclude Include="getopt.h" />
     <ClInclude Include="res\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="res\Avs2Pgs.rc" />
+    <ResourceCompile Include="res\Spp2Pgs.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libavs2pgs\libavs2pgs.vcxproj">
+    <ProjectReference Include="..\libspp2pgs\libspp2pgs.vcxproj">
       <Project>{821d4850-3aa7-4d9c-50eb-5e7cb22a3a3e}</Project>
     </ProjectReference>
   </ItemGroup>
@@ -106,7 +106,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile />
       <PreprocessorDefinitions>STATIC_GETOPT;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,7 +118,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile />
       <PreprocessorDefinitions>STATIC_GETOPT;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,7 +130,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile />
       <PreprocessorDefinitions>STATIC_GETOPT;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,7 +142,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile />
       <PreprocessorDefinitions>STATIC_GETOPT;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

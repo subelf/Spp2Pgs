@@ -107,26 +107,28 @@
     <ClInclude Include="res\resource.h">
       <Filter>res</Filter>
     </ClInclude>
-    <ClInclude Include="inc\A2PExceptions.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\ProgressReporter.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\A2PContext.h">
+    <ClInclude Include="inc\S2PContext.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\A2PControllerBase.h">
+    <ClInclude Include="inc\S2PControllerBase.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\A2PLogger.h">
+    <ClInclude Include="inc\S2PEncoder.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\A2PSettings.h">
+    <ClInclude Include="inc\S2PExceptions.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\libavs2pgs.h" />
-    <ClInclude Include="inc\A2PEncoder.h">
+    <ClInclude Include="inc\S2PLogger.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\S2PSettings.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libspp2pgs.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -187,9 +189,6 @@
     <ClCompile Include="src\CompositionEncoder.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\libavs2pgs.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\BgraAvsStream.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -199,10 +198,15 @@
     <ClCompile Include="src\BgraRawStream.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\A2PEncoder.cpp" />
+    <ClCompile Include="src\S2PEncoder.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libspp2pgs.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="res\libavs2pgs.rc">
+    <ResourceCompile Include="res\libspp2pgs.rc">
       <Filter>res</Filter>
     </ResourceCompile>
   </ItemGroup>

@@ -27,12 +27,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inc\A2PContext.h" />
-    <ClInclude Include="inc\A2PControllerBase.h" />
-    <ClInclude Include="inc\A2PLogger.h" />
-    <ClInclude Include="inc\A2PSettings.h" />
+    <ClInclude Include="inc\S2PContext.h" />
+    <ClInclude Include="inc\S2PControllerBase.h" />
+    <ClInclude Include="inc\S2PLogger.h" />
+    <ClInclude Include="inc\S2PSettings.h" />
     <ClInclude Include="inc\BgraRawStream.h" />
-    <ClInclude Include="inc\A2PEncoder.h" />
+    <ClInclude Include="inc\S2PEncoder.h" />
     <ClInclude Include="inc\GxBufferManager.h" />
     <ClInclude Include="inc\CompositionEncoder.h" />
     <ClInclude Include="inc\EpochEncoder.h" />
@@ -43,7 +43,7 @@
     <ClInclude Include="inc\DisplaySetThumb.h" />
     <ClInclude Include="inc\EpochCache.h" />
     <ClInclude Include="inc\ExceptionFormatters.h" />
-    <ClInclude Include="inc\A2PExceptions.h" />
+    <ClInclude Include="inc\S2PExceptions.h" />
     <ClInclude Include="ext\abstract_lists.h" />
     <ClInclude Include="ext\palletize.h" />
     <ClInclude Include="inc\Extern.h" />
@@ -52,7 +52,7 @@
     <ClInclude Include="inc\GraphicalTypes.h" />
     <ClInclude Include="inc\IndexedImage.h" />
     <ClInclude Include="inc\EpochManager.h" />
-    <ClInclude Include="inc\libavs2pgs.h" />
+    <ClInclude Include="inc\libspp2pgs.h" />
     <ClInclude Include="inc\pch.h" />
     <ClInclude Include="inc\Global.h" />
     <ClInclude Include="inc\ProgressReporter.h" />
@@ -76,14 +76,14 @@
     </YASM>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\A2PEncoder.cpp" />
+    <ClCompile Include="src\S2PEncoder.cpp" />
     <ClCompile Include="src\BgraRawStream.cpp" />
     <ClCompile Include="src\GxBufferManager.cpp" />
     <ClCompile Include="src\CompositionEncoder.cpp" />
     <ClCompile Include="src\EpochEncoder.cpp" />
     <ClCompile Include="src\PgsWriter.cpp" />
     <ClCompile Include="src\PgsEncoder.cpp" />
-    <ClCompile Include="src\libavs2pgs.cpp" />
+    <ClCompile Include="src\libspp2pgs.cpp" />
     <ClCompile Include="src\BinaryBoard.cpp" />
     <ClCompile Include="src\BgraAvsStream.cpp" />
     <ClCompile Include="src\BgraFrame.cpp" />
@@ -121,11 +121,11 @@
     <ClCompile Include="src\CfileStreamEx.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="res\libavs2pgs.rc" />
+    <ResourceCompile Include="res\libspp2pgs.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E}</ProjectGuid>
-    <ProjectName>libavs2pgs</ProjectName>
+    <ProjectName>libspp2pgs</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

@@ -89,7 +89,7 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -101,7 +101,7 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,7 +113,7 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,7 +127,7 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,7 +146,7 @@
     <ResourceCompile Include="res\Avstream.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libavs2pgs\libavs2pgs.vcxproj">
+    <ProjectReference Include="..\libspp2pgs\libspp2pgs.vcxproj">
       <Project>{821d4850-3aa7-4d9c-50eb-5e7cb22a3a3e}</Project>
     </ProjectReference>
   </ItemGroup>

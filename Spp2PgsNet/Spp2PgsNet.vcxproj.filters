@@ -1,16 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Avs2PgsNet.cpp" />
     <ClCompile Include="Stdafx.cpp" />
     <ClCompile Include="res\AssemblyInfo.cpp">
       <Filter>res</Filter>
     </ClCompile>
+    <ClCompile Include="Spp2PgsNet.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Avs2PgsNet.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="Stdafx.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -32,12 +29,6 @@
     <ClInclude Include="IProgressReporter.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="IA2PLogger.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="IA2PSettings.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="ClrLogger.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -45,6 +36,15 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="Global.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Spp2PgsNet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="IS2PLogger.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="IS2PSettings.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,6 +10,7 @@
 /.git-rewrite
 /bin
 /obj
+/*/obj
 /.Test
 /packages/*/
 ipch

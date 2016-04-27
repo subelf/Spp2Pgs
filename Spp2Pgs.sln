@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libavs2pgs", "libavs2pgs\libavs2pgs.vcxproj", "{821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libspp2pgs", "libspp2pgs\libspp2pgs.vcxproj", "{821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Avs2Pgs", "Avs2Pgs\Avs2Pgs.vcxproj", "{E2B13697-7E59-4689-B773-95EB4C5A7915}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Spp2Pgs", "Spp2Pgs\Spp2Pgs.vcxproj", "{E2B13697-7E59-4689-B773-95EB4C5A7915}"
 	ProjectSection(ProjectDependencies) = postProject
 		{821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E} = {821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E}
 	EndProjectSection
@@ -15,16 +15,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Avstream", "Avstream\Avstre
 		{821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E} = {821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Avs2PgsNet", "Avs2PgsNet\Avs2PgsNet.vcxproj", "{ED161A43-6432-4F8D-9D2B-C4AC8AA8CC49}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Spp2PgsNet", "Spp2PgsNet\Spp2PgsNet.vcxproj", "{ED161A43-6432-4F8D-9D2B-C4AC8AA8CC49}"
 	ProjectSection(ProjectDependencies) = postProject
 		{821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E} = {821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E}
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{42408E15-C5B7-4E62-9F42-BB45CF94C0E0}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
 Global

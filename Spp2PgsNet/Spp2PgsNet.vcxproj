@@ -101,7 +101,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -114,7 +114,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -126,7 +126,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -138,7 +138,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\libavs2pgs\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -163,15 +163,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Avs2PgsNet.h" />
+    <ClInclude Include="Spp2PgsNet.h" />
     <ClInclude Include="ClrAdvisor.h" />
     <ClInclude Include="ClrLogger.h" />
     <ClInclude Include="ClrReporter.h" />
     <ClInclude Include="ClrSettings.h" />
     <ClInclude Include="ClrStreamEx.h" />
     <ClInclude Include="Global.h" />
-    <ClInclude Include="IA2PLogger.h" />
-    <ClInclude Include="IA2PSettings.h" />
+    <ClInclude Include="IS2PLogger.h" />
+    <ClInclude Include="IS2PSettings.h" />
     <ClInclude Include="IFrameStreamAdvisor.h" />
     <ClInclude Include="IProgressReporter.h" />
     <ClInclude Include="res\resource.h" />
@@ -179,7 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="res\AssemblyInfo.cpp" />
-    <ClCompile Include="Avs2PgsNet.cpp" />
+    <ClCompile Include="Spp2PgsNet.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -197,7 +197,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libavs2pgs\libavs2pgs.vcxproj">
+    <ProjectReference Include="..\libspp2pgs\libspp2pgs.vcxproj">
       <Project>{821d4850-3aa7-4d9c-50eb-5e7cb22a3a3e}</Project>
     </ProjectReference>
   </ItemGroup>
