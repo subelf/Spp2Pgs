@@ -20,7 +20,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Spp2PgsNet", "Spp2PgsNet\Sp
 		{821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E} = {821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xy-VSSppf", "misc\xy-VSFilter\xy-VSppf\xy-VSppf.vcxproj", "{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xy-VSSppf", "misc\xy-VSFilter\xy-VSSppf\xy-VSSppf.vcxproj", "{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
