@@ -1,28 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="ClaAdvisor.cpp" />
-    <ClCompile Include="getopt.c" />
-    <ClCompile Include="S2PStdLogger.cpp" />
-    <ClCompile Include="Spp2pgs.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ClaAdvisor.h" />
-    <ClInclude Include="getopt.h" />
-    <ClInclude Include="res\resource.h">
-      <Filter>res</Filter>
-    </ClInclude>
-    <ClInclude Include="S2PClaSettings.h" />
-    <ClInclude Include="S2PStdLogger.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="res">
       <UniqueIdentifier>{24ca857e-935b-47bb-ba98-22934181313c}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="res\Spp2Pgs.rc">
-      <Filter>res</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

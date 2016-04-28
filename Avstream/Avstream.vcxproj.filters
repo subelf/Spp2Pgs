@@ -6,16 +6,7 @@
   <ItemGroup>
     <Filter Include="res">
       <UniqueIdentifier>{287b05b3-940c-40ec-a7a3-02bd77141ede}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="res\Avstream.rc">
-      <Filter>res</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="res\resource.h">
-      <Filter>res</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
