@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <SLNMAKE_SLNDIR>..\src\</SLNMAKE_SLNDIR>
+    <SLNMAKE_SLNOUTDIR>$(SLNMAKE_SLNDIR)bin\lib_$(VisualStudioVersion)\$(Platform)\$(Configuration)\</SLNMAKE_SLNOUTDIR>
+    <SLNMAKE_SLN>$(SLNMAKE_SLNDIR)VSFilter.sln</SLNMAKE_SLN>
+    <SLNMAKE_SLNCFGSUF_DEBUG></SLNMAKE_SLNCFGSUF_DEBUG>
+    <SLNMAKE_SLNCFGSUF_RELEASE></SLNMAKE_SLNCFGSUF_RELEASE>
+    <SLNMAKE_SLNARCHSUF_86 />
+    <SLNMAKE_SLNARCHSUF_64 />
+    <SLNMAKE_SLNCFGSUF>$(SLNMAKE_SLNCFGSUF_RELEASE)</SLNMAKE_SLNCFGSUF>
+    <SLNMAKE_SLNCFGSUF Condition="'$(Configuration)'=='Debug'">$(SLNMAKE_SLNCFGSUF_DEBUG)</SLNMAKE_SLNCFGSUF>
+    <SLNMAKE_SLNARCHSUF>$(SLNMAKE_SLNARCHSUF_86)</SLNMAKE_SLNARCHSUF>
+    <SLNMAKE_SLNARCHSUF Condition="'$(PlatformName)'=='x64'">$(SLNMAKE_SLNARCHSUF_64)</SLNMAKE_SLNARCHSUF>
+    <SLNMAKE_SLNTARGETNAME>VSSppf</SLNMAKE_SLNTARGETNAME>
+    <SLNMAKE_OUTDIR>$(OutDir)</SLNMAKE_OUTDIR>
+    <SLNMAKE_TARGETNAME>$(TargetName)</SLNMAKE_TARGETNAME>
+    <SLNMAKE_TARGETEXT>$(TargetExt)</SLNMAKE_TARGETEXT>
+    <SLNMAKE_CFG>$(Configuration)</SLNMAKE_CFG>
+    <SLNMAKE_ARCH>$(PlatformName)</SLNMAKE_ARCH>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NMakeBuildCommandLine>SlnMake.bat Build</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>SlnMake.bat Rebuild</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>SlnMake.bat Clean</NMakeCleanCommandLine>
+  </PropertyGroup>
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="SLNMAKE_SLNDIR">
+      <Value>$(SLNMAKE_SLNDIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_SLNOUTDIR">
+      <Value>$(SLNMAKE_SLNOUTDIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_SLN">
+      <Value>$(SLNMAKE_SLN)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_SLNCFGSUF_DEBUG">
+      <Value>$(SLNMAKE_SLNCFGSUF_DEBUG)</Value>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_SLNCFGSUF_RELEASE">
+      <Value>$(SLNMAKE_SLNCFGSUF_RELEASE)</Value>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_SLNARCHSUF_86">
+      <Value>$(SLNMAKE_SLNARCHSUF_86)</Value>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_SLNARCHSUF_64">
+      <Value>$(SLNMAKE_SLNARCHSUF_64)</Value>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_SLNTARGETNAME">
+      <Value>$(SLNMAKE_SLNTARGETNAME)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_OUTDIR">
+      <Value>$(SLNMAKE_OUTDIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_TARGETNAME">
+      <Value>$(SLNMAKE_TARGETNAME)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_TARGETEXT">
+      <Value>$(SLNMAKE_TARGETEXT)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_CFG">
+      <Value>$(SLNMAKE_CFG)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SLNMAKE_ARCH">
+      <Value>$(SLNMAKE_ARCH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

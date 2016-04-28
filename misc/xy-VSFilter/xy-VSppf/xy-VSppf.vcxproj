@@ -21,11 +21,10 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
+    <ProjectName>xy-VSSppf</ProjectName>
   </PropertyGroup>
-  
   <Import Project="..\..\PreToolset.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
@@ -36,21 +35,20 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <WholeProgramOptimization>false</WholeProgramOptimization>
   </PropertyGroup>
-  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\SolutionBuild.props" />
   </ImportGroup>
-  
   <PropertyGroup>
     <TargetExt>.dll</TargetExt>
     <NMakeOutput>$(OutDir)$(TargetName)$(TargetExt)</NMakeOutput>
   </PropertyGroup>
-  
+  <ImportGroup Label="PropertySheets">
+    <Import Project="SlnMake.props" />
+  </ImportGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
-  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

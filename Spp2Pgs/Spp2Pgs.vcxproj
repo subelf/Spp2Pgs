@@ -38,16 +38,17 @@
     <ProjectReference Include="..\libspp2pgs\libspp2pgs.vcxproj">
       <Project>{821d4850-3aa7-4d9c-50eb-5e7cb22a3a3e}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\misc\xy-VSFilter\xy-VSppf\xy-VSppf.vcxproj">
+      <Project>{acfcdf3e-2b0f-43c8-ab12-1e1a68ea3d99}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E2B13697-7E59-4689-B773-95EB4C5A7915}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Spp2Pgs</RootNamespace>
   </PropertyGroup>
-    
   <Import Project="..\misc\PreToolset.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
@@ -63,7 +64,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\misc\SolutionBuild.props" />
   </ImportGroup>
-  
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -79,7 +79,6 @@
       <AdditionalDependencies>vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
