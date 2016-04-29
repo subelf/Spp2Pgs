@@ -16,18 +16,42 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *----------------------------------------------------------------------------*/
 
-#include <cstdio>
-#include <memory>
+#pragma once
 
-#include <afx.h>
-#include <strmif.h>
-#include <tchar.h>
-#include <assert.h>
-#include <debugapi.h>
+#include <ISubPic.h>
 
-#include "Global.h"
-#include "S2PExceptions.h"
-#include "BlurayCommon.h"
 #include "GraphicalTypes.h"
+#include "S2PExceptions.h"
+#include "FrameStream.h"
 
-#pragma warning( disable : 4290 )
+namespace spp2pgs
+{
+
+	class BgraSubPicStream :
+		public FrameStream
+	{
+	public:
+		BgraSubPicStream(ISubPicProvider *spp, FrameStreamAdvisor const *advisor) throw(S2PException);
+
+		int GetNextFrame(StillImage *image);
+
+		inline int GetFrameCount() const { return this->frameCount; }
+		inline int GetCurrentIndex() const { return this->index; }
+		inline Size GetFrameSize() const { return this->frameSize; }
+		inline BdViFrameRate GetFrameRate() const { return this->frameRate; }
+		inline FrameStreamAdvisor const * GetAdvisor() const { return this->advisor; }
+
+	private:
+		int index;
+		int frameCount;
+		Size frameSize;
+		BdViFrameRate frameRate;
+
+		CComPtr<ISubPicProvider> spp;
+		FrameStreamAdvisor const *advisor;
+
+		SubPicDesc DescribeSubPicBuffer(StillImage *image);
+		REFERENCE_TIME CalculateReferenceTime(int frameIndex);
+	};
+
+}

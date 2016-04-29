@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inc\BgraSubPicStream.h" />
     <ClInclude Include="inc\S2PContext.h" />
     <ClInclude Include="inc\S2PControllerBase.h" />
     <ClInclude Include="inc\S2PLogger.h" />
@@ -71,6 +72,7 @@
     </YASM>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BgraSubPicStream.cpp" />
     <ClCompile Include="src\S2PEncoder.cpp" />
     <ClCompile Include="src\BgraRawStream.cpp" />
     <ClCompile Include="src\GxBufferManager.cpp" />
@@ -108,13 +110,12 @@
     <ProjectGuid>{821D4850-3AA7-4D9C-50EB-5E7CB22A3A3E}</ProjectGuid>
     <ProjectName>libspp2pgs</ProjectName>
   </PropertyGroup>
-  
   <Import Project="..\misc\PreToolset.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  
   <PropertyGroup Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet></PropertyGroup>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
   </PropertyGroup>
@@ -122,22 +123,19 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
   </PropertyGroup>
-  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\misc\SolutionBuild.props" />
   </ImportGroup>
-  
   <ImportGroup Label="ExtensionSettings">
     <Import Project="..\misc\vsyasm\vsyasm.props" />
   </ImportGroup>
-  
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\inc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\inc;..\misc\xy-VSFilter\src\src\subpic;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,15 +144,13 @@
     <YASM>
       <Defines Condition="'$(Platform)'!='x64'">ARCH_X86_64=0;%(Defines)</Defines>
       <Defines Condition="'$(Platform)'=='x64'">ARCH_X86_64=1;%(Defines)</Defines>
-      <SymbolPrefix></SymbolPrefix>
+      <SymbolPrefix>
+      </SymbolPrefix>
       <SymbolPrefix Condition="'$(Platform)'!='x64'">_</SymbolPrefix>
     </YASM>
   </ItemDefinitionGroup>
-  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\misc\vsyasm\vsyasm.targets" />
   </ImportGroup>
-  
 </Project>

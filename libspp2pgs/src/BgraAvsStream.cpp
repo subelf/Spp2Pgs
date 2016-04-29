@@ -24,13 +24,15 @@
 *----------------------------------------------------------------------------*/
 
 #include "pch.h"
+#include "BgraFrame.h"
 #include "BgraAvsStream.h"
 
 namespace spp2pgs
 {
 
-	BgraAvsStream::BgraAvsStream(TCHAR* avspath, FrameStreamAdvisor const * advisor)
-		:FrameStream(), index(-1), advisor(advisor), frameSize({ 0, 0 }), frameRate(BdViFrameRate::Unknown), frameCount(-1)
+	BgraAvsStream::BgraAvsStream(TCHAR* avspath, FrameStreamAdvisor const * advisor) :
+		FrameStream(), index(-1), advisor(AssertArgumentNotNull(advisor)),
+		frameSize({ 0, 0 }), frameRate(BdViFrameRate::Unknown), frameCount(-1)
 	{
 		this->OpenAvsFile(avspath);
 	}
@@ -67,7 +69,7 @@ namespace spp2pgs
 			this->frameCount = advisor->GetLastPossibleImage();
 			this->index = advisor->GetFirstPossibleImage() - 1;
 		}
-		
+
 		this->frameSize = (this->frameSize.Area() == 0) ? Size{ info.rcFrame.right - info.rcFrame.left, info.rcFrame.bottom - info.rcFrame.top } : this->frameSize;
 		this->frameRate = (this->frameRate == BdViFrameRate::Unknown) ? spp2pgs::GuessBdFrameRateFrom(info.dwRate / (double)info.dwScale) : this->frameRate;
 		this->frameCount = (this->frameCount == -1) ? info.dwLength : this->frameCount;
@@ -102,26 +104,38 @@ namespace spp2pgs
 			return -1;
 		}
 
-		HRESULT result = AVIStreamRead(this->stream, next, 1, image->GetDataBuffer(), image->GetDataSize(), NULL, NULL);
-		image->AnnounceModified();
-		image->AnnounceNonstrictErased();
-
-		if (advisor != nullptr)
+		bool const &isValid = (image->GetPixelSize() == BgraFrame::PixelSize) &&
+			(image->GetWidth() == this->frameSize.w) &&
+			(image->GetHeight() == this->frameSize.h);
+		if (!isValid)
 		{
-			switch (advisor->IsBlank(next))
-			{
-			case 0:
-				image->AnnounceDirty();
-				break;
-			case 1:
-				image->AnnounceBlank();
-				break;
-			}
+			throw ImageOperationException(ImageOperationExceptionType::InvalidImagePixelFormat);
 		}
-		
-		if (result)
+
+		int const &isAnnouncedBlank = (advisor != nullptr) ? advisor->IsBlank(next) : -1;
+
+		if (isAnnouncedBlank == 1)
 		{
-			return -1;
+			image->AnnounceBlank();
+		}
+		else
+		{
+			HRESULT hr = AVIStreamRead(this->stream, next, 1, image->GetDataBuffer(), image->GetDataSize(), NULL, NULL);
+
+			if (hr == S_OK)
+			{
+				image->AnnounceModified();
+				image->AnnounceNonstrictErased();
+				if (isAnnouncedBlank == 0)
+				{
+					image->AnnounceDirty();
+				}
+			}
+			else
+			{
+				image->AnnounceBlank();
+				return -1;
+			}
 		}
 
 		return (this->index = next);

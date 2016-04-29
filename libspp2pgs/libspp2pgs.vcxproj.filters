@@ -32,6 +32,111 @@
     <ClInclude Include="ext\palletize.h">
       <Filter>inc\extc</Filter>
     </ClInclude>
+    <ClInclude Include="inc\S2PContext.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\S2PControllerBase.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\S2PLogger.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\S2PSettings.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BgraRawStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\S2PEncoder.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GxBufferManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\CompositionEncoder.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\EpochEncoder.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BinaryBoard.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BlurayCommon.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BgraAvsStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BgraFrame.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DisplaySetThumb.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\EpochCache.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ExceptionFormatters.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\S2PExceptions.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Extern.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\FrameStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\FrameStreamAdvisor.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GraphicalTypes.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IndexedImage.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\EpochManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libspp2pgs.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\pch.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Global.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ProgressReporter.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StillImage.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\PgsEncoder.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StreamEx.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\PgsWriter.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Win32StreamEx.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\CfileStreamEx.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="res\resource.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BgraSubPicStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <YASM Include="ext\frame-a.asm">
@@ -44,6 +149,69 @@
   <ItemGroup>
     <ClCompile Include="ext\palletize.c">
       <Filter>src\extc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\S2PEncoder.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BgraRawStream.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GxBufferManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CompositionEncoder.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EpochEncoder.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PgsWriter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PgsEncoder.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libspp2pgs.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BinaryBoard.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BgraAvsStream.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BgraFrame.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DisplaySetThumb.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EpochCache.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IndexedImage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EpochManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Global.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StillImage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Win32StreamEx.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CfileStreamEx.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BgraSubPicStream.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
