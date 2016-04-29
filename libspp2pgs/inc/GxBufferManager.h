@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "Global.h"
+#include "S2PGlobal.h"
 #include "S2PControllerBase.h"
 
 namespace spp2pgs

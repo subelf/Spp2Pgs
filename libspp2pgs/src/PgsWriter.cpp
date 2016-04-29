@@ -27,7 +27,8 @@ namespace spp2pgs
 	};
 
 	PgsWriter::PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output) :
-		S2PControllerBase(context), videoSize(videoSize), frameRate(frameRate), output(output), clockPerFrame(spp2pgs::ClockPerSecond / spp2pgs::GetFrameRate(frameRate)),
+		S2PControllerBase(context), videoSize(videoSize), frameRate(frameRate), output(output),
+		clockPerFrame(spp2pgs::ClockPerSecond / spp2pgs::GetFramePerSecond(frameRate)),
 		compositionCount(0), isEpochStart(true), minInterval(MinPtsIntervalTable[(int)frameRate]), lastDecEnd(MININT64),
 		lastCmpn({ MININT64, MININT64, nullptr, nullptr, 0, nullptr })
 	{

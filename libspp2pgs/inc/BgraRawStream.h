@@ -20,7 +20,7 @@
 
 #include "StreamEx.h"
 #include "FrameStream.h"
-#include "Global.h"
+#include "S2PGlobal.h"
 
 namespace spp2pgs
 {

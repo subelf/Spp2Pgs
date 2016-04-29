@@ -16,42 +16,46 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *----------------------------------------------------------------------------*/
 
-#pragma warning( disable : 4290 )
+#pragma once
 
-#include <memory>
-
-#include <tchar.h>
-#include <Afx.h>
+#include <afx.h>
+#include <ISubPic.h>
 #include <strmif.h>
-
-#include "libspp2pgs.h"
-
-#include <CfileStreamEx.h>
-#include <BgraAvsStream.h>
-#include <BgraFrame.h>
+#include <vector>
+#include <FrameStreamAdvisor.h>
 
 using namespace spp2pgs;
 
-int _tmain(int argc, _TCHAR* argv[])
+class SppAdvisor:
+	public FrameStreamAdvisor
 {
-	if (argc < 2)
-		return 1;
+public:
+	SppAdvisor(ISubPicProvider *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to);
+	~SppAdvisor();
 
-	BgraAvsStream avs{ argv[1], nullptr };
-	BgraFrame frame{ avs.GetFrameSize() };
+	int IsBlank(int index) const;
+	int IsIdentical(int index1, int index2) const;
 
-	CfileStreamEx output{ stdout, false, true, false, nullptr };
+	int GetFirstPossibleImage() const { return from; }
+	int GetLastPossibleImage() const { return to; }
 
-	int ind;
-	do
+	BdViFormat GetFrameFormat() const { return format; }
+	BdViFrameRate GetFrameRate() const { return frameRate; }
+
+private:
+	BdViFormat format;
+	BdViFrameRate frameRate;
+	int from, to;
+
+	struct StsDesc	//Subtitle Segment Descriptor
 	{
-		 ind = frame.ReadNextOf(&avs);
-		 unsigned char* buf = (unsigned char*)(frame.GetDataBuffer());
-		 auto const &size = frame.GetDataSize();
+		int b, e;	//begin, end
+		bool a;	//is Animated
+	};
 
-		 output.Write(buf, 0, size);
-	} 
-	while (ind != -1);
+	CComPtr<ISubPicProvider> spp;
+	std::vector<StsDesc> sq;
 
-	return 0;
-}
+	void ParseSubPicProvider();
+};
+

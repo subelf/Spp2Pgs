@@ -20,7 +20,7 @@
 
 #include "S2PLogger.h"
 #include "S2PSettings.h"
-#include "Global.h"
+#include "S2PGlobal.h"
 
 namespace spp2pgs
 {

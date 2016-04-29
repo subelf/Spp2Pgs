@@ -95,45 +95,50 @@ namespace spp2pgs
 
 	int BgraAvsStream::GetNextFrame(StillImage *image)
 	{
+		auto bgraImage = dynamic_cast<BgraFrame *>(image);
+		if (bgraImage == nullptr)
+		{
+			throw ImageOperationException(ImageOperationExceptionType::InvalidImagePixelFormat);
+		}
+
 		int next = this->index + 1;
 
 		if (next >= this->frameCount)
 		{
 			this->index = this->frameCount;
-			image->AnnounceBlank();
+			bgraImage->AnnounceBlank();
 			return -1;
 		}
 
-		bool const &isValid = (image->GetPixelSize() == BgraFrame::PixelSize) &&
-			(image->GetWidth() == this->frameSize.w) &&
-			(image->GetHeight() == this->frameSize.h);
+		bool const &isValid = (bgraImage->GetWidth() == this->frameSize.w) &&
+			(bgraImage->GetHeight() == this->frameSize.h);
 		if (!isValid)
 		{
-			throw ImageOperationException(ImageOperationExceptionType::InvalidImagePixelFormat);
+			throw ImageOperationException(ImageOperationExceptionType::InvalidImageSize);
 		}
 
 		int const &isAnnouncedBlank = (advisor != nullptr) ? advisor->IsBlank(next) : -1;
 
 		if (isAnnouncedBlank == 1)
 		{
-			image->AnnounceBlank();
+			bgraImage->AnnounceBlank();
 		}
 		else
 		{
-			HRESULT hr = AVIStreamRead(this->stream, next, 1, image->GetDataBuffer(), image->GetDataSize(), NULL, NULL);
+			HRESULT hr = AVIStreamRead(this->stream, next, 1, bgraImage->GetDataBuffer(), bgraImage->GetDataSize(), NULL, NULL);
 
 			if (hr == S_OK)
 			{
-				image->AnnounceModified();
-				image->AnnounceNonstrictErased();
+				bgraImage->AnnounceModified();
+				bgraImage->AnnounceNonstrictErased();
 				if (isAnnouncedBlank == 0)
 				{
-					image->AnnounceDirty();
+					bgraImage->AnnounceDirty();
 				}
 			}
 			else
 			{
-				image->AnnounceBlank();
+				bgraImage->AnnounceBlank();
 				return -1;
 			}
 		}

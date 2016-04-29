@@ -17,7 +17,7 @@
 *----------------------------------------------------------------------------*/
 
 #include "pch.h"
-#include "Global.h"
+#include "S2PGlobal.h"
 #include "Win32StreamEx.h"
 
 namespace spp2pgs

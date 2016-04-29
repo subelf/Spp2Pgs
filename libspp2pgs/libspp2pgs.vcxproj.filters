@@ -107,9 +107,6 @@
     <ClInclude Include="inc\pch.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\Global.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\ProgressReporter.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -135,6 +132,9 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\BgraSubPicStream.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\S2PGlobal.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -198,9 +198,6 @@
     <ClCompile Include="src\pch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Global.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\StillImage.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -211,6 +208,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\BgraSubPicStream.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\S2PGlobal.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

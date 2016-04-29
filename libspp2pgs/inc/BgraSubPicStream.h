@@ -49,9 +49,6 @@ namespace spp2pgs
 
 		CComPtr<ISubPicProvider> spp;
 		FrameStreamAdvisor const *advisor;
-
-		SubPicDesc DescribeSubPicBuffer(StillImage *image);
-		REFERENCE_TIME CalculateReferenceTime(int frameIndex);
 	};
 
 }

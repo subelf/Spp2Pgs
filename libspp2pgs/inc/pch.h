@@ -25,7 +25,7 @@
 #include <assert.h>
 #include <debugapi.h>
 
-#include "Global.h"
+#include "S2PGlobal.h"
 #include "S2PExceptions.h"
 #include "BlurayCommon.h"
 #include "GraphicalTypes.h"

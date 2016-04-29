@@ -20,19 +20,24 @@
 
 #include <memory>
 
+#include <afx.h>
+#include <strmif.h>
 #include <tchar.h>
-#include <Windows.h>
 
+#include <VSSppfApi.h>
 #include <S2PEncoder.h>
 
 #include <CfileStreamEx.h>
 #include <BgraAvsStream.h>
 #include <BgraRawStream.h>
+#include <BgraSubPicStream.h>
 
 #include "getopt.h"
+#include "oledll.h"
 #include "S2PStdLogger.h"
 #include "S2PClaSettings.h"
 #include "ClaAdvisor.h"
+#include "SppAdvisor.h"
 
 using namespace spp2pgs;
 
@@ -246,7 +251,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		return 1;
 	}
 
-	FILE * ofile = (*output == '-' && output[1] == '\0') ? stdout : _tfopen(output, _T("wb"));
+	FILE * ofile = (*output == _T('-') && output[1] == _T('\0')) ?
+		stdout :
+		_tfopen(output, _T("wb"));
 
 	misUse |= (ofile == NULL);
 	if (misUse)
@@ -258,20 +265,73 @@ int _tmain(int argc, _TCHAR* argv[])
 	CfileStreamEx ostream = CfileStreamEx(ofile, false, true, false, nullptr);
 	CfileStreamEx istream = CfileStreamEx(stdin, true, false, false, nullptr);
 
-	ClaAdvisor advisor{ format, rate, begin, end };
+	ClaAdvisor claAdvisor{ format, rate, begin, end };
 
-	std::auto_ptr<FrameStream> avstream(nullptr);
 
 	int tRet = 0;
 	try
 	{
-		if (*input == '-' && input[1] == '\0')
+		std::auto_ptr<FrameStream> avstream(nullptr);
+		std::auto_ptr<FrameStreamAdvisor> sppAdvisor(nullptr);
+
+		CComPtr<IVobSubPicProviderFactory> pSppf = nullptr;
+		CComPtr<IVobSubPicProviderContext> pContext = nullptr;
+		CComPtr<ISubPicProvider> pSpp = nullptr;
+
+#ifdef DEBUG
+#define SPPF_DLL_NAME_EXT L"D.dll"
+#else
+#define SPPF_DLL_NAME_EXT L".dll"
+#endif
+#ifdef _WIN64
+#define SPPF_DLL_NAME_PRE L"xy-VSsppf64"
+#else
+#define SPPF_DLL_NAME_PRE L"xy-VSsppf32"
+#endif
+#define SPPF_DLL_NAME (SPPF_DLL_NAME_PRE SPPF_DLL_NAME_EXT)
+
+		if (*input == _T('-') && input[1] == _T('\0'))
 		{
-			avstream.reset(new BgraRawStream(&istream, &advisor));
+			avstream.reset(new BgraRawStream(&istream, &claAdvisor));
 		}
 		else
 		{
-			avstream.reset(new BgraAvsStream(input, &advisor));
+			//int const& strLen = _tcslen(input);
+			auto const& szExt = _tcsrchr(input, _T('.'));
+			auto const& isAvs = _tcsicmp(szExt, _T(".avs"));
+			if (isAvs == 0)
+			{
+				avstream.reset(new BgraAvsStream(input, &claAdvisor));
+			}
+			else
+			{
+				auto hr = CoCreateInstanceFormDllFile(
+					CLSID_VobSubPicProviderFactory,
+					IID_VobSubPicProviderFactory,
+					(LPVOID*)&pSppf,
+					SPPF_DLL_NAME);
+
+				if (SUCCEEDED(hr))
+				{
+					hr = pSppf->CreateContext(&pContext);
+				}
+
+				if (SUCCEEDED(hr))
+				{
+					hr = pSppf->CreateProvider(pContext, input, &pSpp);
+				}
+
+				if (SUCCEEDED(hr))
+				{
+					sppAdvisor.reset(new SppAdvisor(pSpp, format, rate, begin, end));
+					//sppAdvisor.reset(new SppAdvisor(pSpp, format, rate, begin, 350));
+					avstream.reset(new BgraSubPicStream(pSpp, sppAdvisor.get()));
+				}
+				else
+				{
+					throw AvsInitException(AvsInitExceptionType::AvsStreamOpenFailed, hr);
+				}
+			}
 		}
 
 		S2PEncoder tS2P{ &tSettings , &tLogger };

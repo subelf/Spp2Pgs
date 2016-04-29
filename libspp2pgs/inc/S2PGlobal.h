@@ -19,6 +19,7 @@
 #pragma once
 
 #include <memory>
+#include <strmif.h>
 
 #include "S2PExceptions.h"
 #include "BlurayCommon.h"
@@ -104,7 +105,7 @@ namespace spp2pgs
 		{ 25000, 1000 }, { 30000, 1001 }, { 30000, 1000 },
 		{ 50000, 1000 }, { 60000, 1001 }, { 60000, 1000 }
 	};
-	inline double GetFrameRate(BdViFrameRate rate){
+	inline double GetFramePerSecond(BdViFrameRate rate){
 		auto const& frameRateInfo = FrameRateTable[(int)rate];
 		return frameRateInfo.GetFrameRate();
 	}
@@ -133,6 +134,28 @@ namespace spp2pgs
 		int const& secondsPerUnit = frameRateInfo.secondsPerUnit;
 		
 		return frames * kClocksPerSecond * secondsPerUnit / kFramesPerUnit;
+	}
+
+	long long const RefTimeTps = 10000000;	//100ns per tick of RefTime;
+
+	inline REFERENCE_TIME GetRefTimeOfFrame(int frameIndex, BdViFrameRate rate)
+	{
+		auto const& frameRateInfo = FrameRateTable[(int)rate];
+		long long const& frames = frameIndex;
+		int const& FramesPerUnit = frameRateInfo.framesPerUnit;
+		long long const& TicksPerUnit = RefTimeTps * frameRateInfo.secondsPerUnit;
+
+		return frames * TicksPerUnit / FramesPerUnit;
+	}
+
+	inline int GetFirstFrameFromRT(REFERENCE_TIME rt, BdViFrameRate rate)
+	{
+		auto const& frameRateInfo = FrameRateTable[(int)rate];
+		long long const& refTimeTicks = rt;
+		int const& FramesPerUnit = frameRateInfo.framesPerUnit;
+		long long const& TicksPerUnit = RefTimeTps * frameRateInfo.secondsPerUnit;
+
+		return static_cast<int>((refTimeTicks * FramesPerUnit - 1) / TicksPerUnit + 1);
 	}
 	
 	std::unique_ptr<StreamEx> OpenTempFile(unsigned __int64 requireFreeSpace);

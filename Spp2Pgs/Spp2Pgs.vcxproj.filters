@@ -6,4 +6,26 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="S2PStdLogger.cpp" />
+    <ClCompile Include="Spp2pgs.cpp" />
+    <ClCompile Include="ClaAdvisor.cpp" />
+    <ClCompile Include="getopt.c" />
+    <ClCompile Include="oledll.cpp" />
+    <ClCompile Include="SppAdvisor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="S2PClaSettings.h" />
+    <ClInclude Include="S2PStdLogger.h" />
+    <ClInclude Include="ClaAdvisor.h" />
+    <ClInclude Include="getopt.h" />
+    <ClInclude Include="res\resource.h" />
+    <ClInclude Include="oledll.h" />
+    <ClInclude Include="SppAdvisor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\Spp2Pgs.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
 </Project>

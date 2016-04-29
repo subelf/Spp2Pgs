@@ -26,6 +26,7 @@
       <EnableEnhancedInstructionSet Condition="'$(Platform)'=='x64'">StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)'=='ReleaseClr'">_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary Condition="'$(Configuration)'=='ReleaseClr'">MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>

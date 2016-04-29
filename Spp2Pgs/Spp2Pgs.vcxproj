@@ -19,17 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="oledll.cpp" />
     <ClCompile Include="S2PStdLogger.cpp" />
     <ClCompile Include="Spp2pgs.cpp" />
     <ClCompile Include="ClaAdvisor.cpp" />
     <ClCompile Include="getopt.c" />
+    <ClCompile Include="SppAdvisor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="oledll.h" />
     <ClInclude Include="S2PClaSettings.h" />
     <ClInclude Include="S2PStdLogger.h" />
     <ClInclude Include="ClaAdvisor.h" />
     <ClInclude Include="getopt.h" />
     <ClInclude Include="res\resource.h" />
+    <ClInclude Include="SppAdvisor.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\Spp2Pgs.rc" />
@@ -49,10 +53,10 @@
   </PropertyGroup>
   <Import Project="..\misc\PreToolset.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet></PropertyGroup>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
   </PropertyGroup>
@@ -60,7 +64,6 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
   </PropertyGroup>
-  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -69,7 +72,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc;..\misc\xy-VSFilter\src\src\subpic;..\misc\xy-VSFilter\src\src\sppfactory</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>STATIC_GETOPT;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

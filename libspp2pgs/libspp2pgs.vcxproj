@@ -55,7 +55,7 @@
     <ClInclude Include="inc\EpochManager.h" />
     <ClInclude Include="inc\libspp2pgs.h" />
     <ClInclude Include="inc\pch.h" />
-    <ClInclude Include="inc\Global.h" />
+    <ClInclude Include="inc\S2PGlobal.h" />
     <ClInclude Include="inc\ProgressReporter.h" />
     <ClInclude Include="inc\StillImage.h" />
     <ClInclude Include="inc\PgsEncoder.h" />
@@ -98,7 +98,7 @@
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Global.cpp" />
+    <ClCompile Include="src\S2PGlobal.cpp" />
     <ClCompile Include="src\StillImage.cpp" />
     <ClCompile Include="src\Win32StreamEx.cpp" />
     <ClCompile Include="src\CfileStreamEx.cpp" />
