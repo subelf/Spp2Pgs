@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
- * avs2bdnxml - Generates BluRay subtitle stuff from RGBA AviSynth scripts
+ * avs2bdnxml - Generates BluRay subtitle stuff from Subtitles or AviSynth scripts
  * Copyright (C) 2008-2010 Arne Bochem <avs2bdnxml at ps-auxw de>
  *
  * This program is free software: you can redistribute it and/or modify

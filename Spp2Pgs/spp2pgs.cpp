@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from Subtitles or AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -111,7 +111,7 @@ void print_usage(S2PLogger const *logger)
 {
 	logger->Log(S2PLogger::error, _T(
 		"SPP2PGS - Convert a VSFilter subtitle to bluray PG stream.\n\n"
-		"USAGE: Spp2Pgs -i \"input.ass\" -s 1080 -r 23 -n 18000 \"output.pgs\"\n"
+		"USAGE: Spp2Pgs -i \"input.ass\" -s 1080 -r 23 \"output.pgs\"\n"
 		"\t-i <filename>\n"
 		"\t\t Input subtitle file name. Use '-' for a stdin raw input. \n"
 		"\t-s <format>\n"

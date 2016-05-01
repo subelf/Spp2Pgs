@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-* spp2pgs - Generates BluRay PG Stream from RGBA AviSynth scripts
+* spp2pgs - Generates BluRay PG Stream from Subtitles or AviSynth scripts
 * by Giton Xu <adm@subelf.net>
 *
 * This program is free software: you can redistribute it and/or modify

@@ -8,11 +8,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="S2PStdLogger.cpp" />
-    <ClCompile Include="Spp2pgs.cpp" />
     <ClCompile Include="ClaAdvisor.cpp" />
     <ClCompile Include="getopt.c" />
     <ClCompile Include="oledll.cpp" />
     <ClCompile Include="SppAdvisor.cpp" />
+    <ClCompile Include="spp2pgs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="S2PClaSettings.h" />
