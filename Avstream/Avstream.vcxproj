@@ -44,7 +44,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\libspp2pgs\inc;..\misc\xy-VSFilter\src\src\subpic;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc;..\misc\xy-VSFilter\src\src\sppfactory;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

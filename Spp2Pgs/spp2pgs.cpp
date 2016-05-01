@@ -110,10 +110,10 @@ BdViFrameRate GetRate(int optValue)
 void print_usage(S2PLogger const *logger)
 {
 	logger->Log(S2PLogger::error, _T(
-		"AVS2PGS Convert a bgra avstream to bluray PG stream.\n\n"
-		"USAGE: Avs2Pgs -i \"input.avs\" -s 1080 -r 23 -n 18000 \"output.pgs\"\n"
+		"SPP2PGS - Convert a VSFilter subtitle to bluray PG stream.\n\n"
+		"USAGE: Spp2Pgs -i \"input.ass\" -s 1080 -r 23 -n 18000 \"output.pgs\"\n"
 		"\t-i <filename>\n"
-		"\t\t Input file name. Use '-' for a stdin raw input. \n"
+		"\t\t Input subtitle file name. Use '-' for a stdin raw input. \n"
 		"\t-s <format>\n"
 		"\t\t Frame format:\n"
 		"\t\t 480i   = 1/240/-480\n"
@@ -274,9 +274,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		std::auto_ptr<FrameStream> avstream(nullptr);
 		std::auto_ptr<FrameStreamAdvisor> sppAdvisor(nullptr);
 
-		CComPtr<IVobSubPicProviderFactory> pSppf = nullptr;
+		CComPtr<IVobSubPicProviderAlfaFactory> pSppf = nullptr;
 		CComPtr<IVobSubPicProviderContext> pContext = nullptr;
-		CComPtr<ISubPicProvider> pSpp = nullptr;
+		CComPtr<ISubPicProviderAlfa> pSpp = nullptr;
 
 #ifdef DEBUG
 #define SPPF_DLL_NAME_EXT L"D.dll"
@@ -306,8 +306,8 @@ int _tmain(int argc, _TCHAR* argv[])
 			else
 			{
 				auto hr = CoCreateInstanceFormDllFile(
-					CLSID_VobSubPicProviderFactory,
-					IID_VobSubPicProviderFactory,
+					CLSID_VobSubPicProviderAlfaFactory,
+					IID_VobSubPicProviderAlfaFactory,
 					(LPVOID*)&pSppf,
 					SPPF_DLL_NAME);
 
@@ -324,7 +324,6 @@ int _tmain(int argc, _TCHAR* argv[])
 				if (SUCCEEDED(hr))
 				{
 					sppAdvisor.reset(new SppAdvisor(pSpp, format, rate, begin, end));
-					//sppAdvisor.reset(new SppAdvisor(pSpp, format, rate, begin, 350));
 					avstream.reset(new BgraSubPicStream(pSpp, sppAdvisor.get()));
 				}
 				else

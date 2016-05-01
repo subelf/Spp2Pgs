@@ -135,7 +135,7 @@
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\inc;..\misc\xy-VSFilter\src\src\subpic;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\inc;..\misc\xy-VSFilter\src\src\sppfactory;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

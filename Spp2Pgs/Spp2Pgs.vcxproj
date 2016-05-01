@@ -72,7 +72,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\libspp2pgs\inc;..\misc\xy-VSFilter\src\src\subpic;..\misc\xy-VSFilter\src\src\sppfactory</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc;..\misc\xy-VSFilter\src\src\sppfactory</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>STATIC_GETOPT;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

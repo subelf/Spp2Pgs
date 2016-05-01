@@ -19,7 +19,6 @@
 #pragma once
 
 #include <afx.h>
-#include <ISubPic.h>
 #include <strmif.h>
 #include <vector>
 #include <FrameStreamAdvisor.h>
@@ -30,7 +29,7 @@ class SppAdvisor:
 	public FrameStreamAdvisor
 {
 public:
-	SppAdvisor(ISubPicProvider *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to);
+	SppAdvisor(ISubPicProviderAlfa *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to);
 	~SppAdvisor();
 
 	int IsBlank(int index) const;
@@ -53,7 +52,7 @@ private:
 		bool a;	//is Animated
 	};
 
-	CComPtr<ISubPicProvider> spp;
+	CComPtr<ISubPicProviderAlfa> spp;
 	std::vector<StsDesc> sq;
 
 	void ParseSubPicProvider();

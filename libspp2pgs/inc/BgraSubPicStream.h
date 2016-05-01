@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <ISubPic.h>
+#include <VSSppfApi.h>
 
 #include "GraphicalTypes.h"
 #include "S2PExceptions.h"
@@ -31,7 +31,7 @@ namespace spp2pgs
 		public FrameStream
 	{
 	public:
-		BgraSubPicStream(ISubPicProvider *spp, FrameStreamAdvisor const *advisor) throw(S2PException);
+		BgraSubPicStream(ISubPicProviderAlfa *spp, FrameStreamAdvisor const *advisor) throw(S2PException);
 
 		int GetNextFrame(StillImage *image);
 
@@ -47,7 +47,7 @@ namespace spp2pgs
 		Size frameSize;
 		BdViFrameRate frameRate;
 
-		CComPtr<ISubPicProvider> spp;
+		CComPtr<ISubPicProviderAlfa> spp;
 		FrameStreamAdvisor const *advisor;
 	};
 

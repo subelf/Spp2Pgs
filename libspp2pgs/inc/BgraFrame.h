@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <ISubPic.h>
+#include <VSSppfApi.h>
 
 #include "StillImage.h"
 #include "FrameStreamAdvisor.h"
@@ -43,17 +43,16 @@ namespace spp2pgs
 		}
 
 		inline int GetFrameIndex() { return this->index; }
-		inline SubPicDesc DescribeTargetBuffer()
+		inline SubPicAlfaDesc DescribeTargetBuffer()
 		{
-			SubPicDesc spd;
-			spd.type = MSP_RGBA;
-			spd.bits = this->GetDataBuffer();
-			spd.bpp = this->GetPixelSize() << 3;
-			spd.w = this->GetWidth();
-			spd.h = this->GetHeight();
-			spd.pitch = this->GetStride();
-			spd.vidrect = RECT{ 0, 0, this->GetWidth(), this->GetHeight() };
-			return spd;
+			SubPicAlfaDesc spad;
+			spad.bits = this->GetDataBuffer();
+			spad.bpp = this->GetPixelSize() << 3;
+			spad.w = this->GetWidth();
+			spad.h = this->GetHeight();
+			spad.pitch = this->GetStride();
+			spad.vidrect = RECT{ 0, 0, this->GetWidth(), this->GetHeight() };
+			return spad;
 		}
 
 		bool IsIdenticalTo(BgraFrame *frame);

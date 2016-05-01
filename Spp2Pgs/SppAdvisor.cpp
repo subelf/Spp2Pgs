@@ -25,7 +25,7 @@
 #include "SppAdvisor.h"
 
 
-SppAdvisor::SppAdvisor(ISubPicProvider *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to) :
+SppAdvisor::SppAdvisor(ISubPicProviderAlfa *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to) :
 	format(format), frameRate(frameRate), from(from), to(to),
 	spp(AssertArgumentNotNull(spp))
 {
@@ -48,21 +48,22 @@ void SppAdvisor::ParseSubPicProvider()
 	auto const& fps = spp2pgs::GetFramePerSecond(frameRate);
 	RECT extent;
 
-	auto p = spp->GetStartPosition(0, fps);
-	while (p)
+	auto cur = from >= 0 ? from : 0;
+	auto p = spp->GetStartPosition(GetRefTimeOfFrame(cur, frameRate), fps);
+
+	while (p && (to < 0 || cur < to))
 	{
 		REFERENCE_TIME const &b = spp->GetStart(p, fps);	//begin
 		REFERENCE_TIME const &e = spp->GetStop(p, fps);	//end
 
 		auto const& pN = spp->GetNext(p);
-		spp->Render(spd, b, fps, extent);
+		spp->RenderAlpha(spd, b, fps, extent);
 		bool const &a = spp->IsAnimated(p);
 
-		//TODO: bug, GetFirstFrameFromRT not returning correct result.
 		this->sq.push_back(
 			StsDesc{
 			spp2pgs::GetFirstFrameFromRT(b, frameRate),
-			spp2pgs::GetFirstFrameFromRT(e, frameRate),
+			cur = spp2pgs::GetFirstFrameFromRT(e, frameRate),
 			a }
 		);
 

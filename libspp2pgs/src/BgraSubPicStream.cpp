@@ -23,7 +23,7 @@
 
 namespace spp2pgs
 {
-	BgraSubPicStream::BgraSubPicStream(ISubPicProvider *spp, FrameStreamAdvisor const *advisor):
+	BgraSubPicStream::BgraSubPicStream(ISubPicProviderAlfa *spp, FrameStreamAdvisor const *advisor):
 		FrameStream(), spp(spp), advisor(AssertArgumentNotNull(advisor)),
 		frameCount(advisor->GetLastPossibleImage()),
 		index(advisor->GetFirstPossibleImage()),
@@ -64,13 +64,13 @@ namespace spp2pgs
 		}
 		else
 		{
-			SubPicDesc spd = bgraImage->DescribeTargetBuffer();
+			SubPicAlfaDesc spd = bgraImage->DescribeTargetBuffer();
 			auto const &rt = spp2pgs::GetRefTimeOfFrame(next, this->frameRate);
 			double const &fps = spp2pgs::GetFramePerSecond(this->frameRate);
 			RECT extent;
 
 			bgraImage->Erase();
-			HRESULT hr = spp->Render(spd, rt, fps, extent);
+			HRESULT hr = spp->RenderAlpha(spd, rt, fps, extent);
 
 			if (hr == S_OK)
 			{
