@@ -17,27 +17,24 @@
 *----------------------------------------------------------------------------*/
 
 #include <afx.h>
-#include <S2PGlobal.h>
-#include <BgraFrame.h>
-#include <strmif.h>
-#include <algorithm>
+#include "pch.h"
 
 #include "SppAdvisor.h"
 
+#include <strmif.h>
+#include <algorithm>
+
+#include "S2PGlobal.h"
+#include "BgraFrame.h"
+
+
 
 SppAdvisor::SppAdvisor(ISubPicProviderAlfa *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset) :
-	format(format), frameRate(frameRate), from(from), to(to), offset(offset),
+	SimpleAdvisor(format, frameRate, from, to, offset),
 	spp(AssertArgumentNotNull(spp))
 {
 	this->ParseSubPicProvider();
 }
-
-
-SppAdvisor::~SppAdvisor()
-{
-}
-
-
 
 void SppAdvisor::ParseSubPicProvider()
 {

@@ -16,35 +16,12 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *----------------------------------------------------------------------------*/
 
+#include "pch.h"
 
-#pragma once
+#include "SimpleAdvisor.h"
 
-#include <FrameStreamAdvisor.h>
 
-using namespace spp2pgs;
-
-class ClaAdvisor
-	: public FrameStreamAdvisor
+SimpleAdvisor::SimpleAdvisor(BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset)
+	: format(format), frameRate(frameRate), from(from), to(to), offset(offset)
 {
-public:
-	ClaAdvisor(BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset = 0);
-	~ClaAdvisor();
-
-	int IsBlank(int index) const { return -1; }
-
-	int IsIdentical(int index1, int index2) const { return -1; }
-
-	int GetFirstPossibleImage() const { return from + offset; }
-	int GetLastPossibleImage() const { return to + offset; }
-	int GetFrameIndexOffset() const { return offset; }
-
-	BdViFormat GetFrameFormat() const { return format; }
-	BdViFrameRate GetFrameRate() const { return frameRate; }
-
-private:
-	BdViFormat format;
-	BdViFrameRate frameRate;
-	int from, to;
-	int offset;
-};
-
+}

@@ -31,13 +31,13 @@
 #include <BgraAvsStream.h>
 #include <BgraRawStream.h>
 #include <BgraSubPicStream.h>
+#include <SimpleAdvisor.h>
+#include <SppAdvisor.h>
 
 #include "getopt.h"
 #include "oledll.h"
 #include "S2PStdLogger.h"
 #include "S2PClaSettings.h"
-#include "ClaAdvisor.h"
-#include "SppAdvisor.h"
 
 using namespace spp2pgs;
 
@@ -265,7 +265,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	CfileStreamEx ostream = CfileStreamEx(ofile, false, true, false, nullptr);
 	CfileStreamEx istream = CfileStreamEx(stdin, true, false, false, nullptr);
 
-	ClaAdvisor claAdvisor{ format, rate, begin, end };
+	SimpleAdvisor claAdvisor{ format, rate, begin, end };
 
 
 	int tRet = 0;

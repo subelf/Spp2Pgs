@@ -16,16 +16,44 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *----------------------------------------------------------------------------*/
 
+#pragma once
 
-#include "ClaAdvisor.h"
+#include <afx.h>
+#include <strmif.h>
+#include <vector>
+#include <VSSppfApi.h>
 
+#include "SimpleAdvisor.h"
 
-ClaAdvisor::ClaAdvisor(BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset)
-	: format(format), frameRate(frameRate), from(from), to(to), offset(offset)
+using namespace spp2pgs;
+
+class SppAdvisor:
+	public SimpleAdvisor
 {
-}
+public:
+	SppAdvisor(ISubPicProviderAlfa *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset = 0);
 
+	int IsBlank(int index) const;
+	int IsIdentical(int index1, int index2) const;
 
-ClaAdvisor::~ClaAdvisor()
-{
-}
+	int GetFirstPossibleImage() const { return from + offset; }
+	int GetLastPossibleImage() const { return to + offset; }
+	int GetFrameIndexOffset() const { return offset; }
+
+	BdViFormat GetFrameFormat() const { return format; }
+	BdViFrameRate GetFrameRate() const { return frameRate; }
+
+private:
+
+	struct StsDesc	//Subtitle Segment Descriptor
+	{
+		int b, e;	//begin, end
+		bool a;	//is Animated
+	};
+
+	CComPtr<ISubPicProviderAlfa> spp;
+	std::vector<StsDesc> sq;
+
+	void ParseSubPicProvider();
+};
+

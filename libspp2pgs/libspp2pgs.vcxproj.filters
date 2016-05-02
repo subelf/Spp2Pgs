@@ -137,6 +137,12 @@
     <ClInclude Include="inc\S2PGlobal.h">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="inc\SimpleAdvisor.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SppAdvisor.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <YASM Include="ext\frame-a.asm">
@@ -211,6 +217,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\S2PGlobal.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SimpleAdvisor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SppAdvisor.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

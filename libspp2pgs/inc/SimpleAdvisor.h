@@ -16,24 +16,22 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *----------------------------------------------------------------------------*/
 
+
 #pragma once
 
-#include <afx.h>
-#include <strmif.h>
-#include <vector>
 #include <FrameStreamAdvisor.h>
 
 using namespace spp2pgs;
 
-class SppAdvisor:
-	public FrameStreamAdvisor
+class SimpleAdvisor
+	: public FrameStreamAdvisor
 {
 public:
-	SppAdvisor(ISubPicProviderAlfa *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset = 0);
-	~SppAdvisor();
+	SimpleAdvisor(BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset = 0);
 
-	int IsBlank(int index) const;
-	int IsIdentical(int index1, int index2) const;
+	int IsBlank(int index) const { return -1; }
+
+	int IsIdentical(int index1, int index2) const { return -1; }
 
 	int GetFirstPossibleImage() const { return from + offset; }
 	int GetLastPossibleImage() const { return to + offset; }
@@ -42,21 +40,10 @@ public:
 	BdViFormat GetFrameFormat() const { return format; }
 	BdViFrameRate GetFrameRate() const { return frameRate; }
 
-private:
+protected:
 	BdViFormat format;
 	BdViFrameRate frameRate;
 	int from, to;
 	int offset;
-
-	struct StsDesc	//Subtitle Segment Descriptor
-	{
-		int b, e;	//begin, end
-		bool a;	//is Animated
-	};
-
-	CComPtr<ISubPicProviderAlfa> spp;
-	std::vector<StsDesc> sq;
-
-	void ParseSubPicProvider();
 };
 

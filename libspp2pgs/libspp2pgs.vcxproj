@@ -57,6 +57,8 @@
     <ClInclude Include="inc\pch.h" />
     <ClInclude Include="inc\S2PGlobal.h" />
     <ClInclude Include="inc\ProgressReporter.h" />
+    <ClInclude Include="inc\SimpleAdvisor.h" />
+    <ClInclude Include="inc\SppAdvisor.h" />
     <ClInclude Include="inc\StillImage.h" />
     <ClInclude Include="inc\PgsEncoder.h" />
     <ClInclude Include="inc\StreamEx.h" />
@@ -99,6 +101,8 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\S2PGlobal.cpp" />
+    <ClCompile Include="src\SimpleAdvisor.cpp" />
+    <ClCompile Include="src\SppAdvisor.cpp" />
     <ClCompile Include="src\StillImage.cpp" />
     <ClCompile Include="src\Win32StreamEx.cpp" />
     <ClCompile Include="src\CfileStreamEx.cpp" />
