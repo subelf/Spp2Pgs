@@ -106,15 +106,17 @@ namespace spp2pgs
 
 	void BgraFrame::ExplicitErase(Rect rect) const
 	{
-		char* tImage = this->GetDataBuffer();
-		int tBottom = rect.Bottom();
-		int tOffset = rect.x * PixelSize;
-		int tWidth = rect.w * PixelSize;
+		char* const &tImage = this->GetDataBuffer();
+		int const &tBottom = rect.Bottom();
+		int const &tOffset = rect.x * PixelSize;
+		int const &tWidth = rect.w * PixelSize;
+		int const &tStride = this->GetStride();
 
+		char* const &tBufferWithOffset = tImage + tOffset;
 		for (int y = rect.Top(); y < tBottom; ++y)
 		{
-			char* tLine = tImage + y * this->GetStride();
-			::memset(tLine + tOffset, 0, tWidth);
+			char* tLine = tBufferWithOffset + y * tStride;
+			::memset(tLine, 0, tWidth);
 		}
 	}
 }

@@ -47,7 +47,6 @@ namespace spp2pgs
 		{
 			SubPicAlfaDesc spad;
 			spad.bits = this->GetDataBuffer();
-			spad.bpp = this->GetPixelSize() << 3;
 			spad.w = this->GetWidth();
 			spad.h = this->GetHeight();
 			spad.pitch = this->GetStride();
