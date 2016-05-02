@@ -32,6 +32,7 @@ namespace spp2pgs
 
 	public:
 		virtual int GetNextFrame(StillImage *image) = 0;
+		virtual int SkipFrame(StillImage *image) = 0;
 
 		virtual int GetFrameCount() const = 0;
 		virtual int GetCurrentIndex() const = 0;

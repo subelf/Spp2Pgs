@@ -36,11 +36,7 @@ namespace spp2pgs
 
 		BgraFrame(Size frameSize);
 
-		inline int ReadNextOf(FrameStream * stream) {
-			this->index = stream->GetNextFrame(this);
-			this->advisor = stream->GetAdvisor();
-			return this->index;
-		}
+		int ReadNextOf(FrameStream * stream);
 
 		inline int GetFrameIndex() { return this->index; }
 		inline SubPicAlfaDesc DescribeTargetBuffer()

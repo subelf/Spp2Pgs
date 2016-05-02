@@ -37,6 +37,7 @@ namespace spp2pgs
 		~BgraAvsStream();
 
 		int GetNextFrame(StillImage *image);
+		int SkipFrame(StillImage *image);
 
 		inline int GetFrameCount() const  { return this->frameCount; }
 		inline int GetCurrentIndex() const  { return this->index; }

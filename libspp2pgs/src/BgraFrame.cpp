@@ -28,6 +28,24 @@ namespace spp2pgs
 	{
 	}
 
+	int BgraFrame::ReadNextOf(FrameStream * stream)
+	{
+		auto const &tStreamAdvisor = stream->GetAdvisor();
+		if (tStreamAdvisor != nullptr &&
+			tStreamAdvisor == this->advisor &&
+			this->index == stream->GetCurrentIndex() &&
+			tStreamAdvisor->IsIdentical(this->index, this->index + 1) == 1)
+		{
+			this->index = stream->SkipFrame(this);
+		}
+		else
+		{
+			this->index = stream->GetNextFrame(this);
+			this->advisor = stream->GetAdvisor();
+		}
+		return this->index;
+	}
+
 
 	BgraFrame::~BgraFrame()
 	{

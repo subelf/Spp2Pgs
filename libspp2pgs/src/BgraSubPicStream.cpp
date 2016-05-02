@@ -91,4 +91,25 @@ namespace spp2pgs
 		return (this->index = next);
 	}
 
+
+	int BgraSubPicStream::SkipFrame(StillImage *image)
+	{
+		int next = this->index + 1;
+
+		if (next >= this->frameCount)
+		{
+			this->index = this->frameCount;
+			return -1;
+		}
+
+		bool const &isValid = (image->GetPixelSize() == BgraFrame::PixelSize) &&
+			(image->GetWidth() == this->frameSize.w) &&
+			(image->GetHeight() == this->frameSize.h);
+		if (!isValid)
+		{
+			throw ImageOperationException(ImageOperationExceptionType::InvalidImageSize);
+		}
+
+		return (this->index = next);
+	}
 }

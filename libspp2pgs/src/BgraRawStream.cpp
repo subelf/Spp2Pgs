@@ -20,6 +20,8 @@
 #include "pch.h"
 #include "BgraRawStream.h"
 
+#include "BgraFrame.h"
+
 namespace spp2pgs
 {
 
@@ -46,6 +48,12 @@ namespace spp2pgs
 
 	int BgraRawStream::GetNextFrame(StillImage *image)
 	{
+		auto bgraImage = dynamic_cast<BgraFrame *>(image);
+		if (bgraImage == nullptr)
+		{
+			throw ImageOperationException(ImageOperationExceptionType::InvalidImagePixelFormat);
+		}
+
 		int next = this->index + 1;
 		SkipFrames((unsigned __int8*)(image->GetDataBuffer()));
 
@@ -56,27 +64,39 @@ namespace spp2pgs
 			return -1;
 		}
 
-		const int tSize = PixelSize * this->frameSize.Area();
-		int tRead = input->Read((unsigned __int8*)(image->GetDataBuffer()), 0, tSize);
-		image->AnnounceModified();
-		image->AnnounceNonstrictErased();
-
-		if (tRead < tSize)
+		bool const &isValid = (bgraImage->GetWidth() == this->frameSize.w) &&
+			(bgraImage->GetHeight() == this->frameSize.h);
+		if (!isValid)
 		{
-			eos = true;
-			return -1;
+			throw ImageOperationException(ImageOperationExceptionType::InvalidImageSize);
 		}
 
-		if (advisor != nullptr)
+		int const &isAnnouncedBlank = (advisor != nullptr) ? advisor->IsBlank(next) : -1;
+
+		if (isAnnouncedBlank == 1)
 		{
-			switch (advisor->IsBlank(next))
+			bgraImage->AnnounceBlank();
+		}
+		else
+		{
+			const int tSize = PixelSize * this->frameSize.Area();
+			int tRead = input->Read((unsigned __int8*)(image->GetDataBuffer()), 0, tSize);
+
+			image->AnnounceModified();
+			image->AnnounceNonstrictErased();
+
+			if (tRead == tSize)
 			{
-			case 0:
-				image->AnnounceDirty();
-				break;
-			case 1:
-				image->AnnounceBlank();
-				break;
+				if (isAnnouncedBlank == 0)
+				{
+					bgraImage->AnnounceDirty();
+				}
+			}
+			else
+			{
+				eos = true;
+				bgraImage->AnnounceBlank();
+				return -1;
 			}
 		}
 
@@ -85,6 +105,27 @@ namespace spp2pgs
 
 	BgraRawStream::~BgraRawStream()
 	{
+	}
+
+	int BgraRawStream::SkipFrame(StillImage *image)
+	{
+		int next = this->index + 1;
+
+		if (next >= this->frameCount)
+		{
+			this->index = this->frameCount;
+			return -1;
+		}
+
+		bool const &isValid = (image->GetPixelSize() == BgraFrame::PixelSize) &&
+			(image->GetWidth() == this->frameSize.w) &&
+			(image->GetHeight() == this->frameSize.h);
+		if (!isValid)
+		{
+			throw ImageOperationException(ImageOperationExceptionType::InvalidImageSize);
+		}
+
+		return (this->index = next);
 	}
 
 	void BgraRawStream::SkipFrames(unsigned __int8 * buffer)
