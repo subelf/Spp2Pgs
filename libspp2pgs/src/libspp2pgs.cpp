@@ -35,8 +35,9 @@ namespace spp2pgs
 		S2PDefaultSettings tSettings{};
 		S2PNullLogger tLogger{};
 
-		S2PEncoder tEncoder{ &tSettings, &tLogger };
-		return tEncoder.Encode(input, output, reporter);
+		S2PEncoder tS2P(&tSettings, &tLogger);
+		PgsEncoder pgsEnc(&tS2P, output, input->GetFrameSize(), input->GetFrameRate());
+		return tS2P.Encode(input, &pgsEnc, reporter) ? 0 : -1;
 	}
 
 }

@@ -28,8 +28,7 @@
 
 namespace spp2pgs
 {
-
-	int S2PEncoder::Encode(FrameStream * input, StreamEx * output, ProgressReporter * reporter)
+	bool S2PEncoder::Encode(FrameStream *input, PgsEncoder *pgsEnc, ProgressReporter *reporter)
 	{
 		const TCHAR * p_msg = nullptr;
 
@@ -44,8 +43,6 @@ namespace spp2pgs
 			{
 				reporter->ReportAmount(tAmount);
 			}
-
-			PgsEncoder encoder{ this, output, input->GetFrameSize(), input->GetFrameRate() };
 			
 			BgraFrame buffer[] = { BgraFrame(input->GetFrameSize()), BgraFrame(input->GetFrameSize()) };
 			BgraFrame *pRunningFrame = &buffer[0];
@@ -74,7 +71,7 @@ namespace spp2pgs
 				{
 					this->Logger()->Log(S2PLogger::info + S2PLogger::verbose,
 						_T("Encountered a key frame at FrameId=%d\n"), output->GetFrameIndex());
-					encoder.RegistFrame(output, input->GetCurrentIndex() - output->GetFrameIndex());
+					pgsEnc->RegistFrame(output, input->GetCurrentIndex() - output->GetFrameIndex());
 				}
 
 				pRunningFrame = pCurrentFrame;
@@ -93,11 +90,11 @@ namespace spp2pgs
 
 			this->Logger()->Log(S2PLogger::info + S2PLogger::normal, _T("Encoding successfully completed.\n"));
 
-			return 0;
+			return true;
 		}
 		catch (TempOutputException)
 		{
-			p_msg = _T("Cache file creating.\n");
+			p_msg = _T("Cache file creating failed.\n");
 		}
 		catch (ImageOperationException)
 		{
@@ -105,7 +102,7 @@ namespace spp2pgs
 		}
 		catch (EpochManagingException)
 		{
-			p_msg = _T("Epoch managing operation.\n");
+			p_msg = _T("Invalid epoch managing operation.\n");
 		}
 		catch (StreamOperationException)
 		{
@@ -125,7 +122,7 @@ namespace spp2pgs
 			throw EndUserException(p_msg);
 		}
 
-		return -1;
+		return false;
 	}
 
 }

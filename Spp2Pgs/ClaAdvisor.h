@@ -27,15 +27,16 @@ class ClaAdvisor
 	: public FrameStreamAdvisor
 {
 public:
-	ClaAdvisor(BdViFormat format, BdViFrameRate frameRate, int from, int to);
+	ClaAdvisor(BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset = 0);
 	~ClaAdvisor();
 
 	int IsBlank(int index) const { return -1; }
 
 	int IsIdentical(int index1, int index2) const { return -1; }
 
-	int GetFirstPossibleImage() const { return from; }
-	int GetLastPossibleImage() const { return to; }
+	int GetFirstPossibleImage() const { return from + offset; }
+	int GetLastPossibleImage() const { return to + offset; }
+	int GetFrameIndexOffset() const { return offset; }
 
 	BdViFormat GetFrameFormat() const { return format; }
 	BdViFrameRate GetFrameRate() const { return frameRate; }
@@ -44,5 +45,6 @@ private:
 	BdViFormat format;
 	BdViFrameRate frameRate;
 	int from, to;
+	int offset;
 };
 

@@ -29,6 +29,7 @@ namespace spp2pgs
 		Application,
 		NotImplenmented,
 		ArgumentNull,
+		ResourceAllocatingFailed,
 
 		AvsInitFailed,
 		TempOutputFailed,

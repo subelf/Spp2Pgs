@@ -20,11 +20,13 @@
 
 #include <memory>
 #include <strmif.h>
+#include <VSSppfApi.h>
 
 #include "S2PExceptions.h"
 #include "BlurayCommon.h"
 #include "GraphicalTypes.h"
 #include "StreamEx.h"
+#include "BgraFrame.h"
 
 namespace spp2pgs
 {
@@ -157,7 +159,18 @@ namespace spp2pgs
 
 		return static_cast<int>((refTimeTicks * FramesPerUnit - 1) / TicksPerUnit + 1);
 	}
-	
+
+	inline SubPicAlfaDesc DescribeTargetBuffer(BgraFrame const *frame)
+	{
+		SubPicAlfaDesc spad;
+		spad.bits = frame->GetDataBuffer();
+		spad.w = frame->GetWidth();
+		spad.h = frame->GetHeight();
+		spad.pitch = frame->GetStride();
+		spad.vidrect = RECT{ 0, 0, frame->GetWidth(), frame->GetHeight() };
+		return spad;
+	}
+
 	std::unique_ptr<StreamEx> OpenTempFile(unsigned __int64 requireFreeSpace);
 
 	void WriteBE(unsigned __int8 * buffer, int index, unsigned __int8 length, unsigned __int64 value);

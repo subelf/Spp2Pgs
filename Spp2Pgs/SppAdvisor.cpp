@@ -25,8 +25,8 @@
 #include "SppAdvisor.h"
 
 
-SppAdvisor::SppAdvisor(ISubPicProviderAlfa *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to) :
-	format(format), frameRate(frameRate), from(from), to(to),
+SppAdvisor::SppAdvisor(ISubPicProviderAlfa *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset) :
+	format(format), frameRate(frameRate), from(from), to(to), offset(offset),
 	spp(AssertArgumentNotNull(spp))
 {
 	this->ParseSubPicProvider();
@@ -44,7 +44,7 @@ void SppAdvisor::ParseSubPicProvider()
 	using namespace std;
 
 	BgraFrame buffer{ GetFrameSize(format) };
-	auto spd = buffer.DescribeTargetBuffer();
+	auto spd = spp2pgs::DescribeTargetBuffer(&buffer);
 	auto const& fps = spp2pgs::GetFramePerSecond(frameRate);
 	CComPtr<IVobSubRectList> extent;
 
@@ -89,43 +89,47 @@ void SppAdvisor::ParseSubPicProvider()
 
 int SppAdvisor::IsBlank(int index) const
 {
-	if (index < from || index >= to) return 1;
+	int const &iIndex = index - this->offset;
+	if (iIndex < from || iIndex >= to) return 1;
 
 	auto const& cmp = [](StsDesc xSeg, int value) { return xSeg.e <= value; };
-	auto const& seg = std::lower_bound(sq.begin(), sq.end(), index, cmp);
+	auto const& seg = std::lower_bound(sq.begin(), sq.end(), iIndex, cmp);
 
-	if (seg == sq.end() || (*seg).b > index) return 1;	//beyond the end or outside of segments
+	if (seg == sq.end() || (*seg).b > iIndex) return 1;	//beyond the end or outside of segments
 
-	if ((*seg).b <= index && !(*seg).a) return 0;	//inside of a static segment
+	if ((*seg).b <= iIndex && !(*seg).a) return 0;	//inside of a static segment
 
 	return -1;
 }
 
 int SppAdvisor::IsIdentical(int index1, int index2) const
 {
+	int const &iIndex1 = index1 - this->offset;
+	int const &iIndex2 = index2 - this->offset;
+
 	int blank1 = -1, blank2 = -1;
-	if (index1 < from || index1 >= to) blank1 = 1;
-	if (index2 < from || index2 >= to) blank2 = 1;
+	if (iIndex1 < from || iIndex1 >= to) blank1 = 1;
+	if (iIndex2 < from || iIndex2 >= to) blank2 = 1;
 
 	auto const& cmp = [](StsDesc xSeg, int value) { return xSeg.e <= value; };
 
 	if (blank1 == 1)
 	{
-		return IsBlank(index2);
+		return IsBlank(iIndex2);
 	}
 	else if (blank2 == 1)
 	{
-		return IsBlank(index1);
+		return IsBlank(iIndex1);
 	}
 	else
 	{
-		auto const& seg1 = std::lower_bound(sq.begin(), sq.end(), index1, cmp);
-		if (seg1 == sq.end() || (*seg1).b > index1) blank1 = 1;	//beyond the end or outside of segments
-		if ((*seg1).b <= index1 && !(*seg1).a) blank1 = 0;
+		auto const& seg1 = std::lower_bound(sq.begin(), sq.end(), iIndex1, cmp);
+		if (seg1 == sq.end() || (*seg1).b > iIndex1) blank1 = 1;	//beyond the end or outside of segments
+		if ((*seg1).b <= iIndex1 && !(*seg1).a) blank1 = 0;
 
-		auto const& seg2 = std::lower_bound(sq.begin(), sq.end(), index2, cmp);
-		if (seg2 == sq.end() || (*seg2).b > index2) blank2 = 1;
-		if ((*seg2).b <= index2 && !(*seg2).a) blank2 = 0;
+		auto const& seg2 = std::lower_bound(sq.begin(), sq.end(), iIndex2, cmp);
+		if (seg2 == sq.end() || (*seg2).b > iIndex2) blank2 = 1;
+		if ((*seg2).b <= iIndex2 && !(*seg2).a) blank2 = 0;
 
 		if (blank1 == 1 && blank2 == 1) return 1;	//[1, 1], both are blank img
 		if (blank1 + blank2 == 1) return 0;	//[0, 1] or [1, 0], different

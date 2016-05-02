@@ -36,14 +36,15 @@ namespace spp2pgs
 		int GetNextFrame(StillImage *image);
 		int SkipFrame(StillImage *image);
 
-		inline int GetFrameCount() const { return this->frameCount; }
-		inline int GetCurrentIndex() const { return this->index; }
+		inline int GetFrameCount() const { return this->frameCount + this->indexOffset; }
+		inline int GetCurrentIndex() const { return this->index + this->indexOffset; }
 		inline Size GetFrameSize() const { return this->frameSize; }
 		inline BdViFrameRate GetFrameRate() const { return this->frameRate; }
 		inline FrameStreamAdvisor const * GetAdvisor() const { return this->advisor; }
 
 	private:
 		int index;
+		int indexOffset;
 		int frameCount;
 		Size frameSize;
 		BdViFrameRate frameRate;

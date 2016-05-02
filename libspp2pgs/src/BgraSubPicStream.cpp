@@ -25,10 +25,11 @@ namespace spp2pgs
 {
 	BgraSubPicStream::BgraSubPicStream(ISubPicProviderAlfa *spp, FrameStreamAdvisor const *advisor):
 		FrameStream(), spp(spp), advisor(AssertArgumentNotNull(advisor)),
-		frameCount(advisor->GetLastPossibleImage()),
-		index(advisor->GetFirstPossibleImage()),
+		frameCount(advisor->GetLastPossibleImage() - advisor->GetFrameIndexOffset()),
+		index(advisor->GetFirstPossibleImage() - advisor->GetFrameIndexOffset()),
 		frameSize(spp2pgs::GetFrameSize(advisor->GetFrameFormat())),
-		frameRate(advisor->GetFrameRate())
+		frameRate(advisor->GetFrameRate()),
+		indexOffset(advisor->GetFrameIndexOffset())
 	{
 	}
 
@@ -56,7 +57,7 @@ namespace spp2pgs
 			throw ImageOperationException(ImageOperationExceptionType::InvalidImageSize);
 		}
 
-		int const &isAnnouncedBlank = (advisor != nullptr) ? advisor->IsBlank(next) : -1;
+		int const &isAnnouncedBlank = (advisor != nullptr) ? advisor->IsBlank(next + this->indexOffset) : -1;
 
 		if (isAnnouncedBlank == 1)
 		{
@@ -69,7 +70,7 @@ namespace spp2pgs
 
 			if (SUCCEEDED(hr))
 			{
-				SubPicAlfaDesc spd = bgraImage->DescribeTargetBuffer();
+				SubPicAlfaDesc spd = spp2pgs::DescribeTargetBuffer(bgraImage);
 				auto const &rt = spp2pgs::GetRefTimeOfFrame(next, this->frameRate);
 				double const &fps = spp2pgs::GetFramePerSecond(this->frameRate);
 
@@ -105,7 +106,7 @@ namespace spp2pgs
 			}
 		}
 
-		return (this->index = next);
+		return (this->index = next) + this->indexOffset;
 	}
 
 
@@ -127,6 +128,6 @@ namespace spp2pgs
 			throw ImageOperationException(ImageOperationExceptionType::InvalidImageSize);
 		}
 
-		return (this->index = next);
+		return (this->index = next) + this->indexOffset;
 	}
 }

@@ -18,8 +18,6 @@
 
 #pragma once
 
-#include <VSSppfApi.h>
-
 #include "StillImage.h"
 #include "FrameStreamAdvisor.h"
 #include "GraphicalTypes.h"
@@ -39,16 +37,6 @@ namespace spp2pgs
 		int ReadNextOf(FrameStream * stream);
 
 		inline int GetFrameIndex() { return this->index; }
-		inline SubPicAlfaDesc DescribeTargetBuffer()
-		{
-			SubPicAlfaDesc spad;
-			spad.bits = this->GetDataBuffer();
-			spad.w = this->GetWidth();
-			spad.h = this->GetHeight();
-			spad.pitch = this->GetStride();
-			spad.vidrect = RECT{ 0, 0, this->GetWidth(), this->GetHeight() };
-			return spad;
-		}
 
 		bool IsIdenticalTo(BgraFrame *frame);
 		bool IsBlank();

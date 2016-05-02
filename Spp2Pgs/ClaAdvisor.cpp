@@ -20,8 +20,8 @@
 #include "ClaAdvisor.h"
 
 
-ClaAdvisor::ClaAdvisor(BdViFormat format, BdViFrameRate frameRate, int from, int to)
-	: format(format), frameRate(frameRate), from(from), to(to)
+ClaAdvisor::ClaAdvisor(BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset)
+	: format(format), frameRate(frameRate), from(from), to(to), offset(offset)
 {
 }
 

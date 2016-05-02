@@ -26,17 +26,13 @@ namespace spp2pgs
 {
 
 	BgraRawStream::BgraRawStream(StreamEx * stream, FrameStreamAdvisor const * advisor)
-		:input(stream), advisor(advisor), index(-1), readIndex(-1), eos(false)
+		:input(AssertArgumentNotNull(stream)), advisor(AssertArgumentNotNull(advisor)),
+		index(-1), indexOffset(advisor->GetFrameIndexOffset()), readIndex(-1), eos(false)
 	{
-		if (stream == nullptr || advisor == nullptr)
-		{
-			throw S2PException(S2PExceptionType::ArgumentNull, nullptr);
-		}
-
 		this->frameSize = spp2pgs::GetFrameSize(advisor->GetFrameFormat());
 		this->frameRate = advisor->GetFrameRate();
-		this->frameCount = advisor->GetLastPossibleImage();
-		this->index = advisor->GetFirstPossibleImage() - 1;
+		this->frameCount = advisor->GetLastPossibleImage() - this->indexOffset;
+		this->index = advisor->GetFirstPossibleImage() - this->indexOffset - 1;
 
 		if (this->frameSize.Area() == 0 || this->frameRate == BdViFrameRate::Unknown)
 		{
@@ -71,7 +67,7 @@ namespace spp2pgs
 			throw ImageOperationException(ImageOperationExceptionType::InvalidImageSize);
 		}
 
-		int const &isAnnouncedBlank = (advisor != nullptr) ? advisor->IsBlank(next) : -1;
+		int const &isAnnouncedBlank = (advisor != nullptr) ? advisor->IsBlank(next + this->indexOffset) : -1;
 
 		if (isAnnouncedBlank == 1)
 		{
@@ -100,11 +96,7 @@ namespace spp2pgs
 			}
 		}
 
-		return (this->index = next);
-	}
-
-	BgraRawStream::~BgraRawStream()
-	{
+		return (this->index = next) + this->indexOffset;
 	}
 
 	int BgraRawStream::SkipFrame(StillImage *image)
@@ -125,7 +117,7 @@ namespace spp2pgs
 			throw ImageOperationException(ImageOperationExceptionType::InvalidImageSize);
 		}
 
-		return (this->index = next);
+		return (this->index = next) + this->indexOffset;
 	}
 
 	void BgraRawStream::SkipFrames(unsigned __int8 * buffer)

@@ -37,6 +37,7 @@ namespace spp2pgs
 
 		virtual int GetFirstPossibleImage() const = 0;
 		virtual int GetLastPossibleImage() const = 0;
+		virtual int GetFrameIndexOffset() const = 0;
 
 		virtual BdViFormat GetFrameFormat() const = 0;
 		virtual BdViFrameRate GetFrameRate() const = 0;

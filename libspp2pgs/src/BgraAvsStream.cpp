@@ -31,8 +31,9 @@ namespace spp2pgs
 {
 
 	BgraAvsStream::BgraAvsStream(TCHAR* avspath, FrameStreamAdvisor const * advisor) :
-		FrameStream(), index(-1), advisor(AssertArgumentNotNull(advisor)),
-		frameSize({ 0, 0 }), frameRate(BdViFrameRate::Unknown), frameCount(-1)
+		FrameStream(), advisor(AssertArgumentNotNull(advisor)), index(-1),
+		indexOffset(advisor->GetFrameIndexOffset()), frameCount(-1), 
+		frameSize({ 0, 0 }), frameRate(BdViFrameRate::Unknown)
 	{
 		this->OpenAvsFile(avspath);
 	}
@@ -66,8 +67,8 @@ namespace spp2pgs
 		{
 			this->frameSize = spp2pgs::GetFrameSize(advisor->GetFrameFormat());
 			this->frameRate = advisor->GetFrameRate();
-			this->frameCount = advisor->GetLastPossibleImage();
-			this->index = advisor->GetFirstPossibleImage() - 1;
+			this->frameCount = advisor->GetLastPossibleImage() - indexOffset;
+			this->index = advisor->GetFirstPossibleImage() - indexOffset - 1;
 		}
 
 		this->frameSize = (this->frameSize.Area() == 0) ? Size{ info.rcFrame.right - info.rcFrame.left, info.rcFrame.bottom - info.rcFrame.top } : this->frameSize;
@@ -117,7 +118,7 @@ namespace spp2pgs
 			throw ImageOperationException(ImageOperationExceptionType::InvalidImageSize);
 		}
 
-		int const &isAnnouncedBlank = (advisor != nullptr) ? advisor->IsBlank(next) : -1;
+		int const &isAnnouncedBlank = (advisor != nullptr) ? advisor->IsBlank(next + indexOffset) : -1;
 
 		if (isAnnouncedBlank == 1)
 		{
@@ -143,7 +144,7 @@ namespace spp2pgs
 			}
 		}
 
-		return (this->index = next);
+		return (this->index = next) + indexOffset;
 	}
 
 	int BgraAvsStream::SkipFrame(StillImage *image)
@@ -164,7 +165,7 @@ namespace spp2pgs
 			throw ImageOperationException(ImageOperationExceptionType::InvalidImageSize);
 		}
 
-		return (this->index = next);
+		return (this->index = next) + indexOffset;
 	}
 
 	BgraAvsStream::~BgraAvsStream()

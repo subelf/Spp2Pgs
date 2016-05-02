@@ -334,7 +334,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 
 		S2PEncoder tS2P{ &tSettings , &tLogger };
-		tRet = tS2P.Encode(avstream.get(), &ostream, nullptr);
+		PgsEncoder tPgsEnc{ &tS2P, &ostream, avstream->GetFrameSize(), avstream->GetFrameRate() };
+		tRet = tS2P.Encode(avstream.get(), &tPgsEnc, nullptr);
 		
 		tLogger.Log(S2PLogger::info + S2PLogger::normal, _T("Done.\n"));
 

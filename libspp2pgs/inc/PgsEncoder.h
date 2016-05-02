@@ -42,7 +42,6 @@ namespace spp2pgs
 		inline BdViFrameRate GetFrameRate() { return this->frameRate; }
 
 		void RegistFrame(BgraFrame *frame, int length) throw(TempOutputException, ImageOperationException);
-
 		void EncodeEpoch();
 
 	private:

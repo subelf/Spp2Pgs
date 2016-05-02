@@ -41,6 +41,7 @@ namespace spp2pgs
 
 	PgsWriter::~PgsWriter()
 	{
+		output->Close();
 	}
 
 

@@ -27,6 +27,7 @@
 #include "FrameStream.h"
 #include "StreamEx.h"
 #include "ProgressReporter.h"
+#include "PgsEncoder.h"
 
 namespace spp2pgs
 {
@@ -35,10 +36,10 @@ namespace spp2pgs
 		: public S2PContext
 	{
 	public:
-		S2PEncoder(S2PSettings const *settings, S2PLogger const *logger)
-			: S2PContext(settings, logger) {}
+		S2PEncoder(S2PSettings const *settings, S2PLogger const *logger) :
+			S2PContext(settings, logger) {}
 
-		int Encode(FrameStream *input, StreamEx *output, ProgressReporter *reporter);
+		bool Encode(FrameStream *input, PgsEncoder *pgsEnc, ProgressReporter *reporter);
 		
 	};
 
