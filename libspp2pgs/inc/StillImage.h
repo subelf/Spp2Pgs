@@ -20,6 +20,8 @@
 
 #include "GraphicalTypes.h"
 
+#include <vector>
+
 namespace spp2pgs
 {
 
@@ -49,19 +51,24 @@ namespace spp2pgs
 		inline int GetPixelSize() const { return this->pixelSize; }
 
 		void AnnounceBlank() { this->isBlank = 1; }
-		void AnnounceDirty() { this->isBlank = 0; }
-		void AnnounceModified() { this->isBlank = -1; }
+		void AnnounceDirty() { this->isBlank = 0; this->isExplicitErased = false; }
+		void AnnounceModified() { this->isBlank = -1; this->isExplicitErased = false; }
 
-		void AnnounceNonstrictErased() { this->isErased = false; }
-		void AnnounceStrictErased() { this->isErased = true; }
+		void AnnounceNonNormalized() { this->isNormalized = false; }
+		void AnnounceNormalized() { this->isNormalized = true; }
 
-		void EraseTransparents();
+		void Normalize();	//erease all pixels with alpha=0;
 		bool IsIdenticalTo(StillImage *image);
 		inline bool IsBlank() { return (this->isBlank = static_cast<StillImage const *>(this)->IsBlank() ? 1 : 0) != 0; }
 		bool IsBlank() const;
 
-		void Erase() { this->ExplicitErase(Rect{ 0, 0, imageSize }); AnnounceBlank(); AnnounceStrictErased(); };
-		void Erase(Rect rect) { this->ExplicitErase(rect); };
+		void Erase();
+		void Erase(Rect const& rect) { this->ExplicitErase(rect); };
+
+		void RegisterRrawnRects(Rect const& rect) { 
+			AnnounceDirty();
+			this->drawnRects.push_back(rect);
+		}
 
 	protected:
 		virtual bool IsExplicitIdenticalTo(StillImage const *image) const = 0;
@@ -79,7 +86,10 @@ namespace spp2pgs
 		int dataSize;
 
 		int isBlank = -1;
-		bool isErased = 0;
+		bool isNormalized = false;
+		bool isExplicitErased = false;
+
+		std::vector<Rect> drawnRects;
 
 		template<typename T> static inline T* AlignTo(T *input, AlignMask mask)
 		{
@@ -90,6 +100,8 @@ namespace spp2pgs
 		{
 			return ((input + mask) & ~mask);
 		}
+
+		void InvalidateRrawnRects() { this->drawnRects.clear(); }
 
 	};
 

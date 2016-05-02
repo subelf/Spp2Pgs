@@ -64,21 +64,38 @@ namespace spp2pgs
 		}
 		else
 		{
-			SubPicAlfaDesc spd = bgraImage->DescribeTargetBuffer();
-			auto const &rt = spp2pgs::GetRefTimeOfFrame(next, this->frameRate);
-			double const &fps = spp2pgs::GetFramePerSecond(this->frameRate);
-			RECT extent;
+			CComPtr<IVobSubRectList> rects;
+			HRESULT hr = spp->CreateRectList(&rects);
 
-			bgraImage->Erase();
-			HRESULT hr = spp->RenderAlpha(spd, rt, fps, extent);
+			if (SUCCEEDED(hr))
+			{
+				SubPicAlfaDesc spd = bgraImage->DescribeTargetBuffer();
+				auto const &rt = spp2pgs::GetRefTimeOfFrame(next, this->frameRate);
+				double const &fps = spp2pgs::GetFramePerSecond(this->frameRate);
 
-			if (hr == S_OK)
+				bgraImage->Erase();
+				hr = spp->RenderAlpha(spd, rt, fps, rects);
+			}
+
+			if (SUCCEEDED(hr))
 			{
 				bgraImage->AnnounceModified();
-				bgraImage->AnnounceNonstrictErased();
+				bgraImage->AnnounceNormalized();
 				if (isAnnouncedBlank == 0)
 				{
 					bgraImage->AnnounceDirty();
+				}
+
+				for (auto pos = rects->GetHeadPosition(); pos != NULL; )
+				{
+					auto const &rect = rects->GetNext(pos);
+					bgraImage->RegisterRrawnRects(
+						Rect{
+						rect.left,
+						rect.top,
+						rect.right - rect.left,
+						rect.bottom - rect.top,
+					});
 				}
 			}
 			else

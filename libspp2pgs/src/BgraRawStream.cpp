@@ -83,7 +83,7 @@ namespace spp2pgs
 			int tRead = input->Read((unsigned __int8*)(image->GetDataBuffer()), 0, tSize);
 
 			image->AnnounceModified();
-			image->AnnounceNonstrictErased();
+			image->AnnounceNonNormalized();
 
 			if (tRead == tSize)
 			{

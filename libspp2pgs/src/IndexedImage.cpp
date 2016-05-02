@@ -80,7 +80,7 @@ namespace spp2pgs
 		destroy_quantizer(q);
 
 		this->AnnounceDirty(); 
-		this->AnnounceStrictErased();
+		this->AnnounceNormalized();
 	}
 
 	bool IndexedImage::IsExplicitIdenticalTo(StillImage const *image) const

@@ -130,7 +130,7 @@ namespace spp2pgs
 			if (hr == S_OK)
 			{
 				bgraImage->AnnounceModified();
-				bgraImage->AnnounceNonstrictErased();
+				bgraImage->AnnounceNonNormalized();
 				if (isAnnouncedBlank == 0)
 				{
 					bgraImage->AnnounceDirty();

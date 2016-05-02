@@ -63,13 +63,13 @@ namespace spp2pgs
 		}
 		else
 		{
-			if (this->isErased)
+			if (this->isNormalized)
 			{
 				isIdentical = image->IsExplicitIdenticalTo(this);
 			}
 			else
 			{
-				image->EraseTransparents();
+				image->Normalize();
 				isIdentical = this->IsExplicitIdenticalTo(image);
 			}
 			return isIdentical;
@@ -86,12 +86,41 @@ namespace spp2pgs
 		return (this->isBlank != 0);
 	}
 
-	void StillImage::EraseTransparents()
+	void StillImage::Erase()
 	{
-		if (this->isErased)
+		if (this->IsBlank() == 1 && this->isExplicitErased)
+		{
+			return;
+		}
+
+		if(this->drawnRects.empty())
+		{
+			this->ExplicitErase(Rect{ 0, 0, imageSize });
+			AnnounceBlank();
+			AnnounceNormalized();
+		}
+		else
+		{
+			for (auto const& iRect : this->drawnRects)
+			{
+				this->ExplicitErase(iRect);
+			}
+			
+			InvalidateRrawnRects();
+			AnnounceBlank();
+			AnnounceNormalized();
+		}
+
+		this->isExplicitErased = true;
+	}
+
+	void StillImage::Normalize()
+	{
+		if (this->isNormalized)
 			return;
 
 		ExplicitEraseTransparents();
-		this->isErased = true;
+		InvalidateRrawnRects();
+		this->isNormalized = true;
 	}
 }

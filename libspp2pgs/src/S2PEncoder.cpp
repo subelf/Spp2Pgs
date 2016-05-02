@@ -80,7 +80,7 @@ namespace spp2pgs
 				pRunningFrame = pCurrentFrame;
 				if (!(isBlank = pRunningFrame->IsBlank()))
 				{
-					pRunningFrame->EraseTransparents();
+					pRunningFrame->Normalize();
 				}
 
 				pCurrentFrame = output;
