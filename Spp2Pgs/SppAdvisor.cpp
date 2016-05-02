@@ -46,7 +46,13 @@ void SppAdvisor::ParseSubPicProvider()
 	BgraFrame buffer{ GetFrameSize(format) };
 	auto spd = buffer.DescribeTargetBuffer();
 	auto const& fps = spp2pgs::GetFramePerSecond(frameRate);
-	RECT extent;
+	CComPtr<IVobSubRectList> extent;
+
+	HRESULT hr = spp->CreateRectList(&extent);
+	if (FAILED(hr))
+	{
+		throw AvsInitException(AvsInitExceptionType::Unknown, hr);
+	}
 
 	auto cur = from >= 0 ? from : 0;
 	auto p = spp->GetStartPosition(GetRefTimeOfFrame(cur, frameRate), fps);
@@ -57,7 +63,7 @@ void SppAdvisor::ParseSubPicProvider()
 		REFERENCE_TIME const &e = spp->GetStop(p, fps);	//end
 
 		auto const& pN = spp->GetNext(p);
-		spp->RenderAlpha(spd, b, fps, extent);
+		spp->RenderEx(spd, b, fps, extent);
 		bool const &a = spp->IsAnimated(p);
 
 		this->sq.push_back(
