@@ -17,6 +17,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Spp2PgsNet", "Spp2PgsNet\Sp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xy-VSSppf", "misc\xy-VSFilter\xy-VSSppf\xy-VSSppf.vcxproj", "{ACFCDF3E-2B0F-43C8-AB12-1E1A68EA3D99}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CFA2375C-A9B3-4253-9E21-AA4EB542BE1D}"
+	ProjectSection(SolutionItems) = preProject
+		License.txt = License.txt
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

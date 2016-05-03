@@ -2,10 +2,10 @@
 Convert general subtitle to HDMV PG stream.
 In other word, convert .ass file to a .sup file.
 
-The project generating a command line application and a CLR dll file.
-Core of them is a static library, libspp2pgs.
-An external dll, xy-VSSppf, is introduced to dealing with subtitle files.
-It's based on a forked version of xy-VSFilter, rendering and providing subtitles in a more easy way.
+The project generating a command line application and a CLR dll file.  
+Core of them is a static library, libspp2pgs.  
+An external dll, xy-VSSppf, is introduced to dealing with subtitle files.  
+It's based on a forked version of xy-VSFilter, rendering and providing subtitles in a more easy way.  
 
 Here is a breif description for all the four parts.
 
@@ -17,7 +17,7 @@ Type Spp2Pgs -h for more help.
 
 ## libspp2pgs & Spp2PgsNet*.dll
 The core and its CLR library wrapper for .NET framework applications.
-Three classes play the main role:
+Three classes play the main role:  
 * PgsEncoder, encoding and writing a pgs file.
 * FrameStream, reading subtitles and rendering subtitles into image.
 * Spp2Pgs, an entrance for all other things. Also reading images from FrameStream and sending them to PgsEncoder.
@@ -48,5 +48,5 @@ using (var tOutput = tS2P.CreatePgsEncoder(tOutputStream, BdViFormat.Vi1080i, Bd
 ```
 
 ## xy-VSSppf*.dll
-xy-VobSub SubPicProvider Factory. This is a COM dll, exposing an ISubPicProviderAlfa interface to Spp2Pgs.
+xy-VobSub SubPicProvider Factory. This is a COM dll, exposing an ISubPicProviderAlfa interface to Spp2Pgs.  
 It's a necessary part for Spp2Pgs.
