@@ -20,4 +20,9 @@
 
 #pragma warning( disable : 4290 )
 
+#include <afx.h>
+#include <combaseapi.h>
+#include <strmif.h>
+#include <VSSppfApi.h>
+
 #include "Global.h"

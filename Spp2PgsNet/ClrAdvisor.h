@@ -41,6 +41,7 @@ namespace spp2pgs
 
 		int GetFirstPossibleImage() const { return advisorNet->FirstPossibleImage; }
 		int GetLastPossibleImage() const { return advisorNet->LastPossibleImage; }
+		int GetFrameIndexOffset() const { return advisorNet->FrameIndexOffset; }
 
 		spp2pgs::BdViFormat GetFrameFormat() const { return static_cast<spp2pgs::BdViFormat>(advisorNet->FrameFormat); }
 		spp2pgs::BdViFrameRate GetFrameRate() const { return static_cast<spp2pgs::BdViFrameRate>(advisorNet->FrameRate); }

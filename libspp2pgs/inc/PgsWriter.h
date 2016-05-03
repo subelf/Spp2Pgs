@@ -31,7 +31,7 @@ namespace spp2pgs
 		: public S2PControllerBase
 	{
 	public:
-		PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output);
+		PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output, __int64 syncPTS = 0);
 		~PgsWriter();
 
 		void StartEpoch(WindowsDescriptor const * wndDesc);
@@ -80,7 +80,9 @@ namespace spp2pgs
 		void WriteODS(CompositionObjectDescriptor const * object);
 		void WriteEND();
 
-		void WriteZeroStartEpoch();
+		bool isZeroAnchorNeeded = false;
+		__int64 ptsZeroAnchor = 0;
+		void WriteZeroAnchor();
 
 		inline unsigned __int8 FillPackageData(int index, unsigned __int8 length, unsigned __int64 value) {
 			WriteBE(pkgBuf, index, length, value);
@@ -107,7 +109,7 @@ namespace spp2pgs
 			return true;
 		}
 
-		void TryInsertEraser(__int64 pts);
+		//void TryInsertEraser(__int64 pts);
 
 		void FillPackageHead(__int64 pts, __int64 dts) {
 			int tOfs = 0;

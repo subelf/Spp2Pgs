@@ -14,6 +14,14 @@
     <ClCompile Include="res\AssemblyInfo.cpp">
       <Filter>res</Filter>
     </ClCompile>
+    <ClCompile Include="Spp2PgsNet.cpp" />
+    <ClCompile Include="Stdafx.cpp" />
+    <ClCompile Include="PgsEncoderNet.cpp" />
+    <ClCompile Include="FrameStreamNet.cpp" />
+    <ClCompile Include="oledll.cpp" />
+    <ClCompile Include="SubPicProviderNet.cpp" />
+    <ClCompile Include="SppAdvisorNet.cpp" />
+    <ClCompile Include="SubPicProviderContextNet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\app.rc">
@@ -24,5 +32,64 @@
     <None Include="packages.config">
       <Filter>res</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Spp2PgsNet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ClrAdvisor.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ClrLogger.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ClrReporter.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ClrSettings.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="ClrStreamEx.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="IS2PLogger.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="IS2PSettings.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="IFrameStreamAdvisor.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="IProgressReporter.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="res\resource.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Stdafx.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="PgsEncoderNet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameStreamNet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="oledll.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="SubPicProviderNet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="SppAdvisorNet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="SubPicProviderContextNet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

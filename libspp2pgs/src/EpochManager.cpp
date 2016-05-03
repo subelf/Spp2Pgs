@@ -22,7 +22,7 @@
 namespace spp2pgs
 {
 
-	EpochManager::EpochManager(S2PContext const * context, BdViFrameRate frameRate, Size frameSize) :
+	EpochManager::EpochManager(S2PContext const * context, Size frameSize, BdViFrameRate frameRate) :
 		S2PControllerBase(context), minInterval((int)spp2pgs::GetFrameTimeStamp(1, frameRate)), frameSize(frameSize),
 		binBoard(frameSize, this->Settings()->MaxImageBlockSize()), cropSizeMax(Size{ 0, 0 }), cache(context), isDequeuing(false)
 	{}

@@ -35,7 +35,7 @@ namespace spp2pgs
 		: public S2PControllerBase
 	{
 	public:
-		PgsEncoder(S2PContext const *context, StreamEx *output, Size frameSize, BdViFrameRate frameRate);
+		PgsEncoder(S2PContext const *context, StreamEx *output, Size frameSize, BdViFrameRate frameRate, int syncFrameOffset = 0);
 		~PgsEncoder();
 
 		inline Size GetFrameSize() { return this->frameSize; }

@@ -23,10 +23,11 @@
 
 namespace spp2pgs
 {
-	PgsEncoder::PgsEncoder(S2PContext const *context, StreamEx *output, Size frameSize, BdViFrameRate frameRate) :
-		S2PControllerBase(context), frameRate(frameRate), frameSize(frameSize),
-		output(new PgsWriter(context, frameSize, frameRate, output)), bufMgr(new GxBufferManager(context)),
-		epochManager(context, frameRate, frameSize), imageBuffer(frameSize)
+	PgsEncoder::PgsEncoder(S2PContext const *context, StreamEx *output, Size size, BdViFrameRate rate, int syncFrameOffset) :
+		S2PControllerBase(context), frameRate(rate), frameSize(size),
+		output(new PgsWriter(context, size, rate, output, GetFrameTimeStamp(syncFrameOffset, rate))),
+		bufMgr(new GxBufferManager(context)), epochManager(context, size, rate),
+		imageBuffer(size)
 	{
 		this->Log(S2PLogger::info + S2PLogger::normal, _T("PgsEncoder Created.\n"));
 	}

@@ -33,6 +33,7 @@ namespace Spp2PgsNet
 
 		property int FirstPossibleImage { int get(); }
 		property int LastPossibleImage { int get(); }
+		property int FrameIndexOffset { int get(); }
 
 		property BluraySharp::Common::BdViFormat FrameFormat{ BluraySharp::Common::BdViFormat get(); }
 		property BluraySharp::Common::BdViFrameRate FrameRate{ BluraySharp::Common::BdViFrameRate get(); }

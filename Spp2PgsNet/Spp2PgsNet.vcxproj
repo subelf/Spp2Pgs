@@ -26,10 +26,8 @@
     <RestorePackages>true</RestorePackages>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
-  
   <Import Project="..\misc\PreToolset.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-    
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
@@ -42,42 +40,34 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
   </PropertyGroup>
-  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\misc\SolutionBuild.props" />
   </ImportGroup>
-  
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\libspp2pgs\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libspp2pgs\inc;..\misc\xy-VSFilter\src\src\sppfactory</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="BluraySharp, Version=0.3.4.0, Culture=neutral, PublicKeyToken=d9c683a7c5aa778e, processorArchitecture=MSIL">
-      <HintPath>..\packages\BluraySharp.0.3.4\lib\net40-client\BluraySharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="BluraySharp.Definations, Version=0.3.4.0, Culture=neutral, PublicKeyToken=d9c683a7c5aa778e, processorArchitecture=MSIL">
       <HintPath>..\packages\BluraySharp.0.3.4\lib\net40-client\BluraySharp.Definations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BluraySharp.Entities, Version=0.3.4.0, Culture=neutral, PublicKeyToken=d9c683a7c5aa778e, processorArchitecture=MSIL">
-      <HintPath>..\packages\BluraySharp.0.3.4\lib\net40-client\BluraySharp.Entities.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FrameStreamNet.h" />
+    <ClInclude Include="oledll.h" />
+    <ClInclude Include="PgsEncoderNet.h" />
     <ClInclude Include="Spp2PgsNet.h" />
     <ClInclude Include="ClrAdvisor.h" />
     <ClInclude Include="ClrLogger.h" />
@@ -90,17 +80,26 @@
     <ClInclude Include="IFrameStreamAdvisor.h" />
     <ClInclude Include="IProgressReporter.h" />
     <ClInclude Include="res\resource.h" />
+    <ClInclude Include="SppAdvisorNet.h" />
     <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="SubPicProviderContextNet.h" />
+    <ClInclude Include="SubPicProviderNet.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FrameStreamNet.cpp" />
+    <ClCompile Include="oledll.cpp" />
+    <ClCompile Include="PgsEncoderNet.cpp" />
     <ClCompile Include="res\AssemblyInfo.cpp" />
     <ClCompile Include="Spp2PgsNet.cpp" />
+    <ClCompile Include="SppAdvisorNet.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseClr|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseClr|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SubPicProviderContextNet.cpp" />
+    <ClCompile Include="SubPicProviderNet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\app.rc" />

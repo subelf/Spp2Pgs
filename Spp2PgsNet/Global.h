@@ -26,4 +26,13 @@ namespace Spp2PgsNet
 		return argument;
 	}
 
+	template<typename T> inline T* AssertClrArgumentNotNull(T* argument, String ^name)
+	{
+		if (argument == nullptr)
+		{
+			throw gcnew ArgumentNullException(name);
+		}
+
+		return argument;
+	}
 }

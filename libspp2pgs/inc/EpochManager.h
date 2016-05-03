@@ -33,7 +33,7 @@ namespace spp2pgs
 		: public S2PControllerBase
 	{
 	public:
-		EpochManager(S2PContext const * context, BdViFrameRate frameRate, Size frameSize) throw(TempOutputException);
+		EpochManager(S2PContext const * context, Size frameSize, BdViFrameRate frameRate) throw(TempOutputException);
 		~EpochManager() {};
 
 		bool IsNewEpochStart(DisplaySetThumb *thumb);

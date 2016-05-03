@@ -26,8 +26,9 @@ namespace spp2pgs
 		0, 3750, 3750, 3600, 3000, 3000, 1800, 1500, 1500
 	};
 
-	PgsWriter::PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output) :
+	PgsWriter::PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output, __int64 syncPTS) :
 		S2PControllerBase(context), videoSize(videoSize), frameRate(frameRate), output(output),
+		isZeroAnchorNeeded(context->Settings()->IsForcingEpochZeroStart()), ptsZeroAnchor(syncPTS),
 		clockPerFrame(spp2pgs::ClockPerSecond / spp2pgs::GetFramePerSecond(frameRate)),
 		compositionCount(0), isEpochStart(true), minInterval(MinPtsIntervalTable[(int)frameRate]), lastDecEnd(MININT64),
 		lastCmpn({ MININT64, MININT64, nullptr, nullptr, 0, nullptr })
@@ -69,15 +70,16 @@ namespace spp2pgs
 		int const& decDur = composition->EstimateDecodeDuration(tDuration);
 		int const& ersDur = wndDesc->EstimateDecodeDuration();
 
-		if (this->Settings()->IsForcingEpochZeroStart() && (compositionCount == 0))	//first Epoch
+		if (isZeroAnchorNeeded)
 		{
-			if (pts > max(decDur, minInterval) + minInterval)
+			if (pts > ptsZeroAnchor + minInterval + max(decDur, minInterval))
+				//PTS > ETS of zero anchor + max(decDur, minInterval)
 			{
-				this->WriteZeroStartEpoch();
+				this->WriteZeroAnchor();
 			}
 			else
 			{
-				pts = 0;
+				pts = ptsZeroAnchor;
 			}
 		}
 
@@ -416,7 +418,7 @@ namespace spp2pgs
 		output->Write(buffer, index, length);
 	}
 
-	void PgsWriter::WriteZeroStartEpoch()
+	void PgsWriter::WriteZeroAnchor()
 	{
 		auto tCurWnd = this->wndDesc;
 
@@ -437,7 +439,8 @@ namespace spp2pgs
 
 		unsigned char tImageDataBuffer[] = { 0, 1, 0, 0 };
 
-		CompositionBuffer tComposition{ 0, minInterval,
+		CompositionBuffer tComposition{
+			ptsZeroAnchor, ptsZeroAnchor + minInterval,
 			&tWnd,
 			&tPalette, sizeof(tPaletteDataBuffer), tPaletteDataBuffer,
 			1, {{0, tRect.pos, tRect, &tObject, sizeof(tImageDataBuffer), tImageDataBuffer }}
@@ -448,6 +451,8 @@ namespace spp2pgs
 		this->EndEpoch();
 
 		this->StartEpoch(tCurWnd);
+
+		this->isZeroAnchorNeeded = false;
 	}
 
 }
