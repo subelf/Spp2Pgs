@@ -88,7 +88,7 @@ namespace Spp2PgsNet
 		}
 		else
 		{
-			throw gcnew OutOfMemoryException("Spp2PgsNet Initializing Failed!");
+			throw gcnew OutOfMemoryException("InitS2PEncoder@Spp2PgsNet Failed!");
 		}
 	}
 
@@ -107,7 +107,7 @@ namespace Spp2PgsNet
 		}
 		else
 		{
-			throw gcnew COMException();
+			throw gcnew COMException("InitSppf@Spp2PgsNet Failed!", hr);
 		}
 	}
 
@@ -130,58 +130,80 @@ namespace Spp2PgsNet
 
 		std::auto_ptr<PgsEncoder> tPgsEncoder(new PgsEncoder(encoderNative, tOutputStream.get(), tSize, tRate, syncFrameOffset));
 
-		return gcnew PgsEncoderNet(tPgsEncoder.release(), tOutputStream.release());
-	}
-	/*
-	FrameStreamNet^ Spp2Pgs::CreateFrameStreamFromSubtitleFile(FileInfo ^ subFile)
-	{
-
-		if (SUCCEEDED(hr))
-		{
-			hr = pSppf->CreateContext(&pContext);
-		}
-
-		if (SUCCEEDED(hr))
-		{
-			hr = pSppf->CreateProvider(pContext, input, &pSpp);
-		}
-
-		if (SUCCEEDED(hr))
-		{
-			sppAdvisor.reset(new SppAdvisor(pSpp, format, rate, begin, end));
-			avstream.reset(new BgraSubPicStream(pSpp, sppAdvisor.get()));
-		}
-	}
-	*/
-
-	/*
-	void Spp2Pgs::Encode(Stream ^rgbaStream, IFrameStreamAdvisor ^advisor, Stream ^output, IProgressReporter ^reporter)
-	{
-		ClrStreamEx tInput{ AssertClrArgumentNotNull(rgbaStream, "rgbaStream") };
-		std::unique_ptr<FrameStreamAdvisor> tAdvisor{ (advisor == nullptr) ? nullptr : new ClrAdvisor(advisor) };
-		BgraRawStream frameStream{ &tInput, tAdvisor.get() };
-
-		ClrStreamEx tOutput{ AssertClrArgumentNotNull(output, "output") };
-		std::unique_ptr<ClrReporter> tReporter{ (reporter == nullptr) ? nullptr : new ClrReporter(reporter) };
-
-		encoderNative->Encode(&frameStream, &tOutput, tReporter.get());
+		auto const &r = gcnew PgsEncoderNet(tPgsEncoder.get(), tOutputStream.get());
+		tPgsEncoder.release();
+		tOutputStream.release();
+		return r;
 	}
 
-	void Spp2Pgs::Encode(FileInfo ^avsFile, IFrameStreamAdvisor ^advisor, Stream ^output, IProgressReporter ^reporter)
+	FrameStreamNet ^ Spp2Pgs::CreateFrameStream(FileInfo ^ avsFile, IFrameStreamAdvisor ^ advisor)
 	{
 		pin_ptr<const TCHAR> tPinedFileName = PtrToStringChars(avsFile->FullName);
 		TCHAR* tInput = const_cast<TCHAR*>(tPinedFileName);
 
-		std::unique_ptr<FrameStreamAdvisor> tAdvisor{ (advisor == nullptr) ? nullptr : new ClrAdvisor(advisor) };
-		BgraAvsStream frameStream{ tInput, tAdvisor.get() };
+		std::auto_ptr<ClrAdvisor> apAdvisor(new ClrAdvisor(advisor));
+		std::auto_ptr<BgraAvsStream> apAvsStream;
 
-		ClrStreamEx tOutput{ AssertClrArgumentNotNull(output, "output") };
-		std::unique_ptr<ClrReporter> tReporter{ (reporter == nullptr) ? nullptr : new ClrReporter(reporter) };
+		if (apAdvisor.get() != nullptr)
+		{
+			apAvsStream.reset(new BgraAvsStream(tInput, apAdvisor.get()));
+		}
+		else
+		{
+			throw gcnew OutOfMemoryException("CreateClrAdvisor@CreateFrameStream(Avs) Failed!");
+		}
 
-		encoderNative->Encode(&frameStream, &tOutput, tReporter.get());
+		if (apAvsStream.get() != nullptr)
+		{
+			auto const &r = gcnew FrameStreamNet(apAvsStream.get(), apAdvisor.get());
+			apAvsStream.release();
+			apAdvisor.release();
+			return r;
+		}
+		else
+		{
+			throw gcnew OutOfMemoryException("CreateFrameStream(Avs) Failed!");
+		}
 	}
-	*/
 
+	FrameStreamNet ^ Spp2Pgs::CreateFrameStream(Stream ^ bgraStream, IFrameStreamAdvisor ^ advisor)
+	{
+		std::auto_ptr<ClrAdvisor> apAdvisor(new ClrAdvisor(advisor));
+		std::auto_ptr<StreamEx> apStream;
+		std::auto_ptr<BgraRawStream> apFrameStream;
+
+		if (apAdvisor.get() != nullptr)
+		{
+			apStream.reset(new ClrStreamEx(bgraStream));
+		}
+		else
+		{
+			throw gcnew OutOfMemoryException("CreateClrStreamEx@CreateFrameStream(Raw) Failed!");
+		}
+
+		if (apStream.get() != nullptr)
+		{
+			apFrameStream.reset(new BgraRawStream(apStream.get(), apAdvisor.get()));
+		}
+		else
+		{
+			throw gcnew OutOfMemoryException("CreateBgraRawStream@CreateFrameStream(Raw) Failed!");
+		}
+
+		if (apFrameStream.get() != nullptr)
+		{
+			auto const &r = gcnew RawFrameStreamNet(apFrameStream.get(), apAdvisor.get(), apStream.get());
+			apFrameStream.release();
+			apAdvisor.release();
+			apStream.release();
+			return r;
+		}
+		else
+		{
+			throw gcnew OutOfMemoryException("CreateFrameStream(Raw) Failed!");
+		}
+	}
+	
 	FrameStreamNet ^ Spp2Pgs::CreateFrameStream(SubPicProviderNet ^ spp, IFrameStreamAdvisor ^ advisor)
 	{
 		AssertNotDisposed();
@@ -192,20 +214,23 @@ namespace Spp2PgsNet
 
 		if (apAdvisor.get() != nullptr)
 		{
-			apSppStream.reset(new BgraSubPicStream(ifpSpp, apAdvisor.release()));
+			apSppStream.reset(new BgraSubPicStream(ifpSpp, apAdvisor.get()));
 		}
 		else
 		{
-			throw gcnew OutOfMemoryException("CreateClrAdvisor@CreateFrameStream Failed!");
+			throw gcnew OutOfMemoryException("CreateClrAdvisor@CreateFrameStream(Spp) Failed!");
 		}
 
 		if (apSppStream.get() != nullptr)
 		{
-			return gcnew FrameStreamNet(apSppStream.release(), advisor);
+			auto const &r = gcnew FrameStreamNet(apSppStream.get(), apAdvisor.get());
+			apSppStream.release();
+			apAdvisor.release();
+			return r;
 		}
 		else
 		{
-			throw gcnew OutOfMemoryException("CreateFrameStream Failed!");
+			throw gcnew OutOfMemoryException("CreateFrameStream(Spp) Failed!");
 		}
 	}
 
@@ -261,7 +286,9 @@ namespace Spp2PgsNet
 
 		if (apAdvisor.get() != nullptr)
 		{
-			return gcnew SppAdvisorNet(apAdvisor.release());
+			auto const& r = gcnew SppAdvisorNet(apAdvisor.get());
+			apAdvisor.release();
+			return r;
 		}
 		else
 		{

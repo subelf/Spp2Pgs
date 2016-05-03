@@ -74,7 +74,7 @@
     <ClInclude Include="ClrReporter.h" />
     <ClInclude Include="ClrSettings.h" />
     <ClInclude Include="ClrStreamEx.h" />
-    <ClInclude Include="Global.h" />
+    <ClInclude Include="Spp2PgsNetGlobal.h" />
     <ClInclude Include="IS2PLogger.h" />
     <ClInclude Include="IS2PSettings.h" />
     <ClInclude Include="IFrameStreamAdvisor.h" />

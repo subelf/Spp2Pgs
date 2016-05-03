@@ -46,8 +46,8 @@ namespace Spp2PgsNet
 
 		PgsEncoderNet^ CreatePgsEncoder(Stream ^output, BluraySharp::Common::BdViFormat format, BluraySharp::Common::BdViFrameRate rate, int syncFrameOffset);
 		
-		//FrameStreamNet^ CreateFrameStream(FileInfo ^avsFile, IFrameStreamAdvisor ^advisor);
-		//FrameStreamNet^ CreateFrameStream(Stream ^bgraStream, IFrameStreamAdvisor ^advisor);
+		FrameStreamNet^ CreateFrameStream(FileInfo ^avsFile, IFrameStreamAdvisor ^advisor);
+		FrameStreamNet^ CreateFrameStream(Stream ^bgraStream, IFrameStreamAdvisor ^advisor);
 		FrameStreamNet^ CreateFrameStream(SubPicProviderNet ^spp, IFrameStreamAdvisor ^advisor);
 
 		SubPicProviderContextNet^ CreateSubPicProviderContext();

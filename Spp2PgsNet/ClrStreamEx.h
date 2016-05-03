@@ -22,7 +22,6 @@
 
 #include <S2PExceptions.h>
 
-#include "Global.h"
 #include "StreamEx.h"
 
 

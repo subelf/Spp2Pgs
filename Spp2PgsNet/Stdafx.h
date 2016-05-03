@@ -25,4 +25,4 @@
 #include <strmif.h>
 #include <VSSppfApi.h>
 
-#include "Global.h"
+#include "Spp2PgsNetGlobal.h"

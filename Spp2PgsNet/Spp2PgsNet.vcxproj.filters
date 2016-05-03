@@ -52,9 +52,6 @@
     <ClInclude Include="ClrStreamEx.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="Global.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="IS2PLogger.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -89,6 +86,9 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="SubPicProviderContextNet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Spp2PgsNetGlobal.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
