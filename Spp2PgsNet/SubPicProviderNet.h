@@ -40,11 +40,7 @@ namespace Spp2PgsNet
 		{
 			this->!SubPicProviderNet();
 		
-			if (this->sppCtx != nullptr)
-			{
-				this->sppCtx->~SubPicProviderContextNet();
-				this->sppCtx = nullptr;
-			}
+			this->sppCtx = nullptr;
 
 			this->isDisposed = true;
 		}

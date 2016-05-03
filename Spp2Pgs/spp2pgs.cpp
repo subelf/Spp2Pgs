@@ -265,9 +265,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	CfileStreamEx ostream = CfileStreamEx(ofile, false, true, false, nullptr);
 	CfileStreamEx istream = CfileStreamEx(stdin, true, false, false, nullptr);
 
-	SimpleAdvisor claAdvisor{ format, rate, begin, end };
-
-
 	int tRet = 0;
 	try
 	{
@@ -292,16 +289,17 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		if (*input == _T('-') && input[1] == _T('\0'))
 		{
-			avstream.reset(new BgraRawStream(&istream, &claAdvisor));
+			sppAdvisor.reset(new SimpleAdvisor{ format, rate, begin, end });
+			avstream.reset(new BgraRawStream(&istream, sppAdvisor.get()));
 		}
 		else
 		{
-			//int const& strLen = _tcslen(input);
 			auto const& szExt = _tcsrchr(input, _T('.'));
 			auto const& isAvs = _tcsicmp(szExt, _T(".avs"));
 			if (isAvs == 0)
 			{
-				avstream.reset(new BgraAvsStream(input, &claAdvisor));
+				sppAdvisor.reset(new SimpleAdvisor{ format, rate, begin, end });
+				avstream.reset(new BgraAvsStream(input, sppAdvisor.get()));
 			}
 			else
 			{

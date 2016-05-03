@@ -251,7 +251,7 @@ namespace Spp2PgsNet
 		}
 	}
 
-	SubPicProviderNet ^ Spp2Pgs::CreateSubPicProvider(SubPicProviderContextNet ^ context, FileInfo ^subtitleFile)
+	SubPicProviderNet ^ Spp2Pgs::CreateSubPicProvider(SubPicProviderContextNet ^context, FileInfo ^subtitleFile)
 	{
 		AssertNotDisposed();
 
