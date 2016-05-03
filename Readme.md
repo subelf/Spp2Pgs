@@ -10,13 +10,13 @@ It's based on a forked version of xy-VSFilter, rendering and providing subtitles
 Here is a breif description for all the four parts.
 
 ## Spp2Pgs*.exe
-An executable converts subtitles to .sup file.
-Usage:
+An executable converts subtitles to .sup file.  
+Usage:  
 `Spp2Pgs -i "X:\Saya1011con.ass" -s 1080 -r 23 "X:\Saya1011con.sup"`
 Type Spp2Pgs -h for more help.
 
 ## libspp2pgs & Spp2PgsNet*.dll
-The core and its CLR library wrapper for .NET framework applications.
+The core and its CLR library wrapper for .NET framework applications.  
 Three classes play the main role:  
 * PgsEncoder, encoding and writing a pgs file.
 * FrameStream, reading subtitles and rendering subtitles into image.

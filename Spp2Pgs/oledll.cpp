@@ -5,8 +5,8 @@
 * CoCreateInstance from a dll file. This file is free and open sourced.
 *----------------------------------------------------------------------------*/
 
+#include "stdafx.h"
 
-#include <Windows.h>
 #include <mmdeviceapi.h>
 
 #include "oledll.h"

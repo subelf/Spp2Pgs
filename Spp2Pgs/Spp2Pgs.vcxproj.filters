@@ -11,6 +11,7 @@
     <ClCompile Include="getopt.c" />
     <ClCompile Include="oledll.cpp" />
     <ClCompile Include="spp2pgs.cpp" />
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="S2PClaSettings.h" />
@@ -18,6 +19,7 @@
     <ClInclude Include="getopt.h" />
     <ClInclude Include="res\resource.h" />
     <ClInclude Include="oledll.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\Spp2Pgs.rc">

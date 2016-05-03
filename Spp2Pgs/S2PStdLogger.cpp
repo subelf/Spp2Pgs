@@ -16,9 +16,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *----------------------------------------------------------------------------*/
 
+#include "stdafx.h"
+
 #include "S2PStdLogger.h"
 
-#include <tchar.h>
 
 void S2PStdLogger::Vlog(int level, const TCHAR * fmt, va_list valist) const throw()
 {

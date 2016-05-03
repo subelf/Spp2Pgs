@@ -20,6 +20,14 @@
 
 #pragma warning( disable : 4290 )
 
+#ifdef _WIN64
+#define _WIN32_WINNT 0x0600
+#else
+#define _WIN32_WINNT 0x0502
+#endif
+
+#include <WinSDKVer.h>
+
 #include <afx.h>
 #include <combaseapi.h>
 #include <strmif.h>

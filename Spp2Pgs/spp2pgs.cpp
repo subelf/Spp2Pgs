@@ -16,14 +16,9 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *----------------------------------------------------------------------------*/
 
-#pragma warning( disable : 4290 )
+#include "stdafx.h"
 
-#include <memory>
-
-#include <afx.h>
 #include <strmif.h>
-#include <tchar.h>
-
 #include <VSSppfApi.h>
 #include <S2PEncoder.h>
 

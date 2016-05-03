@@ -16,42 +16,4 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *----------------------------------------------------------------------------*/
 
-#pragma once
-
-#include <stdarg.h>
-#include <tchar.h>
-#include <Windows.h>
-
-namespace spp2pgs
-{
-
-	class S2PLogger
-	{
-	protected:
-		S2PLogger() {};
-
-	public:
-		virtual ~S2PLogger() {};
-		void Log(int level, const TCHAR *fmt, ...) const throw()
-		{
-			va_list argp;
-			va_start(argp, fmt);
-			this->Vlog(level, fmt, argp);
-			va_end(argp);
-		}
-		virtual void Vlog(int level, const TCHAR *fmt, va_list valist) const throw() = 0;
-
-	public:
-		static int const error = 0, warning = 64, info = 128, all = INT_MAX;
-		static int const high = 0, normal = 16, low = 32, verbose = 48;
-	};
-
-
-	class S2PNullLogger final
-		: public S2PLogger
-	{
-	public:
-		void Vlog(int level, const TCHAR* fmt, va_list valist) const {}
-	};
-
-}
+#include "stdafx.h"

@@ -22,7 +22,12 @@
     <ClCompile Include="oledll.cpp" />
     <ClCompile Include="S2PStdLogger.cpp" />
     <ClCompile Include="spp2pgs.cpp" />
-    <ClCompile Include="getopt.c" />
+    <ClCompile Include="getopt.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="oledll.h" />
@@ -30,6 +35,7 @@
     <ClInclude Include="S2PStdLogger.h" />
     <ClInclude Include="getopt.h" />
     <ClInclude Include="res\resource.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\Spp2Pgs.rc" />
@@ -37,9 +43,6 @@
   <ItemGroup>
     <ProjectReference Include="..\libspp2pgs\libspp2pgs.vcxproj">
       <Project>{821d4850-3aa7-4d9c-50eb-5e7cb22a3a3e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\misc\xy-VSFilter\xy-VSppf\xy-VSppf.vcxproj">
-      <Project>{acfcdf3e-2b0f-43c8-ab12-1e1a68ea3d99}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -67,7 +70,7 @@
   </ImportGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>..\libspp2pgs\inc;..\misc\xy-VSFilter\src\src\sppfactory</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>STATIC_GETOPT;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>

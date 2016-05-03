@@ -30,8 +30,8 @@ namespace spp2pgs
 		S2PControllerBase(context), videoSize(videoSize), frameRate(frameRate), output(output),
 		isZeroAnchorNeeded(context->Settings()->IsForcingEpochZeroStart()), ptsZeroAnchor(syncPTS),
 		clockPerFrame(spp2pgs::ClockPerSecond / spp2pgs::GetFramePerSecond(frameRate)),
-		compositionCount(0), isEpochStart(true), minInterval(MinPtsIntervalTable[(int)frameRate]), lastDecEnd(MININT64),
-		lastCmpn({ MININT64, MININT64, nullptr, nullptr, 0, nullptr })
+		compositionCount(0), isEpochStart(true), minInterval(MinPtsIntervalTable[(int)frameRate]), lastDecEnd(LLONG_MIN),
+		lastCmpn({ LLONG_MIN, LLONG_MIN, nullptr, nullptr, 0, nullptr })
 	{
 		buffer[0] = 'P';
 		buffer[1] = 'G';
@@ -51,7 +51,7 @@ namespace spp2pgs
 		this->wndDesc = wndDesc;
 		isEpochStart = true;
 		lastCmpn.cmpnObjsCount = 0;
-		lastDecEnd = MININT64;
+		lastDecEnd = LLONG_MIN;
 	}
 
 	void PgsWriter::WriteComposition(CompositionBuffer const * composition)
@@ -199,7 +199,7 @@ namespace spp2pgs
 		WriteEND();
 
 		lastCmpn.cmpnObjsCount = 0;
-		lastDecEnd = MININT64;
+		lastDecEnd = LLONG_MIN;
 	}
 
 	void PgsWriter::IgnoreComposition(__int64 pts, __int64 ets)

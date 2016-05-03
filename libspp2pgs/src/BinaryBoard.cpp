@@ -64,7 +64,7 @@ namespace spp2pgs
 	void BinaryBoard::Clear()
 	{
 		memset(buffer, 0, bufferSize);
-		cropCache = Rect{ MAXINT, MAXINT, MININT, MININT };
+		cropCache = Rect{ INT_MAX, INT_MAX, INT_MIN, INT_MIN };
 	}
 
 	void BinaryBoard::Fill(BgraFrame *src)
@@ -78,7 +78,7 @@ namespace spp2pgs
 			return;
 		}
 
-		Border b = { MAXINT, MAXINT, MININT, MININT };
+		Border b = { INT_MAX, INT_MAX, INT_MIN, INT_MIN };
 
 		char const Mask0 = (char)0x01, Mask8 = (char)0x80;
 		for (int y = 0; y < boardSize.h; ++y)
@@ -115,7 +115,7 @@ namespace spp2pgs
 		Rect tRet = { 0, 0, 0, 0 };
 		Rect tBbWnd = (window * cropCache) / blockSize;
 
-		Border b{ MAXINT, MAXINT, MININT, MININT };
+		Border b{ INT_MAX, INT_MAX, INT_MIN, INT_MIN };
 		Border wndBorder = tBbWnd.ToOuterBorder();
 		
 		for (int y = wndBorder.top; y < wndBorder.bottom; ++y)
