@@ -20,12 +20,6 @@
 
 #pragma warning( disable : 4290 )
 
-#ifdef _WIN64
-#define _WIN32_WINNT 0x0600
-#else
-#define _WIN32_WINNT 0x0502
-#endif
-
 #include <winsdkver.h>
 
 #include <afx.h>
