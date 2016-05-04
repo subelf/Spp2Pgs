@@ -54,14 +54,19 @@ void SppAdvisor::ParseSubPicProvider()
 	auto cur = from >= 0 ? from : 0;
 	auto p = spp->GetStartPosition(GetRefTimeOfFrame(cur, frameRate), fps);
 
+	//skip rendering & checking segments when frame counts below this value
+	auto const& minParsingSize = 3;	
+	auto const& minParsingRtSize = GetRefTimeOfFrame(minParsingSize, frameRate) + 1;
+
 	while (p && (to < 0 || cur < to))
 	{
 		REFERENCE_TIME const &b = spp->GetStart(p, fps);	//begin
 		REFERENCE_TIME const &e = spp->GetStop(p, fps);	//end
 
 		auto const& pN = spp->GetNext(p);
-		spp->RenderEx(spd, b, fps, extent);
-		bool const &a = spp->IsAnimated(p);
+		auto const& fSingleFrame = (e - b) <= minParsingRtSize;
+		if(!fSingleFrame) spp->RenderEx(spd, b, fps, extent);
+		bool const &a = fSingleFrame ? true : spp->IsAnimated(p);
 
 		this->sq.push_back(
 			StsDesc{
