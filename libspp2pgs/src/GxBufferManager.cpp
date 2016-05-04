@@ -81,7 +81,7 @@ namespace spp2pgs
 
 	GxBufferManager::GxBufferManager(S2PContext const *context) :
 		S2PControllerBase(context), 
-		encodeBufferAllocPointer(0), maxDataSize(Size{MAXINT, MAXINT})
+		encodeBufferAllocPointer(0), maxDataSize(Size{ INT_MAX, INT_MAX })
 	{
 		for (int i = 0; i < CompositionCountMax; ++i)
 		{
@@ -154,7 +154,7 @@ namespace spp2pgs
 		tMin = (min < tMin) ? tMin : min;
 		Size half = tMin / 2;
 
-		Size minSize{ MAXINT, MAXINT };
+		Size minSize{ INT_MAX, INT_MAX };
 		GxBuffer<ObjectBuffer> * pObjBuf = nullptr;
 		bool isSizeExist = false;	//is there a buffer just a little smaller than this image?
 

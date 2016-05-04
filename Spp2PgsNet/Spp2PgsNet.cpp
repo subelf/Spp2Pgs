@@ -41,7 +41,7 @@
 #ifdef _WIN64
 #define SPPF_DLL_NAME_PRE L"xy-VSsppf64"
 #else
-#define SPPF_DLL_NAME_PRE L"xy-VSsppf32"
+#define SPPF_DLL_NAME_PRE L"xy-VSsppf"
 #endif
 #define SPPF_DLL_NAME (SPPF_DLL_NAME_PRE SPPF_DLL_NAME_EXT)
 

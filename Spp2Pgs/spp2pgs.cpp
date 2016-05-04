@@ -16,14 +16,9 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *----------------------------------------------------------------------------*/
 
-#pragma warning( disable : 4290 )
+#include "stdafx.h"
 
-#include <memory>
-
-#include <afx.h>
 #include <strmif.h>
-#include <tchar.h>
-
 #include <VSSppfApi.h>
 #include <S2PEncoder.h>
 
@@ -283,7 +278,7 @@ int _tmain(int argc, _TCHAR* argv[])
 #ifdef _WIN64
 #define SPPF_DLL_NAME_PRE L"xy-VSsppf64"
 #else
-#define SPPF_DLL_NAME_PRE L"xy-VSsppf32"
+#define SPPF_DLL_NAME_PRE L"xy-VSsppf"
 #endif
 #define SPPF_DLL_NAME (SPPF_DLL_NAME_PRE SPPF_DLL_NAME_EXT)
 

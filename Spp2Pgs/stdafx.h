@@ -26,10 +26,8 @@
 #define _WIN32_WINNT 0x0502
 #endif
 
-#include <WinSDKVer.h>
+#include <winsdkver.h>
 
 #include <afx.h>
-#include <strmif.h>
-#include <VSSppfApi.h>
-
-#include "Spp2PgsNetGlobal.h"
+#include <tchar.h>
+#include <memory>

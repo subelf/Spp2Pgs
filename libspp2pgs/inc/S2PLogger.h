@@ -42,7 +42,7 @@ namespace spp2pgs
 		virtual void Vlog(int level, const TCHAR *fmt, va_list valist) const throw() = 0;
 
 	public:
-		static int const error = 0, warning = 64, info = 128, all = MAXINT;
+		static int const error = 0, warning = 64, info = 128, all = INT_MAX;
 		static int const high = 0, normal = 16, low = 32, verbose = 48;
 	};
 

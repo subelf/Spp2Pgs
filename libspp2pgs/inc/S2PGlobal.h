@@ -163,7 +163,7 @@ namespace spp2pgs
 	inline SubPicAlfaDesc DescribeTargetBuffer(BgraFrame const *frame)
 	{
 		SubPicAlfaDesc spad;
-		spad.bits = frame->GetDataBuffer();
+		spad.bits = reinterpret_cast<BYTE*>(frame->GetDataBuffer());
 		spad.w = frame->GetWidth();
 		spad.h = frame->GetHeight();
 		spad.pitch = frame->GetStride();

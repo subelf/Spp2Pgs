@@ -16,20 +16,4 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *----------------------------------------------------------------------------*/
 
-#pragma once
-
-#pragma warning( disable : 4290 )
-
-#ifdef _WIN64
-#define _WIN32_WINNT 0x0600
-#else
-#define _WIN32_WINNT 0x0502
-#endif
-
-#include <WinSDKVer.h>
-
-#include <afx.h>
-#include <strmif.h>
-#include <VSSppfApi.h>
-
-#include "Spp2PgsNetGlobal.h"
+#include "stdafx.h"
