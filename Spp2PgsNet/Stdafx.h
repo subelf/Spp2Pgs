@@ -29,7 +29,6 @@
 #include <WinSDKVer.h>
 
 #include <afx.h>
-#include <combaseapi.h>
 #include <strmif.h>
 #include <VSSppfApi.h>
 

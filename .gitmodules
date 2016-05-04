@@ -2,4 +2,4 @@
 [submodule "misc/xy-VSFilter/src"]
 	path = misc/xy-VSFilter/src
 	url = https://github.com/subelf/xy-VSFilter.git
-	branch = SPPFactory
+	branch = SPPFactoryRc

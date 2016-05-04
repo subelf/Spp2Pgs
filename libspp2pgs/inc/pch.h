@@ -31,7 +31,6 @@
 #include <strmif.h>
 #include <tchar.h>
 #include <assert.h>
-#include <debugapi.h>
 
 #include "S2PGlobal.h"
 #include "S2PExceptions.h"

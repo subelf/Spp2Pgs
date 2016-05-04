@@ -60,7 +60,7 @@ void SppAdvisor::ParseSubPicProvider()
 		REFERENCE_TIME const &e = spp->GetStop(p, fps);	//end
 
 		auto const& pN = spp->GetNext(p);
-		spp->RenderEx(spd, b, fps, extent);
+		//spp->RenderEx(spd, b, fps, extent);
 		bool const &a = spp->IsAnimated(p);
 
 		this->sq.push_back(
