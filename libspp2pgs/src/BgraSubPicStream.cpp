@@ -81,7 +81,7 @@ namespace spp2pgs
 			if (SUCCEEDED(hr))
 			{
 				bgraImage->AnnounceModified();
-				bgraImage->AnnounceNormalized();
+				bgraImage->AnnounceNonNormalized();
 				if (isAnnouncedBlank == 0)
 				{
 					bgraImage->AnnounceDirty();

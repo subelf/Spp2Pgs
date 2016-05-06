@@ -120,7 +120,7 @@ namespace spp2pgs
 			return;
 
 		ExplicitEraseTransparents();
-		InvalidateRrawnRects();
+		//InvalidateRrawnRects();
 		this->isNormalized = true;
 	}
 }

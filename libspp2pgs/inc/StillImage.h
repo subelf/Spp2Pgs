@@ -66,7 +66,7 @@ namespace spp2pgs
 		void Erase(Rect const& rect) { this->ExplicitErase(rect); };
 
 		void RegisterRrawnRects(Rect const& rect) { 
-			AnnounceDirty();
+			AnnounceModified();
 			this->drawnRects.push_back(rect);
 		}
 

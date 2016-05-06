@@ -99,13 +99,15 @@ int SppAdvisor::IsBlank(int index) const
 
 	if (seg == sq.end() || (*seg).b > iIndex) return 1;	//beyond the end or outside of segments
 
-	if ((*seg).b <= iIndex && !(*seg).a) return 0;	//inside of a static segment
+	//if ((*seg).b <= iIndex && !(*seg).a) return 0;	//inside of a static segment //may be alpha==&HFF&
 
 	return -1;
 }
 
 int SppAdvisor::IsIdentical(int index1, int index2) const
 {
+	if (index1 == index2) return 1;
+
 	int const &iIndex1 = index1 - this->offset;
 	int const &iIndex2 = index2 - this->offset;
 
@@ -127,15 +129,15 @@ int SppAdvisor::IsIdentical(int index1, int index2) const
 	{
 		auto const& seg1 = std::lower_bound(sq.begin(), sq.end(), iIndex1, cmp);
 		if (seg1 == sq.end() || (*seg1).b > iIndex1) blank1 = 1;	//beyond the end or outside of segments
-		if ((*seg1).b <= iIndex1 && !(*seg1).a) blank1 = 0;
+		if ((*seg1).b <= iIndex1) blank1 = -2;
 
 		auto const& seg2 = std::lower_bound(sq.begin(), sq.end(), iIndex2, cmp);
 		if (seg2 == sq.end() || (*seg2).b > iIndex2) blank2 = 1;
-		if ((*seg2).b <= iIndex2 && !(*seg2).a) blank2 = 0;
+		if ((*seg2).b <= iIndex2) blank2 = -2;
 
 		if (blank1 == 1 && blank2 == 1) return 1;	//[1, 1], both are blank img
-		if (blank1 + blank2 == 1) return 0;	//[0, 1] or [1, 0], different
-		if (blank1 == 0 && blank2 == 0 && seg1 == seg2)	//inside the same static segment
+		//if (blank1 + blank2 == 1) return 0;	//[0, 1] or [1, 0], different
+		if (seg1 == seg2 && blank1 + blank2 == -4 && !(*seg1).a)	//inside the same static segment
 		{
 			return 1;
 		}

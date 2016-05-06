@@ -36,7 +36,7 @@ namespace spp2pgs
 
 		int ReadNextOf(FrameStream * stream);
 
-		inline int GetFrameIndex() { return this->index; }
+		inline int GetFrameIndex() const { return this->index; }
 
 		bool IsIdenticalTo(BgraFrame *frame);
 		bool IsBlank();
