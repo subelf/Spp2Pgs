@@ -52,7 +52,7 @@ namespace spp2pgs
 		static int const MinPtsIntervalTable[];
 
 		int const minInterval;
-		double const clockPerFrame;
+		double const clocksPerFrame;
 
 		Size videoSize;
 		BdViFrameRate frameRate;

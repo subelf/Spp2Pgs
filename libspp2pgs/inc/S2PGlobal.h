@@ -101,7 +101,7 @@ namespace spp2pgs
 		inline double GetFrameRate() const { return framesPerUnit /(double) secondsPerUnit; }
 	};
 
-	int const ClockPerSecond = 90000uL;
+	int const ClocksPerSecond = 90000uL;
 	FrameRateInfo const FrameRateTable[] = {
 		{ 0, 1000 }, { 24000, 1001 }, { 24000, 1000 },
 		{ 25000, 1000 }, { 30000, 1001 }, { 30000, 1000 },
@@ -132,7 +132,7 @@ namespace spp2pgs
 		auto const& frameRateInfo = FrameRateTable[(int)rate];
 		__int64 const& frames = index;
 		int const& kFramesPerUnit = frameRateInfo.framesPerUnit / 1000;
-		int const& kClocksPerSecond = ClockPerSecond / 1000;
+		int const& kClocksPerSecond = ClocksPerSecond / 1000;
 		int const& secondsPerUnit = frameRateInfo.secondsPerUnit;
 		
 		return frames * kClocksPerSecond * secondsPerUnit / kFramesPerUnit;

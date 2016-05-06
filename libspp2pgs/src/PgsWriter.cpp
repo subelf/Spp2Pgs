@@ -29,7 +29,7 @@ namespace spp2pgs
 	PgsWriter::PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output, __int64 syncPTS) :
 		S2PControllerBase(context), videoSize(videoSize), frameRate(frameRate), output(output),
 		isZeroAnchorNeeded(context->Settings()->IsForcingEpochZeroStart()), ptsZeroAnchor(syncPTS),
-		clockPerFrame(spp2pgs::ClockPerSecond / spp2pgs::GetFramePerSecond(frameRate)),
+		clocksPerFrame(spp2pgs::ClocksPerSecond / spp2pgs::GetFramePerSecond(frameRate)),
 		compositionCount(0), isEpochStart(true), minInterval(MinPtsIntervalTable[(int)frameRate]), lastDecEnd(LLONG_MIN),
 		lastCmpn({ LLONG_MIN, LLONG_MIN, nullptr, nullptr, 0, nullptr })
 	{
@@ -81,6 +81,8 @@ namespace spp2pgs
 			{
 				pts = ptsZeroAnchor;
 			}
+
+			isZeroAnchorNeeded = false;
 		}
 
 		__int64 dts = pts - decDur;
@@ -101,7 +103,7 @@ namespace spp2pgs
 			}
 		}
 
-		if (!isEpochStart && pts > lastCmpn.ets + clockPerFrame)
+		if (!isEpochStart && pts > lastCmpn.ets + clocksPerFrame)
 		{
 			this->TryInsertEraserBefore(dts);
 		}
@@ -181,9 +183,9 @@ namespace spp2pgs
 
 		if (!this->Settings()->IsForcingTmtCompat())
 		{
-			double const & minIntervalFramed = ceil(eraseDuration / clockPerFrame) * clockPerFrame;
+			double const & minIntervalFramed = ceil(eraseDuration / clocksPerFrame) * clocksPerFrame;
 			double const & lastPosibleEts = max(ets, lastCmpn.pts + minIntervalFramed);	//reserve time for erasing
-			int const &lastPosibleEtsFrame = (int)(round(lastPosibleEts / clockPerFrame));
+			int const &lastPosibleEtsFrame = (int)(round(lastPosibleEts / clocksPerFrame));
 			pts = spp2pgs::GetFrameTimeStamp(lastPosibleEtsFrame, frameRate);	//update ets to a reasonable value
 		}
 
@@ -204,7 +206,7 @@ namespace spp2pgs
 
 	void PgsWriter::IgnoreComposition(__int64 pts, __int64 ets)
 	{
-		if (!isEpochStart && pts > lastCmpn.ets + clockPerFrame)
+		if (!isEpochStart && pts > lastCmpn.ets + clocksPerFrame)
 		{
 			this->TryInsertEraserBefore(pts);
 		}
@@ -218,7 +220,7 @@ namespace spp2pgs
 		{
 			int eraseDuration = wndDesc->EstimateDecodeDuration();
 
-			double const & minIntervalFramed = ceil(eraseDuration / clockPerFrame) * clockPerFrame;
+			double const & minIntervalFramed = ceil(eraseDuration / clocksPerFrame) * clocksPerFrame;
 			double const & lastPosibleEts = max(lastCmpn.ets, lastCmpn.pts + minIntervalFramed);
 
 			if (dts > lastPosibleEts + minIntervalFramed)
@@ -451,8 +453,6 @@ namespace spp2pgs
 		this->EndEpoch();
 
 		this->StartEpoch(tCurWnd);
-
-		this->isZeroAnchorNeeded = false;
 	}
 
 }
