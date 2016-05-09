@@ -51,3 +51,8 @@ using (var tOutput = tS2P.CreatePgsEncoder(tOutputStream, BdViFormat.Vi1080i, Bd
 ## xy-VSSppf*.dll
 xy-VobSub SubPicProvider Factory. This is a COM dll, exposing an ISubPicProviderAlfa interface to Spp2Pgs.  
 It's a necessary part for Spp2Pgs.
+
+
+## Special Thanks
+* This projects starts on basis of [avs2bdnxml](http://www.ps-auxw.de/avs2bdnxml/)
+* xy-VSSppf is a forked version of [xy-VSFilter](https://github.com/Cyberbeing/xy-VSFilter)

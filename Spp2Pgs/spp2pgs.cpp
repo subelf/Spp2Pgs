@@ -109,6 +109,7 @@ void print_usage(S2PLogger const *logger)
 		"USAGE: Spp2Pgs -i \"input.ass\" -s 1080 -r 23 \"output.pgs\"\n"
 		"\t-i <filename>\n"
 		"\t\t Input subtitle file name. Use '-' for a stdin raw input. \n"
+		"\t-f <format>\n"
 		"\t-s <format>\n"
 		"\t\t Frame format:\n"
 		"\t\t 480i   = 1/240/-480\n"
@@ -185,6 +186,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			input = optarg;
 			break;
 		case 's':
+		case 'f':
 			format = GetFormat(_ttoi(optarg));
 			break;
 		case 'r':
