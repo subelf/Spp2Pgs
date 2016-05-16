@@ -46,11 +46,17 @@ namespace spp2pgs
 
 		for (int i = 0; i < cmpnObjsCount; ++i)
 		{
+			if (cmpnObjs[i].objectRef != nullptr //this object already exists, skip decoding
+				&& (cmpnObjs[i].encodedObject == nullptr || cmpnObjs[i].encodedObjectLength == 0))
+			{
+				continue;
+			}
+
 			int tDecDur = cmpnObjs[i].EstimateDecodeDuration();
 			
 			int const &tWndRef = cmpnObjs[i].windowRef;
 
-			tDecDur = (cmpnObjs[i].objectRef == nullptr) 
+			tDecDur = (cmpnObjs[i].objectRef == nullptr)	//Not encoded yet.
 				? min(tDecDur, GetObjectDecodeDuration(windows->windows[tWndRef].Area(), false))	//Estimate
 				: tDecDur;	//Actual
 
