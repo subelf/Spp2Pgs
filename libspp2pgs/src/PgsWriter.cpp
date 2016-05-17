@@ -28,7 +28,7 @@ namespace spp2pgs
 
 	PgsWriter::PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output) :
 		S2PControllerBase(context), videoSize(videoSize), frameRate(frameRate), output(output),
-		isZeroAnchorNeeded(false), ptsZeroAnchor(0),
+		isAnchorNeeded(false), ptsNextAnchor(0),
 		clocksPerFrame(spp2pgs::ClocksPerSecond / spp2pgs::GetFramePerSecond(frameRate)),
 		compositionCount(0), isEpochStart(true), minInterval(MinPtsIntervalTable[(int)frameRate]), lastDecEnd(LLONG_MIN),
 		lastCmpn({ LLONG_MIN, LLONG_MIN, nullptr, nullptr, 0, nullptr })
@@ -77,27 +77,27 @@ namespace spp2pgs
 		int const& decDur = composition->EstimateDecodeDuration(tDuration);
 		int const& ersDur = wndDesc->EstimateDecodeDuration();
 				
-		if (isZeroAnchorNeeded && pts >= ptsZeroAnchor)
+		if (isAnchorNeeded && pts >= ptsNextAnchor)
 		{
 			if (isEpochStart)
 			{
-				if (pts > ptsZeroAnchor + minInterval + max(decDur, minInterval))
+				if (pts > ptsNextAnchor + minInterval + max(decDur, minInterval))
 					//PTS > ETS of zero anchor + max(decDur, minInterval)
 				{
 					auto tCurWnd = this->wndDesc;
 					this->wndDesc = nullptr;	//CloseEpoch
 
-					this->WriteZeroAnchor(ptsZeroAnchor);
+					this->WriteAnchor(ptsNextAnchor);
 
 					this->StartEpoch(tCurWnd);
 				}
 				else
 				{
-					pts = ptsZeroAnchor;
+					pts = ptsNextAnchor;
 				}
 			}
 
-			isZeroAnchorNeeded = false;
+			isAnchorNeeded = false;
 		}
 
 		__int64 dts = pts - decDur;
@@ -186,14 +186,14 @@ namespace spp2pgs
 
 	void PgsWriter::FlushAnchor()
 	{
-		if (isZeroAnchorNeeded)
+		if (isAnchorNeeded)
 		{
 			if (isEpochStart && this->wndDesc == nullptr)	//In idle
 			{
-				this->WriteZeroAnchor(ptsZeroAnchor);
+				this->WriteAnchor(ptsNextAnchor);
 			}
 
-			isZeroAnchorNeeded = false;
+			isAnchorNeeded = false;
 		}
 	}
 
@@ -448,7 +448,7 @@ namespace spp2pgs
 		output->Write(buffer, index, length);
 	}
 
-	void PgsWriter::WriteZeroAnchor(__int64 pts)
+	void PgsWriter::WriteAnchor(__int64 pts)
 	{
 		Rect const &tRect = { 0, 0, 1, 1 };
 

@@ -40,8 +40,8 @@ namespace spp2pgs
 		void EndEpoch();
 
 		void RegistAnchorAt(__int64 pts) {
-			this->isZeroAnchorNeeded = true;
-			this->ptsZeroAnchor = pts;
+			this->isAnchorNeeded = true;
+			this->ptsNextAnchor = pts;
 		}
 		void FlushAnchor();
 
@@ -86,9 +86,9 @@ namespace spp2pgs
 		void WriteODS(CompositionObjectDescriptor const * object);
 		void WriteEND();
 
-		bool isZeroAnchorNeeded = false;
-		__int64 ptsZeroAnchor = 0;
-		void WriteZeroAnchor(__int64 pts);
+		bool isAnchorNeeded = false;
+		__int64 ptsNextAnchor = 0;
+		void WriteAnchor(__int64 pts);
 
 		inline unsigned __int8 FillPackageData(int index, unsigned __int8 length, unsigned __int64 value) {
 			WriteBE(pkgBuf, index, length, value);
