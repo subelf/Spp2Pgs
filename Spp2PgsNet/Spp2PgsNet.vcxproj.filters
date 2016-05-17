@@ -16,12 +16,7 @@
     </ClCompile>
     <ClCompile Include="Spp2PgsNet.cpp" />
     <ClCompile Include="Stdafx.cpp" />
-    <ClCompile Include="PgsEncoderNet.cpp" />
-    <ClCompile Include="FrameStreamNet.cpp" />
     <ClCompile Include="oledll.cpp" />
-    <ClCompile Include="SubPicProviderNet.cpp" />
-    <ClCompile Include="SppAdvisorNet.cpp" />
-    <ClCompile Include="SubPicProviderContextNet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\app.rc">

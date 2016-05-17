@@ -39,9 +39,14 @@ namespace spp2pgs
 		int MaxImageBlockSize() const throw() { return settingsNet->MaxImageBlockSize; }
 		bool IsForcingTmtCompat() const throw() { return settingsNet->IsForcingTmtCompat; }
 		TCHAR const * TempOutputPath() const throw() {
-			auto tThis = const_cast<ClrSettings *>(this);
+			auto const &tPath = settingsNet->TempOutputPath;
+			if (String::IsNullOrWhiteSpace(tPath))
+			{
+				return nullptr;
+			}
 
-			pin_ptr<const TCHAR> tPinPath = PtrToStringChars(settingsNet->TempOutputPath);
+			auto tThis = const_cast<ClrSettings *>(this);
+			pin_ptr<const TCHAR> tPinPath = PtrToStringChars(tPath);
 			tThis->pTempOutputPath = tPinPath;
 
 			return pTempOutputPath.c_str();

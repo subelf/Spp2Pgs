@@ -86,17 +86,12 @@
     <ClInclude Include="SubPicProviderNet.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FrameStreamNet.cpp" />
     <ClCompile Include="oledll.cpp" />
-    <ClCompile Include="PgsEncoderNet.cpp" />
     <ClCompile Include="res\AssemblyInfo.cpp" />
     <ClCompile Include="Spp2PgsNet.cpp" />
-    <ClCompile Include="SppAdvisorNet.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SubPicProviderContextNet.cpp" />
-    <ClCompile Include="SubPicProviderNet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\app.rc" />

@@ -27,10 +27,6 @@
 #include <VSSppfApi.h>
 
 #include <string>
-#ifdef UNICODE
-typedef std::wstring _tstring;
-#else
-typedef std::string _tstring;
-#endif // UNICODE
 
 #include "Spp2PgsNetGlobal.h"
+

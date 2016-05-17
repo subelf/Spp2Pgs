@@ -53,4 +53,11 @@ namespace Spp2PgsNet
 
 		return argument;
 	}
+
+#ifdef UNICODE
+	typedef std::wstring _tstring;
+#else
+	typedef std::string _tstring;
+#endif // UNICODE
+
 }

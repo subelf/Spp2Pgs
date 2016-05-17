@@ -17,3 +17,14 @@
 *----------------------------------------------------------------------------*/
 
 #include "stdafx.h"
+
+#pragma region Light-weight NetFx Classes
+
+#include "FrameStreamNet.h"
+#include "PgsEncoderNet.h"
+#include "SppAdvisorNet.h"
+#include "SubPicProviderContextNet.h"
+#include "SubPicProviderNet.h"
+#include "Spp2PgsNet.h"
+
+#pragma endregion
