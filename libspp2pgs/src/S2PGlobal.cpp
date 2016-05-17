@@ -18,17 +18,21 @@
 
 #include "pch.h"
 #include "S2PGlobal.h"
+
+#include <Shlwapi.h>
 #include "Win32StreamEx.h"
 
 namespace spp2pgs
 {
 	using namespace std;
 
-	unique_ptr<StreamEx> OpenTempFile(unsigned long long requireFreeSpace)
+	std::unique_ptr<StreamEx> OpenTempFile(TCHAR const *path, unsigned __int64 requireFreeSpace)
 	{
-		TCHAR tempPath[MAX_PATH];
+		TCHAR tempPathBuffer[MAX_PATH];
 		TCHAR tempFname[MAX_PATH];
-		DWORD result = ::GetTempPath(MAX_PATH, tempPath);
+		DWORD result = ::GetTempPath(MAX_PATH, tempPathBuffer);
+
+		auto const &tempPath = ::PathIsDirectory(path) ? path : tempPathBuffer;
 
 		if (!result)
 		{

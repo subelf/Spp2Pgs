@@ -27,6 +27,8 @@
 
 namespace spp2pgs
 {
+	using namespace std;
+
 	class CacheReceipt final
 	{
 	public:
@@ -52,7 +54,7 @@ namespace spp2pgs
 		inline void Reset() { tempFile->SetPosition(0); }
 
 	private:
-		std::unique_ptr<StreamEx> tempFile;
+		unique_ptr<StreamEx> tempFile;
 	};
 
 

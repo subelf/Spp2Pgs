@@ -166,6 +166,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	BdViFrameRate rate = BdViFrameRate::Unknown;
 	int begin = -1;
 	int end = -1;
+	bool isZeroAnchor = true;
 
 	static TCHAR const * optlist = _T("hi:s:r:n:b:e:z::x::v::");
 	opterr = 0;
@@ -201,7 +202,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			{
 				tFlag = (_ttoi(optarg) != 0);
 			}
-			tSettings.SetForcingEpochZeroStart(tFlag);
+			isZeroAnchor = tFlag;
 			break;
 		case 'x':
 			tFlag = true;
@@ -332,7 +333,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		PgsEncoder tPgsEnc{ &tS2P, &ostream, avstream->GetFrameSize(),
 			avstream->GetFrameRate() };
 
-		if (tSettings.IsForcingEpochZeroStart())
+		if (isZeroAnchor)
 		{
 			tPgsEnc.RegistAnchor(avstream->GetAdvisor()->GetFrameIndexOffset());
 		}

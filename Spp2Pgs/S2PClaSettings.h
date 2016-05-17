@@ -32,17 +32,15 @@ public:
 public:
 	unsigned long long MaxCachingSize() const throw() { return maxCachingSize; }
 	int MaxImageBlockSize() const throw() { return maxImageBlockSize; }
-	bool IsForcingEpochZeroStart() const throw() { return isForcingEpochZeroStart; }
 	bool IsForcingTmtCompat() const throw() { return isForcingTmtCompat; }
+	TCHAR const * TempOutputPath() const throw() { return S2PSettings::TempOutputPath(); }
 
 	void SetMaxCachingSize(unsigned long long maxCachingSize) { this->maxCachingSize = maxCachingSize; }
-	void SetForcingEpochZeroStart(bool flag) { this->isForcingEpochZeroStart = flag; }
 	void SetForcingTmtCompat(bool flag) { this->isForcingTmtCompat = flag; }
 
 private:
 	unsigned long long maxCachingSize = unsigned long long(1) << 32;
 	int maxImageBlockSize = 0;
-	bool isForcingEpochZeroStart = true;
 	bool isForcingTmtCompat = false;
 };
 

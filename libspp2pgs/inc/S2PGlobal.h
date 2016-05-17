@@ -171,7 +171,7 @@ namespace spp2pgs
 		return spad;
 	}
 
-	std::unique_ptr<StreamEx> OpenTempFile(unsigned __int64 requireFreeSpace);
+	std::unique_ptr<StreamEx> OpenTempFile(TCHAR const *path, unsigned __int64 requireFreeSpace);
 
 	void WriteBE(unsigned __int8 * buffer, int index, unsigned __int8 length, unsigned __int64 value);
 	unsigned __int64 ReadBE(unsigned __int8 const * buffer, int index, unsigned __int8 length);

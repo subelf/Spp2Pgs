@@ -25,7 +25,6 @@
 
 namespace spp2pgs
 {
-
 	using namespace Spp2PgsNet;
 
 	class ClrSettings final :
@@ -38,11 +37,20 @@ namespace spp2pgs
 	public:
 		unsigned long long MaxCachingSize() const throw() { return settingsNet->MaxCachingSize; }
 		int MaxImageBlockSize() const throw() { return settingsNet->MaxImageBlockSize; }
-		bool IsForcingEpochZeroStart() const throw() { return settingsNet->IsForcingEpochZeroStart; }
 		bool IsForcingTmtCompat() const throw() { return settingsNet->IsForcingTmtCompat; }
+		TCHAR const * TempOutputPath() const throw() {
+			auto tThis = const_cast<ClrSettings *>(this);
+
+			pin_ptr<const TCHAR> tPinPath = PtrToStringChars(settingsNet->TempOutputPath);
+			tThis->pTempOutputPath = tPinPath;
+
+			return pTempOutputPath.c_str();
+		}
 
 	private:
 		gcroot<IS2PSettings ^> settingsNet;
+		_tstring pTempOutputPath;
+
 	};
 
 }

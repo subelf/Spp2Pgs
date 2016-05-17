@@ -21,16 +21,24 @@
 
 namespace spp2pgs
 {
+	static inline unique_ptr<StreamEx> OpenTempFileWithSettings(S2PSettings const *settings)
+	{
+		return spp2pgs::OpenTempFile(
+			settings->TempOutputPath(),
+			settings->MaxCachingSize()
+		);
+	}
 
 	EpochCache::EpochCache(S2PContext const * context)
-		:S2PControllerBase(context), tempFile(OpenTempFile(context->Settings()->MaxCachingSize()))
+		:S2PControllerBase(context),
+		tempFile(OpenTempFileWithSettings(context->Settings()))
 	{
 	}
 
 	EpochCache::~EpochCache()
 	{
 	}
-
+	
 	CacheReceipt EpochCache::Write(Rect dataCrop, IndexedImage *image)
 	{		
 		//Rect dataCrop = thumb->GetDataCrop();

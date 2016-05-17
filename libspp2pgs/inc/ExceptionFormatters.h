@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <Windows.h>
+#include <WinDef.h>
 #include <tchar.h>
 
 namespace spp2pgs

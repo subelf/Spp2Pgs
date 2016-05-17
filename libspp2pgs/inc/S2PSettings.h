@@ -30,34 +30,49 @@ namespace spp2pgs
 	public:
 		virtual ~S2PSettings() {};
 
-		virtual int MaxImageBlockSize() const throw() = 0;
-		virtual unsigned long long MaxCachingSize() const throw() = 0;
-		virtual bool IsForcingEpochZeroStart() const throw() = 0;
-		virtual bool IsForcingTmtCompat() const throw() = 0;
-	};
+		virtual int MaxImageBlockSize() const throw() = 0
+		{
+			return 0;
+		}
 
-	class S2PDefaultSettings
-		: public S2PSettings
-	{
-	public:
-		unsigned long long MaxCachingSize() const
+		virtual unsigned long long MaxCachingSize() const throw() = 0
 		{
 			return unsigned long long(1) << 32;
 		}
-		
-		bool IsForcingEpochZeroStart() const
-		{
-			return true;
-		}
 
-		bool IsForcingTmtCompat() const
+		virtual bool IsForcingTmtCompat() const throw() = 0
 		{
 			return false;
 		}
 
-		int MaxImageBlockSize() const
+		virtual TCHAR const * TempOutputPath() const throw() = 0
 		{
-			return 0;
+			return nullptr;
+		}
+	};
+
+	class S2PDefaultSettings final
+		: public S2PSettings
+	{
+	public:
+		virtual int MaxImageBlockSize() const throw()
+		{
+			return S2PSettings::MaxImageBlockSize();
+		}
+
+		virtual unsigned long long MaxCachingSize() const throw()
+		{
+			return S2PSettings::MaxCachingSize();
+		}
+
+		virtual bool IsForcingTmtCompat() const throw()
+		{
+			return S2PSettings::IsForcingTmtCompat();
+		}
+
+		virtual TCHAR const * TempOutputPath() const throw()
+		{
+			return S2PSettings::TempOutputPath();
 		}
 	};
 
