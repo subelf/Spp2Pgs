@@ -20,11 +20,17 @@
 
 #pragma region Light-weight NetFx Classes
 
+#include "IFrameStreamAdvisor.h"
+#include "IProgressReporter.h"
+#include "IS2PLogger.h"
+#include "IS2PSettings.h"
+
 #include "FrameStreamNet.h"
 #include "PgsEncoderNet.h"
 #include "SppAdvisorNet.h"
 #include "SubPicProviderContextNet.h"
 #include "SubPicProviderNet.h"
+
 #include "Spp2PgsNet.h"
 
 #pragma endregion
