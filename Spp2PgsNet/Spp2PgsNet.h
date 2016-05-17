@@ -44,7 +44,7 @@ namespace Spp2PgsNet
 	public:
 		Spp2Pgs(IS2PSettings ^settings, IS2PLogger ^logger);
 
-		PgsEncoderNet^ CreatePgsEncoder(Stream ^output, BluraySharp::Common::BdViFormat format, BluraySharp::Common::BdViFrameRate rate, int syncFrameOffset);
+		PgsEncoderNet^ CreatePgsEncoder(Stream ^output, BluraySharp::Common::BdViFormat format, BluraySharp::Common::BdViFrameRate rate);
 		
 		FrameStreamNet^ CreateFrameStream(FileInfo ^avsFile, IFrameStreamAdvisor ^advisor);
 		FrameStreamNet^ CreateFrameStream(Stream ^bgraStream, IFrameStreamAdvisor ^advisor);
@@ -57,10 +57,7 @@ namespace Spp2PgsNet
 			return this->CreateSppFrameStreamAdvisor(spp, format, rate, -1, -1, 0);
 		}
 		IFrameStreamAdvisor^ CreateSppFrameStreamAdvisor(SubPicProviderNet^ spp, BluraySharp::Common::BdViFormat format, BluraySharp::Common::BdViFrameRate rate, int from, int to, int offset);
-
-
-		//void Encode(Stream ^rgbaStream, IFrameStreamAdvisor ^advisor, Stream ^output, IProgressReporter ^reporter);
-		//void Encode(FileInfo ^avsFile, IFrameStreamAdvisor ^advisor, Stream ^output, IProgressReporter ^reporter);
+		
 		bool Encode(FrameStreamNet^ input, PgsEncoderNet^ output, IProgressReporter ^reporter);
 
 		!Spp2Pgs();

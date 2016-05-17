@@ -23,9 +23,9 @@
 
 namespace spp2pgs
 {
-	PgsEncoder::PgsEncoder(S2PContext const *context, StreamEx *output, Size size, BdViFrameRate rate, int syncFrameOffset) :
+	PgsEncoder::PgsEncoder(S2PContext const *context, StreamEx *output, Size size, BdViFrameRate rate) :
 		S2PControllerBase(context), frameRate(rate), frameSize(size),
-		output(new PgsWriter(context, size, rate, output, GetFrameTimeStamp(syncFrameOffset, rate))),
+		output(new PgsWriter(context, size, rate, output)),
 		bufMgr(new GxBufferManager(context)), epochManager(context, size, rate),
 		imageBuffer(size)
 	{

@@ -31,13 +31,19 @@ namespace spp2pgs
 		: public S2PControllerBase
 	{
 	public:
-		PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output, __int64 syncPTS = 0);
+		PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output);
 		~PgsWriter();
 
 		void StartEpoch(WindowsDescriptor const * wndDesc);
 		void WriteComposition(CompositionBuffer const * composition);
 		void IgnoreComposition(__int64 pts, __int64 dts);
 		void EndEpoch();
+
+		void RegistAnchorAt(__int64 pts) {
+			this->isZeroAnchorNeeded = true;
+			this->ptsZeroAnchor = pts;
+		}
+		void FlushAnchor();
 
 	private:
 		static int const MaxSegmentLength = 65536;
@@ -82,7 +88,7 @@ namespace spp2pgs
 
 		bool isZeroAnchorNeeded = false;
 		__int64 ptsZeroAnchor = 0;
-		void WriteZeroAnchor();
+		void WriteZeroAnchor(__int64 pts);
 
 		inline unsigned __int8 FillPackageData(int index, unsigned __int8 length, unsigned __int64 value) {
 			WriteBE(pkgBuf, index, length, value);
@@ -97,8 +103,8 @@ namespace spp2pgs
 			if (composition->cmpnObjsCount != lastCmpn.cmpnObjsCount) return false;
 			for (int i = 0; i < lastCmpn.cmpnObjsCount; ++i)
 			{
-				auto &cur = composition->cmpnObjs[i];
-				auto &prev = lastCmpn.cmpnObjs[i];
+				auto const &cur = composition->cmpnObjs[i];
+				auto const &prev = lastCmpn.cmpnObjs[i];
 				bool isSame = (cur.windowRef == prev.windowRef);
 				isSame &= (cur.objectPos == prev.objectPos);
 				isSame &= (cur.imageCrop == prev.imageCrop);

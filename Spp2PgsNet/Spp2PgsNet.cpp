@@ -118,7 +118,7 @@ namespace Spp2PgsNet
 		this->InitSppf();
 	}
 
-	PgsEncoderNet^ Spp2Pgs::CreatePgsEncoder(Stream ^ output, BluraySharp::Common::BdViFormat format, BluraySharp::Common::BdViFrameRate rate, int syncFrameOffset)
+	PgsEncoderNet^ Spp2Pgs::CreatePgsEncoder(Stream ^ output, BluraySharp::Common::BdViFormat format, BluraySharp::Common::BdViFrameRate rate)
 	{
 		AssertNotDisposed();
 
@@ -128,7 +128,7 @@ namespace Spp2PgsNet
 		auto const &tRate = static_cast<spp2pgs::BdViFrameRate>(rate);
 		spp2pgs::Size const &tSize = spp2pgs::GetFrameSize(tFormat);
 
-		std::auto_ptr<PgsEncoder> tPgsEncoder(new PgsEncoder(encoderNative, tOutputStream.get(), tSize, tRate, syncFrameOffset));
+		std::auto_ptr<PgsEncoder> tPgsEncoder(new PgsEncoder(encoderNative, tOutputStream.get(), tSize, tRate));
 
 		auto const &r = gcnew PgsEncoderNet(tPgsEncoder.get(), tOutputStream.get());
 		tPgsEncoder.release();

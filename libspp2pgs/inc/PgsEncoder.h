@@ -35,13 +35,20 @@ namespace spp2pgs
 		: public S2PControllerBase
 	{
 	public:
-		PgsEncoder(S2PContext const *context, StreamEx *output, Size frameSize, BdViFrameRate frameRate, int syncFrameOffset = 0);
+		PgsEncoder(S2PContext const *context, StreamEx *output, Size size, BdViFrameRate rate);
 		~PgsEncoder();
 
 		inline Size GetFrameSize() { return this->frameSize; }
 		inline BdViFrameRate GetFrameRate() { return this->frameRate; }
 
 		void RegistFrame(BgraFrame *frame, int length) throw(TempOutputException, ImageOperationException);
+		void RegistAnchor(int syncFrameOffset) {
+			this->output->RegistAnchorAt(GetFrameTimeStamp(syncFrameOffset, this->frameRate));
+		}
+		void FlushAnchor() {
+			this->output->FlushAnchor();
+		}
+
 		void EncodeEpoch();
 
 	private:

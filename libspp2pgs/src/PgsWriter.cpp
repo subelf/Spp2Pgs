@@ -26,9 +26,9 @@ namespace spp2pgs
 		0, 3750, 3750, 3600, 3000, 3000, 1800, 1500, 1500
 	};
 
-	PgsWriter::PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output, __int64 syncPTS) :
+	PgsWriter::PgsWriter(S2PContext const *context, Size videoSize, BdViFrameRate frameRate, StreamEx* output) :
 		S2PControllerBase(context), videoSize(videoSize), frameRate(frameRate), output(output),
-		isZeroAnchorNeeded(context->Settings()->IsForcingEpochZeroStart()), ptsZeroAnchor(syncPTS),
+		isZeroAnchorNeeded(false), ptsZeroAnchor(0),
 		clocksPerFrame(spp2pgs::ClocksPerSecond / spp2pgs::GetFramePerSecond(frameRate)),
 		compositionCount(0), isEpochStart(true), minInterval(MinPtsIntervalTable[(int)frameRate]), lastDecEnd(LLONG_MIN),
 		lastCmpn({ LLONG_MIN, LLONG_MIN, nullptr, nullptr, 0, nullptr })
@@ -56,6 +56,13 @@ namespace spp2pgs
 
 	void PgsWriter::WriteComposition(CompositionBuffer const * composition)
 	{
+		if (this->wndDesc == nullptr)
+		{
+			this->Log(S2PLogger::warning + S2PLogger::high, _T("Encountered an invalid composition at PTS=%lld.\n"
+				"\tComposition is submitted before starting an Epoch.\n"), composition->pts);
+			return;
+		}
+
 		if (composition->windows != this->wndDesc)
 		{
 			this->Log(S2PLogger::warning + S2PLogger::high, _T("Encountered an invalid composition at PTS=%lld.\n"
@@ -69,17 +76,25 @@ namespace spp2pgs
 		__int64 pts = composition->pts;
 		int const& decDur = composition->EstimateDecodeDuration(tDuration);
 		int const& ersDur = wndDesc->EstimateDecodeDuration();
-
-		if (isZeroAnchorNeeded)
+				
+		if (isZeroAnchorNeeded && pts >= ptsZeroAnchor)
 		{
-			if (pts > ptsZeroAnchor + minInterval + max(decDur, minInterval))
-				//PTS > ETS of zero anchor + max(decDur, minInterval)
+			if (isEpochStart)
 			{
-				this->WriteZeroAnchor();
-			}
-			else
-			{
-				pts = ptsZeroAnchor;
+				if (pts > ptsZeroAnchor + minInterval + max(decDur, minInterval))
+					//PTS > ETS of zero anchor + max(decDur, minInterval)
+				{
+					auto tCurWnd = this->wndDesc;
+					this->wndDesc = nullptr;	//CloseEpoch
+
+					this->WriteZeroAnchor(ptsZeroAnchor);
+
+					this->StartEpoch(tCurWnd);
+				}
+				else
+				{
+					pts = ptsZeroAnchor;
+				}
 			}
 
 			isZeroAnchorNeeded = false;
@@ -167,6 +182,19 @@ namespace spp2pgs
 
 		isEpochStart = true;
 		wndDesc = nullptr;
+	}
+
+	void PgsWriter::FlushAnchor()
+	{
+		if (isZeroAnchorNeeded)
+		{
+			if (isEpochStart && this->wndDesc == nullptr)	//In idle
+			{
+				this->WriteZeroAnchor(ptsZeroAnchor);
+			}
+
+			isZeroAnchorNeeded = false;
+		}
 	}
 
 	void PgsWriter::WriteEraser(__int64 ets)
@@ -420,10 +448,8 @@ namespace spp2pgs
 		output->Write(buffer, index, length);
 	}
 
-	void PgsWriter::WriteZeroAnchor()
+	void PgsWriter::WriteZeroAnchor(__int64 pts)
 	{
-		auto tCurWnd = this->wndDesc;
-
 		Rect const &tRect = { 0, 0, 1, 1 };
 
 		WindowsDescriptor tWnd{ 1, { tRect } };
@@ -442,17 +468,15 @@ namespace spp2pgs
 		unsigned char tImageDataBuffer[] = { 0, 1, 0, 0 };
 
 		CompositionBuffer tComposition{
-			ptsZeroAnchor, ptsZeroAnchor + minInterval,
+			pts, pts + minInterval,
 			&tWnd,
 			&tPalette, sizeof(tPaletteDataBuffer), tPaletteDataBuffer,
 			1, {{0, tRect.pos, tRect, &tObject, sizeof(tImageDataBuffer), tImageDataBuffer }}
 		};
 
-		this->wndDesc = &tWnd;
+		this->StartEpoch(&tWnd);
 		this->WriteComposition(&tComposition);
 		this->EndEpoch();
-
-		this->StartEpoch(tCurWnd);
 	}
 
 }

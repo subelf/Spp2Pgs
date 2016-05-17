@@ -330,7 +330,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		S2PEncoder tS2P{ &tSettings , &tLogger };
 		PgsEncoder tPgsEnc{ &tS2P, &ostream, avstream->GetFrameSize(),
-			avstream->GetFrameRate(), avstream->GetAdvisor()->GetFrameIndexOffset() };
+			avstream->GetFrameRate() };
+
+		if (tSettings.IsForcingEpochZeroStart())
+		{
+			tPgsEnc.RegistAnchor(avstream->GetAdvisor()->GetFrameIndexOffset());
+		}
+
 		tRet = tS2P.Encode(avstream.get(), &tPgsEnc, nullptr);
 		
 		tLogger.Log(S2PLogger::info + S2PLogger::normal, _T("Done.\n"));

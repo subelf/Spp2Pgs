@@ -24,9 +24,19 @@ namespace Spp2PgsNet
 {
 	using namespace spp2pgs;
 	
-	public ref class PgsEncoderNet
+	public ref class PgsEncoderNet sealed
 	{
 	public:
+		void RegistAnchor(int frameOffset)
+		{
+			this->nativeEncoder->RegistAnchor(frameOffset);
+		}
+
+		void FlushAnchor()
+		{
+			this->nativeEncoder->FlushAnchor();
+		}
+
 		PgsEncoderNet::!PgsEncoderNet()
 		{
 			if (nativeEncoder != nullptr)
