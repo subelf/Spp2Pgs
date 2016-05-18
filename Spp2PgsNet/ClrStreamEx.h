@@ -55,8 +55,8 @@ namespace spp2pgs
 
 		inline int Read(unsigned char * buffer, int index, int length) {
 			int const &tBufferLen = min(length, BufferLength);
-			array<Byte> ^tBuffer = gcnew array<Byte>(tBufferLen);
-			auto tDest = IntPtr(const_cast<Byte*>(buffer + index));
+			cli::array<Byte> ^tBuffer = gcnew cli::array<Byte>(tBufferLen);
+			auto tDest = IntPtr(buffer + index);
 			auto tLeft = length;
 
 			while (tLeft > 0)
@@ -64,7 +64,8 @@ namespace spp2pgs
 				int const &tLen = min(tLeft, tBufferLen);
 				int const &tLenRead = this->baseStream->Read(tBuffer, 0, tLen);
 				if (tLenRead <= 0) break;
-				System::Runtime::InteropServices::Marshal::Copy(tBuffer, 0, tDest, tLenRead);
+				System::Runtime::InteropServices::
+					Marshal::Copy(tBuffer, 0, tDest, tLenRead);
 				tLeft -= tLenRead; tDest += tLenRead;
 			}
 
@@ -72,14 +73,15 @@ namespace spp2pgs
 		}
 		inline int WriteBuffered(unsigned char const * buffer, int index, int length) {
 			int const &tBufferLen = min(length, BufferLength);
-			array<Byte> ^tBuffer = gcnew array<Byte>(tBufferLen);
+			cli::array<Byte> ^tBuffer = gcnew cli::array<Byte>(tBufferLen);
 			auto tSource = IntPtr(const_cast<Byte*>(buffer + index));
 			auto tLeft = length;
 
 			while (tLeft > 0)
 			{
 				int const &tLen = min(tLeft, tBufferLen);
-				System::Runtime::InteropServices::Marshal::Copy(tSource, tBuffer, 0, tLen);
+				System::Runtime::InteropServices::
+					Marshal::Copy(tSource, tBuffer, 0, tLen);
 				this->baseStream->Write(tBuffer, 0, tLen);
 				tLeft -= tLen; tSource += tLen;
 			}
@@ -91,7 +93,7 @@ namespace spp2pgs
 		inline void WriteByte(unsigned char const value) { this->baseStream->WriteByte(value); }
 
 		inline void CopyTo(StreamEx& destination){
-			array<Byte> ^buffer = gcnew array<Byte>(BufferLength);
+			cli::array<Byte> ^buffer = gcnew cli::array<Byte>(BufferLength);
 			pin_ptr<Byte> umBuffer = &buffer[0];
 
 			int tReadLen = 0;
