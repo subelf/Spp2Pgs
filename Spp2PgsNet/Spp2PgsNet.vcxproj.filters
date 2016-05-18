@@ -27,6 +27,7 @@
     <None Include="packages.config">
       <Filter>res</Filter>
     </None>
+    <None Include="default.snk" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Spp2PgsNet.h">

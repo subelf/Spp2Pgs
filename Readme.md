@@ -25,11 +25,16 @@ Three classes play the main role:
 
 And this is a SAMPLE for C#:  
 ```csharp
+//class MySettings : IS2PSettings { ... }
+//class MyLogger : IS2PLogger { ... }
+
 using (Spp2Pgs tS2P = new Spp2Pgs(new MySettings(), new MyLogger()))	//Create Spp2Pgs obj
 using (var tCtx = tS2P.CreateSubPicProviderContext())	//Create SppContext Obj, necessary for creating Spp
 using (var tOutputStream = new FileStream(@"X:\Sayas1011con.sup", FileMode.Create))	//Create output file
-using (var tOutput = tS2P.CreatePgsEncoder(tOutputStream, BdViFormat.Vi1080i, BdViFrameRate.Vi23, frameOffset)) //Create PgsEncoder
+using (var tOutput = tS2P.CreatePgsEncoder(tOutputStream, BdViFormat.Vi1080i, BdViFrameRate.Vi23)) //Create PgsEncoder
 {
+    tOutput.RegistAnchor(0);    //Ensure an epoch at pts==0
+
 	//Create Spp, necessary for processing subtitle files
 	using (var tSpp = tS2P.CreateSubPicProvider(tCtx, new FileInfo(@"X:\Illya.ass")))
 	{

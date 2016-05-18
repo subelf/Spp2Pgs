@@ -39,6 +39,7 @@
   <PropertyGroup Condition="'$(Configuration)'!='Debug'" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
     <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+    <LinkKeyFile>default.snk</LinkKeyFile>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="PropertySheets">
@@ -53,6 +54,14 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <KeyContainer Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </KeyContainer>
+      <KeyContainer Condition="'$(Configuration)|$(Platform)'=='ReleaseClr|Win32'">
+      </KeyContainer>
+      <KeyContainer Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </KeyContainer>
+      <KeyContainer Condition="'$(Configuration)|$(Platform)'=='ReleaseClr|x64'">
+      </KeyContainer>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -100,6 +109,7 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ItemGroup>
+    <None Include="default.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
