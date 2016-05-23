@@ -24,10 +24,8 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <Filter>res</Filter>
-    </None>
     <None Include="default.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Spp2PgsNet.h">
