@@ -65,13 +65,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Reference Include="BluraySharp.Definations">
+      <HintPath>..\packages\BluraySharp.0.3.5\lib\net40-client\BluraySharp.Definations.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="BluraySharp.Definations, Version=0.3.4.0, Culture=neutral, PublicKeyToken=d9c683a7c5aa778e, processorArchitecture=MSIL">
-      <HintPath>..\packages\BluraySharp.0.3.4\lib\net40-client\BluraySharp.Definations.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameStreamNet.h" />
