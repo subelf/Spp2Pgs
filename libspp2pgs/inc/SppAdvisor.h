@@ -24,6 +24,7 @@
 #include <VSSppfApi.h>
 
 #include "SimpleAdvisor.h"
+#include "ProgressReporter.h"
 
 using namespace spp2pgs;
 
@@ -31,7 +32,7 @@ class SppAdvisor:
 	public SimpleAdvisor
 {
 public:
-	SppAdvisor(ISubPicProviderAlfa *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset = 0);
+	SppAdvisor(ISubPicProviderAlfa *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset = 0, ProgressReporter *reporter=nullptr);
 
 	int IsBlank(int index) const;
 	int IsIdentical(int index1, int index2) const;
@@ -54,6 +55,6 @@ private:
 	CComPtr<ISubPicProviderAlfa> spp;
 	std::vector<StsDesc> sq;
 
-	void ParseSubPicProvider();
+	void ParseSubPicProvider(ProgressReporter *reporter);
 };
 

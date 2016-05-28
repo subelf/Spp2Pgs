@@ -168,7 +168,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	int end = -1;
 	bool isZeroAnchor = true;
 
-	static TCHAR const * optlist = _T("hi:s:r:n:b:e:z::x::v::");
+	static TCHAR const * optlist = _T("hi:f:s:r:n:b:e:z::x::v::");
 	opterr = 0;
 	for (;;)
 	{

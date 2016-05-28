@@ -273,7 +273,7 @@ namespace Spp2PgsNet
 		}
 	}
 
-	IFrameStreamAdvisor ^ Spp2Pgs::CreateSppFrameStreamAdvisor(SubPicProviderNet ^spp, BluraySharp::Common::BdViFormat format, BluraySharp::Common::BdViFrameRate rate, int from, int to, int offset)
+	IFrameStreamAdvisor ^ Spp2Pgs::CreateSppFrameStreamAdvisor(SubPicProviderNet ^spp, BluraySharp::Common::BdViFormat format, BluraySharp::Common::BdViFrameRate rate, int from, int to, int offset, IProgressReporter ^reporter)
 	{
 		AssertNotDisposed();
 
@@ -282,7 +282,11 @@ namespace Spp2PgsNet
 		auto tFormat = static_cast<spp2pgs::BdViFormat>(format);
 		auto tRate = static_cast<spp2pgs::BdViFrameRate>(rate);
 
-		std::auto_ptr<SppAdvisor> apAdvisor(new SppAdvisor(ifpSpp, tFormat, tRate, from, to, offset));
+		std::unique_ptr<ClrReporter> tReporter{
+			(reporter == nullptr) ? nullptr : new ClrReporter(reporter)
+		};
+
+		std::auto_ptr<SppAdvisor> apAdvisor(new SppAdvisor(ifpSpp, tFormat, tRate, from, to, offset, tReporter.get()));
 
 		if (apAdvisor.get() != nullptr)
 		{

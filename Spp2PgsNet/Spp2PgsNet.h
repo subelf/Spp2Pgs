@@ -54,9 +54,9 @@ namespace Spp2PgsNet
 		SubPicProviderNet^ CreateSubPicProvider(SubPicProviderContextNet ^ context, FileInfo ^subtitleFile);
 
 		IFrameStreamAdvisor^ CreateSppFrameStreamAdvisor(SubPicProviderNet^ spp, BluraySharp::Common::BdViFormat format, BluraySharp::Common::BdViFrameRate rate) {
-			return this->CreateSppFrameStreamAdvisor(spp, format, rate, -1, -1, 0);
+			return this->CreateSppFrameStreamAdvisor(spp, format, rate, -1, -1, 0, nullptr);
 		}
-		IFrameStreamAdvisor^ CreateSppFrameStreamAdvisor(SubPicProviderNet^ spp, BluraySharp::Common::BdViFormat format, BluraySharp::Common::BdViFrameRate rate, int from, int to, int offset);
+		IFrameStreamAdvisor^ CreateSppFrameStreamAdvisor(SubPicProviderNet^ spp, BluraySharp::Common::BdViFormat format, BluraySharp::Common::BdViFrameRate rate, int from, int to, int offset, IProgressReporter ^reporter);
 		
 		bool Encode(FrameStreamNet^ input, PgsEncoderNet^ output, IProgressReporter ^reporter);
 

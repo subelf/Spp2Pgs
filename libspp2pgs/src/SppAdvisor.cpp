@@ -27,16 +27,14 @@
 #include "S2PGlobal.h"
 #include "BgraFrame.h"
 
-
-
-SppAdvisor::SppAdvisor(ISubPicProviderAlfa *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset) :
+SppAdvisor::SppAdvisor(ISubPicProviderAlfa *spp, BdViFormat format, BdViFrameRate frameRate, int from, int to, int offset, ProgressReporter *reporter) :
 	SimpleAdvisor(format, frameRate, from, to, offset),
 	spp(AssertArgumentNotNull(spp))
 {
-	this->ParseSubPicProvider();
+	this->ParseSubPicProvider(reporter);
 }
 
-void SppAdvisor::ParseSubPicProvider()
+void SppAdvisor::ParseSubPicProvider(ProgressReporter *reporter)
 {
 	using namespace std;
 
@@ -51,41 +49,101 @@ void SppAdvisor::ParseSubPicProvider()
 		throw AvsInitException(AvsInitExceptionType::Unknown, hr);
 	}
 
-	auto cur = from >= 0 ? from : 0;
-	auto p = spp->GetStartPosition(GetRefTimeOfFrame(cur, frameRate), fps);
-
-	//skip rendering & checking segments when frame counts below this value
-	auto const& minParsingSize = 3;	
-	auto const& minParsingRtSize = GetRefTimeOfFrame(minParsingSize, frameRate) + 1;
-
-	while (p && (to < 0 || cur < to))
+	bool tIsRptg = (reporter != nullptr);
+	auto tLenOffset = 0;
+	
+	//first run
 	{
-		REFERENCE_TIME const &b = spp->GetStart(p, fps);	//begin
-		REFERENCE_TIME const &e = spp->GetStop(p, fps);	//end
+		if (tIsRptg) reporter->ReportProgress(0);
 
-		auto const& pN = spp->GetNext(p);
-		auto const& fSingleFrame = (e - b) <= minParsingRtSize;
-		if(!fSingleFrame) spp->RenderEx(spd, b, fps, extent);
-		bool const &a = fSingleFrame ? true : spp->IsAnimated(p);
+		auto cur = from >= 0 ? from : 0;
+		auto p = spp->GetStartPosition(GetRefTimeOfFrame(cur, frameRate), fps);
 
-		this->sq.push_back(
-			StsDesc{
-			spp2pgs::GetFirstFrameFromRT(b, frameRate),
-			cur = spp2pgs::GetFirstFrameFromRT(e, frameRate),
-			a }
-		);
+		while (p && (to < 0 || cur < to))
+		{
+			if (tIsRptg && reporter->IsCanceled())
+			{
+				throw EndUserException(_T("Operation canceled."));
+			}
 
-		p = pN;
+			REFERENCE_TIME const &b = spp->GetStart(p, fps);	//begin
+			REFERENCE_TIME const &e = spp->GetStop(p, fps);	//end
+
+			auto const& pN = spp->GetNext(p);
+			bool const &a = true;
+
+			this->sq.push_back(
+				StsDesc{
+				spp2pgs::GetFirstFrameFromRT(b, frameRate),
+				cur = spp2pgs::GetFirstFrameFromRT(e, frameRate),
+				a }
+			);
+
+			p = pN;
+		}
+
+		if (sq.size() > 0)
+		{
+			auto const & tFrom = (*sq.begin()).b;
+			auto const & tTo = (*sq.rbegin()).e;
+			from = 
+				(from == -1) ? tFrom : max(from, tFrom);
+			to = 
+				(to == -1) ? tTo : min(to, tTo);
+			
+			auto const & tLen = to - from;
+			tLenOffset = (tLen >> 3);
+			if (tIsRptg) reporter->ReportAmount(tLen + tLenOffset);
+			if (tIsRptg) reporter->ReportProgress(tLenOffset);
+			tLenOffset -= from;
+
+			sq.clear();
+		}
+		else
+		{
+			if (tIsRptg) reporter->ReportAmount(1);
+			if (tIsRptg) reporter->ReportProgress(1);
+			return;
+		}
 	}
 
-	if (from == -1)
+	//second run
 	{
-		from = sq.size() > 0 ? (*sq.begin()).b : -1;
-	}
+		//skip rendering & checking segments when frame counts below this value
+		auto const& minParsingSize = 3;
+		auto const& minParsingRtSize = GetRefTimeOfFrame(minParsingSize, frameRate) + 1;
 
-	if (to == -1)
-	{
-		to = sq.size() > 0 ? (*sq.rbegin()).e : -1;
+		auto cur = from >= 0 ? from : 0;
+		auto p = spp->GetStartPosition(GetRefTimeOfFrame(cur, frameRate), fps);
+
+		while (p && cur < to)
+		{
+			if (tIsRptg && reporter->IsCanceled())
+			{
+				throw EndUserException(_T("Operation canceled."));
+			}
+
+			if (tIsRptg) reporter->ReportProgress(cur + tLenOffset);
+			REFERENCE_TIME const &b = spp->GetStart(p, fps);	//begin
+			REFERENCE_TIME const &e = spp->GetStop(p, fps);	//end
+
+			auto const& pN = spp->GetNext(p);
+			auto const& fSingleFrame = (e - b) <= minParsingRtSize;
+			if (!fSingleFrame) spp->RenderEx(spd, b, fps, extent);
+			bool const &a = fSingleFrame ? true : spp->IsAnimated(p);
+
+			this->sq.push_back(
+				StsDesc{
+				spp2pgs::GetFirstFrameFromRT(b, frameRate),
+				cur = spp2pgs::GetFirstFrameFromRT(e, frameRate),
+				a }
+			);
+
+			p = pN;
+		}
+
+		if (tIsRptg) reporter->ReportProgress(to + tLenOffset);
+		if (tIsRptg) reporter->ReportEnd();
 	}
 }
 

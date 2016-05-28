@@ -39,10 +39,11 @@ namespace spp2pgs
 			this->Logger()->Log(S2PLogger::info + S2PLogger::normal,
 				_T("Encoding starting, %d frames in total.\n"), tAmount);
 
-			if (reporter != nullptr && tAmount > 0)
-			{
-				reporter->ReportAmount(tAmount);
-			}
+			bool isRptInit = false;
+			bool isRpt =
+				(reporter != nullptr) &&
+				(tAmount > 0);
+			int tFrameOfs = 0;
 			
 			BgraFrame buffer[] = { BgraFrame(input->GetFrameSize()), BgraFrame(input->GetFrameSize()) };
 			BgraFrame *pRunningFrame = &buffer[0];
@@ -55,9 +56,14 @@ namespace spp2pgs
 			{
 				int const& tIndex = pCurrentFrame->ReadNextOf(input);
 
-				if (!(eos = tIndex == -1) && reporter != nullptr)
+				if (!(eos = tIndex == -1) && isRpt)
 				{
-					reporter->ReportProgress(tIndex);
+					if (!isRptInit)
+					{
+						tFrameOfs = tIndex;
+						reporter->ReportAmount(tAmount - tFrameOfs);
+					}
+					reporter->ReportProgress(tIndex - tFrameOfs);
 				}
 
 				if (pCurrentFrame->IsIdenticalTo(pRunningFrame))
@@ -88,7 +94,14 @@ namespace spp2pgs
 				reporter->ReportEnd();
 			}
 
-			this->Logger()->Log(S2PLogger::info + S2PLogger::normal, _T("Encoding successfully completed.\n"));
+			if (eos)
+			{
+				this->Logger()->Log(S2PLogger::info + S2PLogger::normal, _T("Encoding successfully completed.\n"));
+			}
+			else
+			{
+				this->Logger()->Log(S2PLogger::info + S2PLogger::normal, _T("Encoding canceled by user.\n"));
+			}
 
 			return true;
 		}
