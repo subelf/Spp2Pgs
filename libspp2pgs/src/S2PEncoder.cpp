@@ -62,7 +62,10 @@ namespace spp2pgs
 					{
 						tFrameOfs = tIndex;
 						reporter->ReportAmount(tAmount - tFrameOfs);
+						
+						isRptInit = true;
 					}
+					
 					reporter->ReportProgress(tIndex - tFrameOfs);
 				}
 
