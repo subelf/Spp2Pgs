@@ -43,6 +43,7 @@ namespace spp2pgs
 			delete[] this->buffer;
 			this->buffer = nullptr;
 		}
+		this->InvalidateRrawnRects();
 	}
 
 	bool StillImage::IsIdenticalTo(StillImage *image)

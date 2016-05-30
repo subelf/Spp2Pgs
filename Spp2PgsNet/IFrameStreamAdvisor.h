@@ -23,7 +23,7 @@ using namespace BluraySharp::Common;
 namespace Spp2PgsNet
 {
 
-	public interface class IFrameStreamAdvisor
+	public interface class IFrameStreamAdvisor : IDisposable
 	{
 		//Return value: 0 for Image, 1 for Blank, -1 for Unknown;
 		int IsBlank(int index) = 0;
@@ -37,6 +37,7 @@ namespace Spp2PgsNet
 
 		property BluraySharp::Common::BdViFormat FrameFormat{ BluraySharp::Common::BdViFormat get(); }
 		property BluraySharp::Common::BdViFrameRate FrameRate{ BluraySharp::Common::BdViFrameRate get(); }
+
 	};
 
 }

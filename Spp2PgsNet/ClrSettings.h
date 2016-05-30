@@ -31,31 +31,39 @@ namespace spp2pgs
 		public S2PSettings
 	{
 	public:
-		ClrSettings(IS2PSettings ^settings) : settingsNet(AssertClrArgumentNotNull(settings)) {}
-		~ClrSettings() {}
+		ClrSettings(IS2PSettings ^settings) :
+			settingsNet(AssertClrArgumentNotNull(settings)),
+			pTempOutputPath(nullptr)
+		{
+			pTempOutputPath = 
+				this->StablizeTempOutputPath();
+		}
+
+		~ClrSettings() { }
 
 	public:
 		unsigned long long MaxCachingSize() const throw() { return settingsNet->MaxCachingSize; }
 		int MaxImageBlockSize() const throw() { return settingsNet->MaxImageBlockSize; }
 		bool IsForcingTmtCompat() const throw() { return settingsNet->IsForcingTmtCompat; }
-		TCHAR const * TempOutputPath() const throw() {
-			auto const &tPath = settingsNet->TempOutputPath;
+		TCHAR const * TempOutputPath() const throw() { return pTempOutputPath; }
+
+	private:
+		gcroot<IS2PSettings ^> settingsNet;
+		_tstring strTempOutputPath;
+		TCHAR const * pTempOutputPath;
+
+		TCHAR const * StablizeTempOutputPath()
+		{
+			auto tPath = gcnew String(settingsNet->TempOutputPath);
 			if (String::IsNullOrWhiteSpace(tPath))
 			{
 				return nullptr;
 			}
 
-			auto tThis = const_cast<ClrSettings *>(this);
 			pin_ptr<const TCHAR> tPinPath = PtrToStringChars(tPath);
-			tThis->pTempOutputPath = tPinPath;
-
-			return pTempOutputPath.c_str();
+			this->strTempOutputPath = tPinPath;
+			return strTempOutputPath.c_str();
 		}
-
-	private:
-		gcroot<IS2PSettings ^> settingsNet;
-		_tstring pTempOutputPath;
-
 	};
 
 }

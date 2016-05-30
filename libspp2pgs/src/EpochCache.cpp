@@ -37,6 +37,7 @@ namespace spp2pgs
 
 	EpochCache::~EpochCache()
 	{
+		this->tempFile->Close();
 	}
 	
 	CacheReceipt EpochCache::Write(Rect dataCrop, IndexedImage *image)
