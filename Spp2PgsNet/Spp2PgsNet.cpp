@@ -234,6 +234,16 @@ namespace Spp2PgsNet
 		}
 	}
 
+	void Spp2Pgs::SetSppfMaxCacheSize(UIntPtr size)
+	{
+		HRESULT hr = this->sppf->SetMaxCacheSize(static_cast<size_t>(size));
+
+		if (FAILED(hr))
+		{
+			throw gcnew COMException("SetSppfMaxCacheSize Failed!", hr);
+		}
+	}
+
 	SubPicProviderContextNet ^ Spp2Pgs::CreateSubPicProviderContext()
 	{
 		AssertNotDisposed();

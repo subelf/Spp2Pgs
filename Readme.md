@@ -1,17 +1,17 @@
 # Spp2Pgs
-Convert general subtitle to HDMV PG stream.  
-In other word, convert .ass file to a .sup file.
+Converts general subtitles to HDMV PG streams.  
+In other words, converts .ass files to .sup files.
 
 The project generates a command line application and a CLR dll file.  
 Core of them is a static library, libspp2pgs.
 
-An external dll, xy-VSSppf, is introduced to dealing with subtitle files.  
+An external dll, xy-VSSppf, is introduced to deal with subtitle files.  
 It's based on a forked version of xy-VSFilter, rendering and providing subtitles in a more easy way.  
 
 Here is a breif description for all the four parts.
 
 ## Spp2Pgs*.exe
-An executable converts subtitles to .sup file.  
+An executable converts subtitles to .sup files.  
 Usage:  
 `Spp2Pgs -i "X:\Saya1011con.ass" -s 1080 -r 23 "X:\Saya1011con.sup"`  
 Type Spp2Pgs -h for more help.

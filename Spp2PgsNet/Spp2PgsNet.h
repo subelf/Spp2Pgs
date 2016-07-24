@@ -50,6 +50,7 @@ namespace Spp2PgsNet
 		FrameStreamNet^ CreateFrameStream(Stream ^bgraStream, IFrameStreamAdvisor ^advisor);
 		FrameStreamNet^ CreateFrameStream(SubPicProviderNet ^spp, IFrameStreamAdvisor ^advisor);
 
+		void SetSppfMaxCacheSize(UIntPtr size);
 		SubPicProviderContextNet^ CreateSubPicProviderContext();
 		SubPicProviderNet^ CreateSubPicProvider(SubPicProviderContextNet ^ context, FileInfo ^subtitleFile);
 
